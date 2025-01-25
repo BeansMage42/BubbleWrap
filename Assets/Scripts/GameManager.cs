@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     private PlayerController PlayerController;
 
+    [SerializeField]private TextMeshProUGUI upgradeText;
+
     private void Awake()
     {
         if (instance != null)
@@ -88,4 +90,15 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public void UpgradeCollectedDisplay(string upgradeType)
+    {
+
+        upgradeText.text = upgradeType;
+
+    }
+    /*private IEnumerator UpgradeText(string text)
+    {
+
+    }*/
 }

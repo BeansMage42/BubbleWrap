@@ -33,6 +33,7 @@ public class BubbleGun : MonoBehaviour
 
     [Header("OTHER")]
     [SerializeField] protected Transform shootPoint;
+    [SerializeField] private SkinnedMeshRenderer shart;
     
     private void Awake()
     {
@@ -49,14 +50,15 @@ public class BubbleGun : MonoBehaviour
 
     public void StartFiring()
     {
+        shart.SetBlendShapeWeight(0, 100);
         currentFireTimer = StartCoroutine(ReFireTimer());
     }
     public void StopFiring()
     {
-         //Debug.Log("STOP");
-        
-         //TryAttack();
+        //Debug.Log("STOP");
 
+        //TryAttack();
+        shart.SetBlendShapeWeight(0, 0);
         StopCoroutine(currentFireTimer);
 
     }
@@ -158,24 +160,28 @@ public class BubbleGun : MonoBehaviour
             {
                 case "MAGSIZE":
                     magazineSize += 5;
+                    pickupType = "Bubble fluid capacity increased";
                     break;
                 case "FIRERATE":
-                    timeBetweenAttacks += 0.2f;
+                    timeBetweenAttacks /= 1.2f;
+                    pickupType = "Fire rate increased";
                     break;
                 case"BULLETSPREAD":
                     bulletSpreadVariance *= 0.80f;
+                    pickupType = "Accuracy increased";
                     break;
                 case "BULLETCOUNT":
                     numProjectile++;
+                    pickupType = "Bubbles per shot increased";
                     break;
                 case "PROJECTILESPEED":
                     projectileSpeed *= 1.2f;
+                    pickupType = "Bubble speed increased";
                     break;
         
-
-
-
             }
+
+            GameManager.instance.UpgradeCollectedDisplay(pickupType);
 
         }
     }
