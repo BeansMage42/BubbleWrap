@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timerAmount;
+    private float maxTime;
     
 
     private PlayerController PlayerController;
@@ -34,7 +36,17 @@ public class GameManager : MonoBehaviour
      float respawnTimer;
     bool kingDead;
 
+
     [SerializeField] GameObject bunnyPrefab;
+
+    private int numCuteKilled;
+
+    [Header("ENDGAME")]
+    [SerializeField] GameObject endScreen;
+    [SerializeField] TextMeshProUGUI winloseText;
+    [SerializeField] TextMeshProUGUI killCountText;
+    [SerializeField] TextMeshProUGUI timeSurvived;
+    bool gameActive = true;
     private void Awake()
     {
         if (instance != null)
@@ -55,11 +67,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        endScreen.SetActive(false);
+        maxTime = timerAmount;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!gameActive) return;
         if (timerAmount > 0)
         {
             // Subtract elapsed time every frame
@@ -78,6 +93,7 @@ public class GameManager : MonoBehaviour
         {
             timerText.text = "Time's up";
             timerAmount = 0;
+            EndGame("You Survived!");
         }
         respawnTimer += Time.deltaTime;
         if(cuteCreatures.Count < maxCuteCreatures && kingDead)
@@ -107,7 +123,11 @@ public class GameManager : MonoBehaviour
         cuteCreatures.Add(creature);
     }
     public void RemoveCreature(CuteCreature creature) 
-    { 
+    {
+        if (gameActive)
+        {
+            numCuteKilled++;
+        }
         cuteCreatures.Remove(creature);
     }
 
@@ -141,7 +161,27 @@ public class GameManager : MonoBehaviour
 
     public void AdjustHealth(float healthRatio)
     {
-        healthFill.fillAmount = healthRatio;
+        if(gameActive) healthFill.fillAmount = healthRatio;
+    }
+
+    public void PlayerDied()
+    {
+        EndGame("You Died!");
+    }
+
+    private void EndGame(string winlose)
+    {
+        if (gameActive)
+        {
+            gameActive = false;
+            playerController.gameObject.GetComponent<PlayerInput>().actions.FindActionMap("GameMode").Disable();
+            endScreen.SetActive(true);
+
+            winloseText.text = winlose;
+
+            killCountText.text = "Bunnies slaughtered: " + numCuteKilled;
+            timeSurvived.text = "Time survived: " + (maxTime - timerAmount) + "s";
+        }
     }
     
 }

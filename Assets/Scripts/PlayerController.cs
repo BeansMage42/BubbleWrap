@@ -113,6 +113,10 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth -= damage;
         GameManager.instance.AdjustHealth(currentHealth/maxHealth);
+        if(currentHealth <= 0)
+        {
+            GameManager.instance.PlayerDied();
+        }
 
     }
 
