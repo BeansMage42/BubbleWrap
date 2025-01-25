@@ -149,7 +149,7 @@ public class Bubble : MonoBehaviour
                 case "Obstacle":
                 case "Ground":
                     hasBounced = true;
-                    rb.AddForce((Vector3.up *3) + targetDir,ForceMode.Impulse);
+                    rb.AddForce((Vector3.up *3) + (targetDir * 2),ForceMode.Impulse);
 
                     break;
                 

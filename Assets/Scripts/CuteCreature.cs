@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.XR;
 
 
 public class CuteCreature : MonoBehaviour
@@ -23,13 +25,23 @@ public class CuteCreature : MonoBehaviour
 
     private Coroutine waitRoutine;
     private Coroutine walkRoutine;
+
+    [SerializeField] private float damage;
+    [SerializeField] private float attackDelay;
+    private float attackTimer;
+    bool canAttack;
     void Start()
     {
         ai = GetComponent<NavMeshAgent>();
-        StartCoroutine(WalkToMotion());
+        StartCoroutine(WanderToMotion());
         playerController = GameManager.instance.playerController;
         GameManager.instance.addCreature(this);
         gore = GetComponent<TempGore>();
+        attackTimer = attackDelay;
+        if (!isKing && !isBubbled && !aggressive)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -37,17 +49,40 @@ public class CuteCreature : MonoBehaviour
     {
         if (chasingPlayer && !isBubbled) 
         {
-            print("chasing behaviour");
+           // print("chasing behaviour");
             ai.SetDestination(playerController.transform.position);
+
+            if (ai.remainingDistance <= (ai.stoppingDistance+2))
+            {
+                ai.isStopped = true;
+                attackTimer += Time.deltaTime;
+                if(attackTimer >= attackDelay)
+                {
+                    attackTimer = 0;
+                    Attack();
+                }
+            }
+            else
+            {
+                ai.isStopped = false;
+            }
         }
     }
 
-    private IEnumerator WalkToMotion()
+    private void Attack()
+    {
+        print("attack");
+        playerController.TakeDamage(damage);
+
+    }
+    
+
+    private IEnumerator WanderToMotion()
     {
         
        
         SetTarget(CreatePosition());
-        Debug.Log("start moving to destination");
+       // Debug.Log("start moving to destination");
         yield return new WaitUntil(() => ai.remainingDistance <= ai.stoppingDistance && !ai.pathPending);
         ai.isStopped = true;
         ai.destination = transform.position;
@@ -56,6 +91,8 @@ public class CuteCreature : MonoBehaviour
         
         //State = defaultState;
     }
+
+
 
     private Vector3 CreatePosition()
     {
@@ -69,7 +106,7 @@ public class CuteCreature : MonoBehaviour
         {
             Debug.LogWarning("couldnt find position");
         }
-       print("current pos: " + transform.position + " SamplePos: " + navHit.position);
+      // print("current pos: " + transform.position + " SamplePos: " + navHit.position);
        
 
             
@@ -78,10 +115,10 @@ public class CuteCreature : MonoBehaviour
     private IEnumerator Wait()
     {
         
-        print("waiting");
+       // print("waiting");
         yield return new WaitForSeconds(2f);
-        print("wait finished");
-        walkRoutine = StartCoroutine(WalkToMotion());
+       // print("wait finished");
+        walkRoutine = StartCoroutine(WanderToMotion());
     }
 
     private void SetTarget(Vector3 point)
@@ -97,7 +134,7 @@ public class CuteCreature : MonoBehaviour
             ai.isStopped = false ;
             StopAllCoroutines();
             chasingPlayer = true;
-            print("chasing player");
+           // print("chasing player");
         }
     }
 

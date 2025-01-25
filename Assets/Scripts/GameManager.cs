@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
@@ -23,6 +24,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]float upgradeTextFloatSpeed;
     [SerializeField] float upgradeTextFadeSpeed;
 
+    [Header("Healthbar")]
+    [SerializeField] Image healthFill;
+
+    [Header("GameRules")]
+    [SerializeField] int maxCuteCreatures;
+    [SerializeField] float maxSpawnDistanceFromCenter;
+    [SerializeField] float timeBetweenSpawns;
+     float respawnTimer;
+    bool kingDead;
+
+    [SerializeField] GameObject bunnyPrefab;
     private void Awake()
     {
         if (instance != null)
@@ -67,8 +79,29 @@ public class GameManager : MonoBehaviour
             timerText.text = "Time's up";
             timerAmount = 0;
         }
+        respawnTimer += Time.deltaTime;
+        if(cuteCreatures.Count < maxCuteCreatures && kingDead)
+        {
+            if(respawnTimer >= timeBetweenSpawns)
+            {
+                respawnTimer = 0;
+                SpawnCreature();
+            }
+        }
+
+
     }
 
+    private void SpawnCreature()
+    {
+        print("spawn");
+        Vector3 spawnpoint = UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
+        spawnpoint.y = 1;
+        CuteCreature newCreature = Instantiate(bunnyPrefab, spawnpoint, Quaternion.identity).GetComponent<CuteCreature>();
+        newCreature.aggressive = true;
+        
+        cuteCreatures.Add(newCreature);
+    }
     public void addCreature(CuteCreature creature)
     {
         cuteCreatures.Add(creature);
@@ -87,19 +120,28 @@ public class GameManager : MonoBehaviour
         print("sleepers activated");
         if (cuteCreatures.Count > 0)
         {
+            kingDead = true;
             foreach (var creature in cuteCreatures)
             {
+                creature.gameObject.SetActive(true);
                 creature.aggressive = true;
             }
         }
 
     }
 
+    
+
     public void UpgradeCollectedDisplay(string upgradeType)
     {
 
         Instantiate(upgradeText, mainCanvas.transform).GetComponent<FloatingText>().CreateText(upgradeType,upgradeTextFloatSpeed,upgradeTextFadeSpeed);
 
+    }
+
+    public void AdjustHealth(float healthRatio)
+    {
+        healthFill.fillAmount = healthRatio;
     }
     
 }

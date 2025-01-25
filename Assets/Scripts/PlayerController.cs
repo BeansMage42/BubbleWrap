@@ -17,11 +17,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minYAngle, maxYAngle;
     [SerializeField] private float maxSprintMod;
     private float currentSprintMod = 1;
-   
+
+    [SerializeField] float maxHealth;
+    float currentHealth;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
+        currentHealth = maxHealth;
     }
 
    
@@ -105,5 +109,11 @@ public class PlayerController : MonoBehaviour
 
     }
    
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        GameManager.instance.AdjustHealth(currentHealth/maxHealth);
+
+    }
 
 }
