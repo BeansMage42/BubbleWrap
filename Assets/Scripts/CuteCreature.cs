@@ -17,7 +17,7 @@ public class CuteCreature : MonoBehaviour
     public bool aggressive;
     [SerializeField]private bool chasingPlayer;
 
-    bool isBubbled;
+    [SerializeField] bool isBubbled;
 
     private PlayerController playerController;
     void Start()
