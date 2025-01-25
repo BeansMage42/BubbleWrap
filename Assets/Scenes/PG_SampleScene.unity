@@ -1359,6 +1359,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
       propertyPath: m_TagString
       value: Cute
       objectReference: {fileID: 0}
@@ -1632,6 +1637,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bunny (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
         type: 3}
@@ -4385,6 +4395,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
       propertyPath: m_TagString
       value: Cute
       objectReference: {fileID: 0}
@@ -5326,6 +5341,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bunny (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
         type: 3}
@@ -6690,6 +6710,11 @@ MonoBehaviour:
   upgradeText: {fileID: 0}
   upgradeTextFloatSpeed: 0
   upgradeTextFadeSpeed: 0
+  healthFill: {fileID: 0}
+  maxCuteCreatures: 0
+  maxSpawnDistanceFromCenter: 0
+  timeBetweenSpawns: 0
+  bunnyPrefab: {fileID: 0}
 --- !u!4 &1491918333
 Transform:
   m_ObjectHideFlags: 0
@@ -9461,6 +9486,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
       propertyPath: m_TagString
       value: Cute
       objectReference: {fileID: 0}
@@ -9647,6 +9677,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bunny (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
         type: 3}
@@ -9917,6 +9952,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6824014109088330650, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824014109088330650, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824014109088330650, guid: 0ecc7182490212944bd984d9f7752f7a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6824014109088330650, guid: 0ecc7182490212944bd984d9f7752f7a,
         type: 3}
       propertyPath: m_LocalPosition.x

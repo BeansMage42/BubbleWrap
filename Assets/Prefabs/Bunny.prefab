@@ -84,6 +84,8 @@ MonoBehaviour:
   isBubbled: 0
   pickUpPrefab: {fileID: 0}
   isKing: 0
+  damage: 0
+  attackDelay: 0
 --- !u!114 &6500078561227661544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +103,7 @@ MonoBehaviour:
   - {fileID: 4167685148097543673, guid: 7aa7d3695bc98d844b482bdd5e43ce1b, type: 3}
   - {fileID: 1673141329494066949, guid: b7196ad12b1c6f3498a53dfc219a1b8a, type: 3}
   - {fileID: 1673141329494066949, guid: b7196ad12b1c6f3498a53dfc219a1b8a, type: 3}
+  - {fileID: 822059478457892685, guid: 876f996deabade640bb07bbff54246ef, type: 3}
   bloodPool: {fileID: 1505176937046524879, guid: 72896cab9ceb0c945a79b265b9c8f138,
     type: 3}
   bloodSplash: {fileID: 1256460443914879490, guid: 67f893dfefe729a46ad63ea4e4e93e1e,
