@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,28 +15,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotSpeed;
     [SerializeField] private GameObject camRotPoint;
     [SerializeField] private float minYAngle, maxYAngle;
-
+    
    
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
-        
     }
 
-    /*
-     * update loop is used to check if you are looking at interactable objects. 
-     * the system does not check if you are already interacting with something
-     * 
-     * it checks by sending out a speherecast every frame to check for objects with the interactable interface
-     * sphere cast is used so the player does not have to be exact with their aim, giving a little leeway
-     * this must be checked every frame so the objects highlight can be turned on and off when they are being looked at
-     * 
-     * Normally id use a layer mask to check for a specific things, such as interactable objects, but in this case I need walls to block interaction
-     * so a layermask would actively hinder the process
-     * 
-     * any time a new object is focused or an objeect to focus on isnt found, it deactivates the previous objects outline
-     */
+   
     void Update()
     {
        
@@ -99,14 +87,8 @@ public class PlayerController : MonoBehaviour
         if (Angle < 0) Angle += 360;
         return Angle;
     }
-    /*
-     * 
-     * This function is used to engage the interactable elements of an interactable object if the player is actively looking at one
-     * the third nested if statement was a quick solution to allow a gameplay statechange, its a messy solution but I dont have enough time for a better one
-     * 
-     * potential fix, make a story or event manager class and use events to trigger the state changes
-     */
-
+    
+    
    
 
 }

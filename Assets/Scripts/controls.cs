@@ -46,10 +46,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""e2d83222-a832-4303-9b84-b218a6bbc170"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -125,11 +125,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d3ab69d2-7544-4442-9cc7-db3c25ada86a"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -142,7 +142,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_GameMode = asset.FindActionMap("GameMode", throwIfNotFound: true);
         m_GameMode_Move = m_GameMode.FindAction("Move", throwIfNotFound: true);
         m_GameMode_Look = m_GameMode.FindAction("Look", throwIfNotFound: true);
-        m_GameMode_Interact = m_GameMode.FindAction("Interact", throwIfNotFound: true);
+        m_GameMode_Shoot = m_GameMode.FindAction("Shoot", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -211,14 +211,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IGameModeActions> m_GameModeActionsCallbackInterfaces = new List<IGameModeActions>();
     private readonly InputAction m_GameMode_Move;
     private readonly InputAction m_GameMode_Look;
-    private readonly InputAction m_GameMode_Interact;
+    private readonly InputAction m_GameMode_Shoot;
     public struct GameModeActions
     {
         private @Controls m_Wrapper;
         public GameModeActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_GameMode_Move;
         public InputAction @Look => m_Wrapper.m_GameMode_Look;
-        public InputAction @Interact => m_Wrapper.m_GameMode_Interact;
+        public InputAction @Shoot => m_Wrapper.m_GameMode_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_GameMode; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -234,9 +234,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IGameModeActions instance)
@@ -247,9 +247,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IGameModeActions instance)
@@ -271,6 +271,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

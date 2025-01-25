@@ -24,10 +24,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "Shoot",
                     "type": "Button",
                     "id": "e2d83222-a832-4303-9b84-b218a6bbc170",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -103,11 +103,11 @@
                 {
                     "name": "",
                     "id": "d3ab69d2-7544-4442-9cc7-db3c25ada86a",
-                    "path": "<Keyboard>/e",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
