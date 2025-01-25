@@ -8,6 +8,7 @@ public class PickUp : MonoBehaviour
 
     BubblePop popScript;
     [SerializeField] private Transform containedObject;
+    //[SerializeField] private 
 
     public enum PickUpType
     {
@@ -20,10 +21,27 @@ public class PickUp : MonoBehaviour
 
     [SerializeField] private PickUpType type;
 
-    private void Start()
+    private void Awake()
     {
         popScript = GetComponentInChildren<BubblePop>();
+
+        int temp = (int)Random.Range(0f, 5f);
+
+        switch (temp)
+        {
+            case 0:
+                type = PickUpType.MAGSIZE; break;
+            case 1:
+                type = PickUpType.FIRERATE; break;
+            case 2:
+                type = PickUpType.BULLETSPREAD; break;
+            case 3:
+                type = PickUpType.BULLETCOUNT; break;
+            case 4: 
+                type = PickUpType.PROJECTILESPEED; break;
+        }
     }
+    
     public PickUpType Collect()
     {
 
@@ -32,6 +50,12 @@ public class PickUp : MonoBehaviour
         return type;
     }
 
+    private void Update()
+    {
+        transform.LookAt(GameManager.instance.GetPlayer().transform.position);
+        transform.localRotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+    }
 
-    
+
+
 }

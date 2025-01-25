@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timerAmount;
+    
 
+    private PlayerController PlayerController;
 
     private void Awake()
     {
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -70,9 +72,13 @@ public class GameManager : MonoBehaviour
         cuteCreatures.Remove(creature);
     }
 
-
+    public PlayerController GetPlayer()
+    {
+        return playerController;
+    }
     public void ActivateSleeperAgent()
     {
+        print("sleepers activated");
         if (cuteCreatures.Count > 0)
         {
             foreach (var creature in cuteCreatures)

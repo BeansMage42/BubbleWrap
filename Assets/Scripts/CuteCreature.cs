@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem.XR;
-using static UnityEngine.UI.Image;
+
 
 public class CuteCreature : MonoBehaviour
 {
@@ -20,6 +17,12 @@ public class CuteCreature : MonoBehaviour
     [SerializeField] bool isBubbled;
 
     private PlayerController playerController;
+
+    [SerializeField] GameObject pickUpPrefab;
+    [SerializeField] bool isKing;
+
+    private Coroutine waitRoutine;
+    private Coroutine walkRoutine;
     void Start()
     {
         ai = GetComponent<NavMeshAgent>();
@@ -34,6 +37,7 @@ public class CuteCreature : MonoBehaviour
     {
         if (chasingPlayer && !isBubbled) 
         {
+            print("chasing behaviour");
             ai.SetDestination(playerController.transform.position);
         }
     }
@@ -41,32 +45,49 @@ public class CuteCreature : MonoBehaviour
     private IEnumerator WalkToMotion()
     {
         
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * distance;
-        randomDirection += transform.position;
-        NavMeshHit navHit;
-
-        NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
-
-        
-        SetTarget(navHit.position);
+       
+        SetTarget(CreatePosition());
         Debug.Log("start moving to destination");
-        yield return new WaitUntil(() => ai.remainingDistance <= ai.stoppingDistance);
-        StartCoroutine(Wait());
+        yield return new WaitUntil(() => ai.remainingDistance <= ai.stoppingDistance && !ai.pathPending);
+        ai.isStopped = true;
+        ai.destination = transform.position;
+        waitRoutine = StartCoroutine(Wait());
         
         
         //State = defaultState;
     }
+
+    private Vector3 CreatePosition()
+    {
+
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * distance;
+        randomDirection += transform.position;
+        randomDirection.y = 0;
+        NavMeshHit navHit;
+
+       if(! NavMesh.SamplePosition(randomDirection, out navHit, distance, ai.areaMask))
+        {
+            Debug.LogWarning("couldnt find position");
+        }
+       print("current pos: " + transform.position + " SamplePos: " + navHit.position);
+       
+
+            
+        return navHit.position;
+    }
     private IEnumerator Wait()
     {
+        
         print("waiting");
         yield return new WaitForSeconds(2f);
-        
-        StartCoroutine(WalkToMotion());
+        print("wait finished");
+        walkRoutine = StartCoroutine(WalkToMotion());
     }
 
     private void SetTarget(Vector3 point)
     {
         ai.SetDestination(point);
+        ai.isStopped = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -76,13 +97,13 @@ public class CuteCreature : MonoBehaviour
         
             StopAllCoroutines();
             chasingPlayer = true;
-        
+            print("chasing player");
         }
     }
 
     public void TakeDamage()
     {
-        if (!aggressive)
+        if (isKing)
         {
             GameManager.instance.ActivateSleeperAgent();
         }
@@ -91,8 +112,18 @@ public class CuteCreature : MonoBehaviour
 
     private void Die()
     {
+        print("die");
         GameManager.instance.RemoveCreature(this);
+        int chance = (int)Random.Range(0, 5);
+        if (pickUpPrefab != null)
+        {
+            if (chance == 5)
+            {
+                Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
+            }
+        }
         gore.Pop();
+
     }
 
     public void Bubble()
