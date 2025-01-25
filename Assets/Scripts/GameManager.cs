@@ -11,13 +11,17 @@ public class GameManager : MonoBehaviour
 
     private List<CuteCreature> cuteCreatures = new List<CuteCreature>();
 
+    [SerializeField] private Canvas mainCanvas;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timerAmount;
     
 
     private PlayerController PlayerController;
-
-    [SerializeField]private TextMeshProUGUI upgradeText;
+    [Header("Upgradetext")]
+    [SerializeField]private GameObject upgradeText;
+    Vector3 upgradeTextStartPos;
+    [SerializeField]float upgradeTextFloatSpeed;
+    [SerializeField] float upgradeTextFadeSpeed;
 
     private void Awake()
     {
@@ -94,11 +98,8 @@ public class GameManager : MonoBehaviour
     public void UpgradeCollectedDisplay(string upgradeType)
     {
 
-        upgradeText.text = upgradeType;
+        Instantiate(upgradeText, mainCanvas.transform).GetComponent<FloatingText>().CreateText(upgradeType,upgradeTextFloatSpeed,upgradeTextFadeSpeed);
 
     }
-    /*private IEnumerator UpgradeText(string text)
-    {
-
-    }*/
+    
 }

@@ -25,7 +25,7 @@ public class PickUp : MonoBehaviour
     {
         popScript = GetComponentInChildren<BubblePop>();
 
-        int temp = (int)Random.Range(0f, 5f);
+        int temp = (int)Random.Range(0f, 4f);
 
         switch (temp)
         {
@@ -36,9 +36,9 @@ public class PickUp : MonoBehaviour
             case 2:
                 type = PickUpType.BULLETSPREAD; break;
             case 3:
-                type = PickUpType.BULLETCOUNT; break;
-            case 4: 
                 type = PickUpType.PROJECTILESPEED; break;
+            case 4: 
+                type = PickUpType.BULLETCOUNT; break;
         }
     }
     
