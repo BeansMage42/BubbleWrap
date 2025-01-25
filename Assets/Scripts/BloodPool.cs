@@ -33,7 +33,7 @@ public class BloodPool : MonoBehaviour
         if (_amountBled <= maxSize)
         {
             _amountBled += Time.deltaTime * 0.2f;
-            _decal.size = new Vector3(_amountBled * 1, _amountBled * 1, 1.5f);
+            _decal.size = new Vector3(_amountBled * 1, _amountBled * 1, 1f);
         }
         else if (_amountBled > 1)
         {

@@ -32,7 +32,7 @@ public class Limb : MonoBehaviour
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
                     ground))
             {
-                _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.5f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
+                _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
                 _decal.GetComponent<BloodPool>().SetSize(rb.velocity.magnitude);
             }
         }
@@ -54,7 +54,7 @@ public class Limb : MonoBehaviour
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
                     ground))
             {
-                _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.5f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
+                _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
                 _decal.GetComponent<BloodPool>().SetSize(rb.velocity.magnitude);
             }
             Destroy(this);
