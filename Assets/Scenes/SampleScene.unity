@@ -781,7 +781,7 @@ MonoBehaviour:
   bulletSpreadVariance: {x: 0.15, y: 0.15, z: 0.15}
   bulletPrefab: {fileID: 8880784694277989873, guid: 7f97636262e1aa44bb2c2358d1103aeb,
     type: 3}
-  projectileSpeed: 8
+  projectileSpeed: 3
   shootPoint: {fileID: 1872495349}
 --- !u!114 &754360163
 MonoBehaviour:

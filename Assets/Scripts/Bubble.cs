@@ -21,10 +21,13 @@ public class Bubble : MonoBehaviour
     bool hasCaputeredEnemy;
     private CuteCreature capturedCreature;
 
+    private BubblePop bubblePop;
+
    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        bubblePop = GetComponent<BubblePop>();
         transform.localScale *= Random.Range(minScale, maxScale);
         lifeTime *= Random.Range(minScale, maxScale);
         //transform.forward = rb.velocity.normalized;
@@ -48,7 +51,8 @@ public class Bubble : MonoBehaviour
         }
         if(spawnTimer >= lifeTime && !hasCaputeredEnemy)
         {
-            Destroy(gameObject);
+            bubblePop.Pop();
+            Destroy(this);
         }
 
     }
@@ -81,12 +85,14 @@ public class Bubble : MonoBehaviour
         if(spawnTimer >= spawnDelayBeforeDestroyable && hasCaputeredEnemy) return; 
         if(col.transform.localScale.magnitude > transform.localScale.magnitude)
         {
-            Destroy(gameObject);
+            bubblePop.Pop();
+            Destroy(this);
         }
         else if (col.transform.position.y > transform.position.y)
         {
            // print("destroy");
-            Destroy(gameObject);
+           bubblePop.Pop();
+           Destroy(this);
         }
         else if (col.transform.position.y < transform.position.y)
         {
@@ -99,7 +105,8 @@ public class Bubble : MonoBehaviour
         else
         {
            // print("destroy");
-            Destroy(gameObject);
+           bubblePop.Pop();
+           Destroy(this);
         }
     }
 
@@ -121,7 +128,8 @@ public class Bubble : MonoBehaviour
         yield return new WaitForSeconds(5f);
         capturedCreature.transform.parent = null;
         capturedCreature.GetComponent<Rigidbody>().isKinematic = false;
-        Destroy(gameObject);
+        bubblePop.Pop();
+        Destroy(this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -134,6 +142,7 @@ public class Bubble : MonoBehaviour
             {
                 case "Bubble":
                     PosChecks(other);
+                    Destroy(this);
                     break;
                 case "Cute":
 
@@ -145,7 +154,8 @@ public class Bubble : MonoBehaviour
                     break;
                 case "Obstacle":
                 case "Ground":
-                    Destroy(gameObject);
+                    bubblePop.Pop();
+                    Destroy(this);
                     break;
                 
 
