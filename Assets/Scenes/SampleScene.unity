@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 5812942}
   - component: {fileID: 5812941}
   - component: {fileID: 5812943}
+  - component: {fileID: 5812944}
   m_Layer: 0
   m_Name: Cute
   m_TagString: Cute
@@ -242,6 +243,32 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &5812944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a050648fbc75aee4fbe83ab76ca7a8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts:
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  bloodPool: {fileID: 1505176937046524879, guid: 72896cab9ceb0c945a79b265b9c8f138,
+    type: 3}
+  bloodSplash: {fileID: 1256460443914879490, guid: 67f893dfefe729a46ad63ea4e4e93e1e,
+    type: 3}
+  spawnChance: 1
+  spawnForce: 5
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &369278184
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +387,7 @@ GameObject:
   - component: {fileID: 393361633}
   - component: {fileID: 393361632}
   - component: {fileID: 393361631}
+  - component: {fileID: 393361636}
   m_Layer: 0
   m_Name: Cute (2)
   m_TagString: Cute
@@ -467,6 +495,32 @@ Transform:
   - {fileID: 2061364602}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &393361636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393361630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a050648fbc75aee4fbe83ab76ca7a8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts:
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  bloodPool: {fileID: 1505176937046524879, guid: 72896cab9ceb0c945a79b265b9c8f138,
+    type: 3}
+  bloodSplash: {fileID: 1256460443914879490, guid: 67f893dfefe729a46ad63ea4e4e93e1e,
+    type: 3}
+  spawnChance: 1
+  spawnForce: 5
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,6 +869,7 @@ GameObject:
   - component: {fileID: 786982223}
   - component: {fileID: 786982222}
   - component: {fileID: 786982221}
+  - component: {fileID: 786982226}
   m_Layer: 0
   m_Name: Cute (3)
   m_TagString: Cute
@@ -922,6 +977,32 @@ Transform:
   - {fileID: 662754002}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786982226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786982220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a050648fbc75aee4fbe83ab76ca7a8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts:
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  bloodPool: {fileID: 1505176937046524879, guid: 72896cab9ceb0c945a79b265b9c8f138,
+    type: 3}
+  bloodSplash: {fileID: 1256460443914879490, guid: 67f893dfefe729a46ad63ea4e4e93e1e,
+    type: 3}
+  spawnChance: 1
+  spawnForce: 5
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1367,7 @@ GameObject:
   - component: {fileID: 1485614291}
   - component: {fileID: 1485614290}
   - component: {fileID: 1485614289}
+  - component: {fileID: 1485614294}
   m_Layer: 0
   m_Name: Cute (1)
   m_TagString: Cute
@@ -1393,6 +1475,32 @@ Transform:
   - {fileID: 1581177816}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1485614294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485614288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a050648fbc75aee4fbe83ab76ca7a8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts:
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  - {fileID: 1021498279483573158, guid: 53447277a09a50d4ab1b3a11b2447fac, type: 3}
+  bloodPool: {fileID: 1505176937046524879, guid: 72896cab9ceb0c945a79b265b9c8f138,
+    type: 3}
+  bloodSplash: {fileID: 1256460443914879490, guid: 67f893dfefe729a46ad63ea4e4e93e1e,
+    type: 3}
+  spawnChance: 1
+  spawnForce: 5
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1533722281
 GameObject:
   m_ObjectHideFlags: 0
