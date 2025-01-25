@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -11,8 +13,15 @@ public class TempGore : MonoBehaviour
     [SerializeField] private GameObject bloodPool;
 
     [SerializeField] private ParticleSystem bloodSplash;
-
+    
     [SerializeField] float spawnChance = 1;
+    [SerializeField] float spawnForce = 5;
+
+    [SerializeField] private LayerMask ground;
+
+    private bool hasCol;
+
+    private DecalProjector _decal;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,16 +36,28 @@ public class TempGore : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        foreach (var bodyPart in bodyParts)
+        if (!hasCol)
         {
-            if (Random.Range(0, 1) < spawnChance)
+            hasCol = true;
+            foreach (var bodyPart in bodyParts)
             {
-                Instantiate(bodyPart, transform.position, Quaternion.identity);
+                if (Random.Range(0, 1) < spawnChance)
+                {
+                    Rigidbody rb = Instantiate(bodyPart, transform.position, Random.rotation).GetComponent<Rigidbody>();
+                    rb.AddForce(Random.insideUnitSphere * spawnForce, ForceMode.Impulse);
+                }
             }
-        }
 
-        Instantiate(bloodPool, transform.position, Quaternion.identity);
-        Instantiate(bloodSplash, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
+                    ground))
+            {
+                _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.5f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
+                print("Hit");
+            }
+            
+            Instantiate(bloodSplash, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }
