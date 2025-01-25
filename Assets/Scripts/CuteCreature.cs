@@ -92,9 +92,9 @@ public class CuteCreature : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (aggressive && other.tag == "Player") 
+        if (aggressive && other.tag == "Player" && !isBubbled) 
         {
-        
+            ai.isStopped = false ;
             StopAllCoroutines();
             chasingPlayer = true;
             print("chasing player");
@@ -105,6 +105,7 @@ public class CuteCreature : MonoBehaviour
     {
         if (isKing)
         {
+            print("isKing");
             GameManager.instance.ActivateSleeperAgent();
         }
         Die();
@@ -114,11 +115,13 @@ public class CuteCreature : MonoBehaviour
     {
         print("die");
         GameManager.instance.RemoveCreature(this);
-        int chance = (int)Random.Range(0, 5);
+        int chance = (int)Random.Range(0, 3);
         if (pickUpPrefab != null)
         {
-            if (chance == 5)
+            print("has prize");
+            if (chance > 1)
             {
+                print("spawn prize");
                 Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
             }
         }

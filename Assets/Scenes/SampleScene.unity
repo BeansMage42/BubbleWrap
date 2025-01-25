@@ -1373,7 +1373,7 @@ Transform:
   m_GameObject: {fileID: 1185859251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.2, y: 33.2, z: -41.2}
+  m_LocalPosition: {x: 40.2, y: 1.75, z: -41.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1514,6 +1514,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShargGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616576558111143681, guid: ef82d0bff605c1e43b5331bfbc4bed6a,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4477696192574051177, guid: ef82d0bff605c1e43b5331bfbc4bed6a,
         type: 3}
