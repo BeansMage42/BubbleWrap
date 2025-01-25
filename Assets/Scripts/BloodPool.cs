@@ -14,6 +14,7 @@ public class BloodPool : MonoBehaviour
     void Start()
     {
         _decal = GetComponent<DecalProjector>();
+        StartCoroutine(KillAfterTime()); 
     }
 
     public void SetSize(float size)
@@ -37,7 +38,13 @@ public class BloodPool : MonoBehaviour
         }
         else if (_amountBled > 1)
         {
-            Destroy(this);
+            StartCoroutine(KillAfterTime());
         }
+    }
+
+    IEnumerator KillAfterTime()
+    {
+        yield return new WaitForSeconds(Random.Range(5, 10));
+        Destroy(gameObject);
     }
 }
