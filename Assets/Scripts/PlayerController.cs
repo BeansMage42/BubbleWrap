@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotSpeed;
     [SerializeField] private GameObject camRotPoint;
     [SerializeField] private float minYAngle, maxYAngle;
-    
+    [SerializeField] private float maxSprintMod;
+    private float currentSprintMod = 1;
    
     void Start()
     {
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
       
-        rb.velocity = transform.rotation * moveDir * moveSpeed;
+        rb.velocity = transform.rotation * moveDir * moveSpeed * currentSprintMod;
     }
 
     public void MoveDir(InputAction.CallbackContext context)
@@ -88,7 +89,21 @@ public class PlayerController : MonoBehaviour
         return Angle;
     }
     
-    
+    public void SprintToggle(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        { 
+            currentSprintMod = maxSprintMod;
+            Camera.main.fieldOfView = 80;
+
+        }
+        if (context.canceled)
+        {
+            currentSprintMod = 1;
+            Camera.main.fieldOfView = 60;
+        }
+
+    }
    
 
 }

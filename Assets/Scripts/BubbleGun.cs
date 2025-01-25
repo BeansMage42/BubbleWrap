@@ -144,4 +144,40 @@ public class BubbleGun : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenAttacks);
         isOnCoolDown = false;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print("gunTrigger");
+        if (other.tag == "Pickup")
+        {
+            string pickupType = "";   
+            pickupType = other.GetComponent<PickUp>().Collect().ToString();
+            Destroy(other.gameObject.transform.parent.gameObject);
+
+            switch (pickupType)
+            {
+                case "MAGSIZE":
+                    magazineSize += 5;
+                    break;
+                case "FIRERATE":
+                    timeBetweenAttacks += 0.2f;
+                    break;
+                case"BULLETSPREAD":
+                    bulletSpreadVariance *= 0.80f;
+                    break;
+                case "BULLETCOUNT":
+                    numProjectile++;
+                    break;
+                case "PROJECTILESPEED":
+                    projectileSpeed *= 1.2f;
+                    break;
+        
+
+
+
+            }
+
+        }
+    }
+
 }

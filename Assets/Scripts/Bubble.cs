@@ -19,10 +19,11 @@ public class Bubble : MonoBehaviour
     [SerializeField] float minScale, maxScale;
 
     bool hasCaputeredEnemy;
+    bool hasBounced;
     private CuteCreature capturedCreature;
 
     private BubblePop bubblePop;
-
+    float speedMod;
    
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class Bubble : MonoBehaviour
         bubblePop = GetComponent<BubblePop>();
         transform.localScale *= Random.Range(minScale, maxScale);
         lifeTime *= Random.Range(minScale, maxScale);
+        speedMod = Random.Range(minScale, maxScale)/2;
         //transform.forward = rb.velocity.normalized;
     }
     // Start is called before the first frame update
@@ -43,7 +45,7 @@ public class Bubble : MonoBehaviour
     {
         timer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
-        if (rb.velocity.magnitude > 0 && timer >= varianceDelay && !hasCaputeredEnemy) 
+        if (rb.velocity.magnitude > 0 && timer >= varianceDelay && !hasCaputeredEnemy && !hasBounced) 
         {
             rb.velocity = (targetDir + AddNoiseOnAngle(minNoise, maxNoise)).normalized * rb.velocity.magnitude;
             timer = 0;
@@ -102,12 +104,7 @@ public class Bubble : MonoBehaviour
         {
             transform.localScale *= 2;
         }
-        else
-        {
-           // print("destroy");
-           bubblePop.Pop();
-           Destroy(this);
-        }
+        
     }
 
     private void CaptureEnemy(CuteCreature cute)
@@ -132,6 +129,8 @@ public class Bubble : MonoBehaviour
         Destroy(this);
     }
 
+    
+
     private void OnTriggerEnter(Collider other)
     {
         print(other.gameObject.name);
@@ -142,7 +141,7 @@ public class Bubble : MonoBehaviour
             {
                 case "Bubble":
                     PosChecks(other);
-                    Destroy(this);
+                    
                     break;
                 case "Cute":
 
@@ -154,8 +153,9 @@ public class Bubble : MonoBehaviour
                     break;
                 case "Obstacle":
                 case "Ground":
-                    bubblePop.Pop();
-                    Destroy(this);
+                    hasBounced = true;
+                    rb.AddForce((Vector3.up *3) + targetDir,ForceMode.Impulse);
+
                     break;
                 
 
