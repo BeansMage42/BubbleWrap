@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2268128203549363825}
   - component: {fileID: 4792924329364356644}
   - component: {fileID: 3123929797904733416}
+  - component: {fileID: 2588615195216649929}
   m_Layer: 0
   m_Name: Ear.R
   m_TagString: Untagged
@@ -83,6 +84,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2588615195216649929
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73932064936641346}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4766243691162995452, guid: a7b5c03239f97df4e969c48f11d37939, type: 3}
 --- !u!1 &89111516922787393
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +117,7 @@ GameObject:
   - component: {fileID: 1962957508649931276}
   - component: {fileID: 2469116748237528963}
   - component: {fileID: 4113149931388399008}
+  - component: {fileID: 7888616924842305708}
   m_Layer: 0
   m_Name: Nose
   m_TagString: Untagged
@@ -166,6 +190,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7888616924842305708
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89111516922787393}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3284892891408679018, guid: a7b5c03239f97df4e969c48f11d37939, type: 3}
 --- !u!1 &822059478457892685
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +223,9 @@ GameObject:
   - component: {fileID: 1361898016182782468}
   - component: {fileID: 1080097445027807375}
   - component: {fileID: 531994345143704998}
+  - component: {fileID: 7838386051839281725}
+  - component: {fileID: -8966194124535263239}
+  - component: {fileID: 8451929735802394435}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -194,8 +243,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.97880876, y: -0.023343634, z: -0.20290597, w: -0.014752912}
   m_LocalPosition: {x: 0.0007842004, y: 0.010279114, z: 0.002218238}
-  m_LocalScale: {x: 1.0214117, y: 0.5515132, z: 0.6018709}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 40, y: 21.598078, z: 23.57016}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 431840754556205433}
   - {fileID: 2268128203549363825}
@@ -254,6 +303,73 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &7838386051839281725
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822059478457892685}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-8966194124535263239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822059478457892685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dda925244c6147459e9ab301ccf635b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodPool: {fileID: 1505176937046524879, guid: 72896cab9ceb0c945a79b265b9c8f138,
+    type: 3}
+  bleedSpeed: 0.1
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!64 &8451929735802394435
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822059478457892685}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8839368762345780380, guid: a7b5c03239f97df4e969c48f11d37939, type: 3}
 --- !u!1 &4465311372452729953
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +381,7 @@ GameObject:
   - component: {fileID: 9019967799271701848}
   - component: {fileID: 62470575973208675}
   - component: {fileID: 1007870541920330973}
+  - component: {fileID: 6920405637822770427}
   m_Layer: 0
   m_Name: Eye.L
   m_TagString: Untagged
@@ -337,6 +454,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6920405637822770427
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4465311372452729953}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -85030299752697963, guid: a7b5c03239f97df4e969c48f11d37939, type: 3}
 --- !u!1 &6597058526212157933
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +487,7 @@ GameObject:
   - component: {fileID: 431840754556205433}
   - component: {fileID: 1523835435079450940}
   - component: {fileID: 3121113333214153477}
+  - component: {fileID: 4362277354408196882}
   m_Layer: 0
   m_Name: Ear.l
   m_TagString: Untagged
@@ -420,6 +560,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4362277354408196882
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6597058526212157933}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -769349676814607961, guid: a7b5c03239f97df4e969c48f11d37939, type: 3}
 --- !u!1 &7090731185953787002
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +593,7 @@ GameObject:
   - component: {fileID: 1986489985265936787}
   - component: {fileID: 5387680039333320928}
   - component: {fileID: 4103044681450618359}
+  - component: {fileID: 5151192046878330031}
   m_Layer: 0
   m_Name: Eye.R
   m_TagString: Untagged
@@ -503,3 +666,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5151192046878330031
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090731185953787002}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 9073318565304663395, guid: a7b5c03239f97df4e969c48f11d37939, type: 3}
