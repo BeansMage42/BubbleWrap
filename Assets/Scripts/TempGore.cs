@@ -53,7 +53,6 @@ public class TempGore : MonoBehaviour
                     ground))
             {
                 _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.5f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
-                print("Hit");
             }
             
             Instantiate(bloodSplash, transform.position, Quaternion.identity);
