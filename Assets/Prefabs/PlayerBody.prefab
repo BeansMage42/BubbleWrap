@@ -363,6 +363,7 @@ MonoBehaviour:
   minYAngle: -45
   maxYAngle: 45
   maxSprintMod: 2
+  maxHealth: 100
 --- !u!82 &1507164479402097852
 AudioSource:
   m_ObjectHideFlags: 0

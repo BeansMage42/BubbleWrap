@@ -50,7 +50,10 @@ public class BubbleGun : MonoBehaviour
 
     public void StartFiring()
     {
-        shart.SetBlendShapeWeight(0, 100);
+        if (!isReloading)
+        {
+            shart.SetBlendShapeWeight(0, 100);
+        }
         currentFireTimer = StartCoroutine(ReFireTimer());
     }
     public void StopFiring()
