@@ -24,7 +24,8 @@ public class Bubble : MonoBehaviour
 
     private BubblePop bubblePop;
     float speedMod;
-   
+
+    int bubbleSizeIncreases;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,6 +54,7 @@ public class Bubble : MonoBehaviour
         }
         if(spawnTimer >= lifeTime && !hasCaputeredEnemy)
         {
+            print("destroy because life time");
             bubblePop.Pop();
             Destroy(this);
         }
@@ -87,21 +89,13 @@ public class Bubble : MonoBehaviour
         if(spawnTimer >= spawnDelayBeforeDestroyable && hasCaputeredEnemy) return; 
         if(col.transform.localScale.magnitude > transform.localScale.magnitude)
         {
+            print("destroy because smaller");
             bubblePop.Pop();
             Destroy(this);
         }
-        else if (col.transform.position.y > transform.position.y)
+        else if(bubbleSizeIncreases < 2)
         {
-           // print("destroy");
-           bubblePop.Pop();
-           Destroy(this);
-        }
-        else if (col.transform.position.y < transform.position.y)
-        {
-            transform.localScale *= 2; 
-        }
-        else if(Vector3.Dot(transform.position, col.transform.position) > 0)
-        {
+            bubbleSizeIncreases++;
             transform.localScale *= 2;
         }
         
@@ -125,6 +119,7 @@ public class Bubble : MonoBehaviour
         yield return new WaitForSeconds(5f);
         capturedCreature.transform.parent = null;
         capturedCreature.GetComponent<Rigidbody>().isKinematic = false;
+        print("destroy because pop timer");
         bubblePop.Pop();
         Destroy(this);
     }
