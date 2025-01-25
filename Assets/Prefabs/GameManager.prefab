@@ -478,7 +478,7 @@ MonoBehaviour:
   maxCuteCreatures: 15
   maxSpawnDistanceFromCenter: 40
   timeBetweenSpawns: 2
-  bunnyPrefab: {fileID: 8866256572107635438, guid: 99de5d1afe28edf4191ac676ca66a045,
+  bunnyPrefab: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
     type: 3}
   endScreen: {fileID: 4041686104677179115}
   winloseText: {fileID: 1632907262923531049}

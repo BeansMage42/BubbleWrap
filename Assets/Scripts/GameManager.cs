@@ -95,10 +95,11 @@ public class GameManager : MonoBehaviour
             timerAmount = 0;
             EndGame("You Survived!");
         }
-        respawnTimer += Time.deltaTime;
+        
         if(cuteCreatures.Count < maxCuteCreatures && kingDead)
         {
-            if(respawnTimer >= timeBetweenSpawns)
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer >= timeBetweenSpawns)
             {
                 respawnTimer = 0;
                 SpawnCreature();
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour
         CuteCreature newCreature = Instantiate(bunnyPrefab, spawnpoint, Quaternion.identity).GetComponent<CuteCreature>();
         newCreature.aggressive = true;
         
-        cuteCreatures.Add(newCreature);
+        
     }
     public void addCreature(CuteCreature creature)
     {
@@ -124,11 +125,12 @@ public class GameManager : MonoBehaviour
     }
     public void RemoveCreature(CuteCreature creature) 
     {
+        if (cuteCreatures.Contains(creature)) { Debug.Log("contains"); }
+        cuteCreatures.Remove(creature);
         if (gameActive)
         {
             numCuteKilled++;
         }
-        cuteCreatures.Remove(creature);
     }
 
     public PlayerController GetPlayer()
