@@ -18,16 +18,15 @@ public class BubblePop : MonoBehaviour
         ps = GetComponentInChildren<ParticleSystem>();
     }
 
+    public void Pop()
+    {
+        pop = true;
+        ps.Play();
+        play = true;
+    }
     // Update is called once per frame
     void Update()
     {
-        if (play)
-        {
-            play = false;
-            pop = true;
-            ps.Play();
-        }
-
         if (pop)
         {
             if (popAmount < 1)
@@ -38,8 +37,14 @@ public class BubblePop : MonoBehaviour
             else
             {
                 Destroy(GetComponent<MeshRenderer>());
+                Destroy(GetComponent<SphereCollider>());
                 pop = false;
             }
+        }
+
+        if (ps.isStopped && play)
+        {
+            Destroy(gameObject);
         }
     }
 }
