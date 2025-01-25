@@ -30,7 +30,7 @@ public class CuteCreature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (chasingPlayer) 
+        if (chasingPlayer && !isBubbled) 
         {
             ai.SetDestination(playerController.transform.position);
         }
