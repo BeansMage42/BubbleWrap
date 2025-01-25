@@ -11,6 +11,7 @@ public class CuteCreature : MonoBehaviour
     // Start is called before the first frame update
 
     private NavMeshAgent ai;
+    private TempGore gore;
     private Vector3 currentTargetPoint;
     [SerializeField]private float distance;
     public bool aggressive;
@@ -25,6 +26,7 @@ public class CuteCreature : MonoBehaviour
         StartCoroutine(WalkToMotion());
         playerController = GameManager.instance.playerController;
         GameManager.instance.addCreature(this);
+        gore = GetComponent<TempGore>();
     }
 
     // Update is called once per frame
@@ -90,7 +92,7 @@ public class CuteCreature : MonoBehaviour
     private void Die()
     {
         GameManager.instance.RemoveCreature(this);
-        Destroy(gameObject);
+        gore.Pop();
     }
 
     public void Bubble()

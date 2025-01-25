@@ -47,8 +47,9 @@ public class Limb : MonoBehaviour
     {
         _timeStayed += Time.deltaTime;
 
-        if (_timeStayed > 0.1f)
+        if (_timeStayed > 0.2f)
         {
+            print("hi");
             RaycastHit hit;
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
                     ground))
