@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Random = UnityEngine.Random;
 
 public class Limb : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Limb : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(KillAfterTime());
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -56,7 +58,12 @@ public class Limb : MonoBehaviour
                 _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
                 _decal.GetComponent<BloodPool>().SetSize(rb.velocity.magnitude);
             }
-            Destroy(this);
         }
+    }
+    
+    IEnumerator KillAfterTime()
+    {
+        yield return new WaitForSeconds(Random.Range(10, 15));
+        Destroy(gameObject);
     }
 }
