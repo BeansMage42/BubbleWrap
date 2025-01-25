@@ -163,7 +163,6 @@ public class CuteCreature : MonoBehaviour
             }
         }
         gore.Pop();
-
     }
 
     public void Bubble()
