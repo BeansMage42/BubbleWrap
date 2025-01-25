@@ -33,7 +33,8 @@ public class BubbleGun : MonoBehaviour
 
     [Header("OTHER")]
     [SerializeField] protected Transform shootPoint;
-
+    [SerializeField] private SkinnedMeshRenderer shart;
+    
     private void Awake()
     {
 
@@ -49,14 +50,15 @@ public class BubbleGun : MonoBehaviour
 
     public void StartFiring()
     {
+        shart.SetBlendShapeWeight(0, 100);
         currentFireTimer = StartCoroutine(ReFireTimer());
     }
     public void StopFiring()
     {
-         Debug.Log("STOP");
-        
-         //TryAttack();
+        //Debug.Log("STOP");
 
+        //TryAttack();
+        shart.SetBlendShapeWeight(0, 0);
         StopCoroutine(currentFireTimer);
 
     }
@@ -81,11 +83,11 @@ public class BubbleGun : MonoBehaviour
     public void Attack()
     {
         
-        Debug.Log("pew");
+        //Debug.Log("pew");
         for (int i = 0; i < numProjectile; i++)
         {
             currentMagLeft--;
-            Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(GetDirection() * projectileSpeed, ForceMode.Impulse);
+            Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity).GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(),projectileSpeed);
             if (currentMagLeft <= 0)
             {
                 break;
@@ -101,6 +103,8 @@ public class BubbleGun : MonoBehaviour
     }
     private Vector3 GetDirection()
     {
+        
+
         Vector3 direction = transform.forward;
 
         if (bulletSpreadVariance.x > 0)
@@ -118,7 +122,7 @@ public class BubbleGun : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("start reloading");
+       // Debug.Log("start reloading");
         yield return new WaitForSeconds(reloadSpeed);
         currentMagLeft = magazineSize;
         isReloading = false;
@@ -127,9 +131,9 @@ public class BubbleGun : MonoBehaviour
     private IEnumerator ReFireTimer()
     {
         
-        print("pre cooldown");
+       // print("pre cooldown");
         yield return myWaitFunc;
-        print("post cooldown");
+       // print("post cooldown");
 
         TryAttack();
         yield return null;
@@ -137,9 +141,49 @@ public class BubbleGun : MonoBehaviour
 
     private IEnumerator CoolDown()
     {
-        Debug.Log("onCoolDown");
+      //  Debug.Log("onCoolDown");
         isOnCoolDown = true;
         yield return new WaitForSeconds(timeBetweenAttacks);
         isOnCoolDown = false;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print("gunTrigger");
+        if (other.tag == "Pickup")
+        {
+            string pickupType = "";   
+            pickupType = other.GetComponent<PickUp>().Collect().ToString();
+            Destroy(other.gameObject.transform.parent.gameObject);
+
+            switch (pickupType)
+            {
+                case "MAGSIZE":
+                    magazineSize += 5;
+                    pickupType = "Bubble fluid capacity increased";
+                    break;
+                case "FIRERATE":
+                    timeBetweenAttacks /= 1.2f;
+                    pickupType = "Fire rate increased";
+                    break;
+                case"BULLETSPREAD":
+                    bulletSpreadVariance *= 0.80f;
+                    pickupType = "Accuracy increased";
+                    break;
+                case "BULLETCOUNT":
+                    numProjectile++;
+                    pickupType = "Bubbles per shot increased";
+                    break;
+                case "PROJECTILESPEED":
+                    projectileSpeed *= 1.2f;
+                    pickupType = "Bubble speed increased";
+                    break;
+        
+            }
+
+            GameManager.instance.UpgradeCollectedDisplay(pickupType);
+
+        }
+    }
+
 }
