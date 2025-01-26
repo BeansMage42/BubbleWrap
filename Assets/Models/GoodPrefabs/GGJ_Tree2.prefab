@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8338222610194720149}
   - component: {fileID: 6650650607782110349}
   - component: {fileID: 3635230371830078248}
+  - component: {fileID: 2436619817429458333}
   m_Layer: 0
   m_Name: GGJ_Tree2
   m_TagString: Untagged
@@ -103,6 +104,29 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: c672a4eb349584a4fbb18a9fc219544c, type: 3}
+--- !u!136 &2436619817429458333
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415613296704855375}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.04
+  m_Height: 0.18
+  m_Direction: 2
+  m_Center: {x: -0.00092999823, y: 0, z: 0.04548999}

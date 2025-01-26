@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI goalText;
     [SerializeField] TextMeshProUGUI magazinesCount;
+
+    public bool isPlayerDead;
     private void Awake()
     {
         if (instance != null)
@@ -196,6 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
+        isPlayerDead = true;
         EndGame("You Died!");
     }
 

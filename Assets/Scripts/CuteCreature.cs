@@ -81,11 +81,12 @@ public class CuteCreature : MonoBehaviour
     private void Attack()
     {
        // print("attack");
-        if(!isBubbled)
-        source.clip = stabSound;
-        source.Play();
-        playerController.TakeDamage(damage);
-
+       if (!isBubbled && !GameManager.instance.isPlayerDead)
+       {
+           source.clip = stabSound;
+           source.Play();
+           playerController.TakeDamage(damage);
+       }
     }
     
 
