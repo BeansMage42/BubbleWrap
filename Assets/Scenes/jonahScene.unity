@@ -212,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &297196705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,25 +1333,10 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 754360157}
-    - target: {fileID: 2882566234111586241, guid: 7cd92fa460f23c949aea615a04eb8e6f,
-        type: 3}
-      propertyPath: m_text
-      value: 'Bubble bottles left: 8'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882566234111586241, guid: 7cd92fa460f23c949aea615a04eb8e6f,
-        type: 3}
-      propertyPath: m_margin.z
-      value: -276.3245
-      objectReference: {fileID: 0}
     - target: {fileID: 5937240755856389801, guid: 7cd92fa460f23c949aea615a04eb8e6f,
         type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6857157254675137762, guid: 7cd92fa460f23c949aea615a04eb8e6f,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 124
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
