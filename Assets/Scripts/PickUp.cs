@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PickUp : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class PickUp : MonoBehaviour
 
     BubblePop popScript;
     [SerializeField] private Transform containedObject;
+
+    [SerializeField] private GameObject[] pickups;
     //[SerializeField] private 
 
     public enum PickUpType
@@ -26,25 +30,38 @@ public class PickUp : MonoBehaviour
     private void Awake()
     {
         popScript = GetComponentInChildren<BubblePop>();
+        containedObject.gameObject.SetActive(false);
 
         int temp = (int)Random.Range(0f, 7f);
 
         switch (temp)
         {
             case 0:
-                type = PickUpType.MAGSIZE; break;
+                type = PickUpType.MAGSIZE;
+                containedObject = Instantiate(pickups[0], containedObject.position, containedObject.rotation).transform;
+                break;
             case 1:
-                type = PickUpType.FIRERATE; break;
+                type = PickUpType.FIRERATE; 
+                containedObject = Instantiate(pickups[1], containedObject.position, containedObject.rotation).transform;
+                break;
             case 2:
-                type = PickUpType.BULLETSPREAD; break;
+                type = PickUpType.BULLETSPREAD;
+                containedObject = Instantiate(pickups[2], containedObject.position, Quaternion.identity).transform;
+                break;
             case 3:
-                type = PickUpType.PROJECTILESPEED; break;
+                type = PickUpType.PROJECTILESPEED;
+                containedObject = Instantiate(pickups[3], containedObject.position, containedObject.rotation).transform;
+                break;
             case 4:
             case 5: 
-                type = PickUpType.HEALTHBONUS; break;
+                type = PickUpType.HEALTHBONUS;
+                containedObject = Instantiate(pickups[4], containedObject.position, containedObject.rotation).transform;
+                break;
             case 6:
             case 7:
-                type = PickUpType.MOREAMMO; break;
+                type = PickUpType.MOREAMMO;
+                containedObject = Instantiate(pickups[5], containedObject.position, containedObject.rotation).transform;
+                break;
         }
         print("I exist!");
     }
@@ -58,6 +75,7 @@ public class PickUp : MonoBehaviour
     }
     public void PopThisBubble()
     {
+        Destroy(containedObject.gameObject);
         print("pop the bubble");
         popScript.Pop();
     }

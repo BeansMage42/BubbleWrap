@@ -279,7 +279,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42bea5787c235994d901a011ebd81eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  containedObject: {fileID: 0}
+  containedObject: {fileID: 1223421409090081966}
+  pickups:
+  - {fileID: 0}
+  - {fileID: 7894587717132810208, guid: 459c2579fda5ff046a30ba31f3ee8f57, type: 3}
+  - {fileID: 2637823944051306994, guid: 6a85224a526ab9a4b9ca2c8af6eeff71, type: 3}
+  - {fileID: 494196273726904528, guid: 54c79131806621d40822ae50495c14ad, type: 3}
+  - {fileID: 4510474235051881606, guid: ba1a5f5a45585f94f91357799e5f1b7f, type: 3}
+  - {fileID: 0}
   type: 0
 --- !u!82 &1798030581248862746
 AudioSource:
