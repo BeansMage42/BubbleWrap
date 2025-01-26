@@ -13,6 +13,7 @@ public class BubbleGun : MonoBehaviour
     [SerializeField] private int magazineSize;
     [SerializeField] private float reloadSpeed;
     private int currentMagLeft;
+    private float magSize;
 
     [SerializeField] private bool isFullyAuto;
     
@@ -34,10 +35,12 @@ public class BubbleGun : MonoBehaviour
     [Header("OTHER")]
     [SerializeField] protected Transform shootPoint;
     [SerializeField] private SkinnedMeshRenderer shart;
+    [SerializeField] private VolumeAdjuster bubbleContainer;
     
     private void Awake()
     {
-
+        magSize = 1f / magazineSize;
+        print(magSize);
         myWaitFunc = new WaitUntil(() => !isOnCoolDown);
         currentMagLeft = magazineSize;
     }
@@ -90,6 +93,7 @@ public class BubbleGun : MonoBehaviour
         for (int i = 0; i < numProjectile; i++)
         {
             currentMagLeft--;
+            bubbleContainer.SetAmount((float)currentMagLeft * magSize);
             Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity).GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(),projectileSpeed);
             if (currentMagLeft <= 0)
             {
@@ -129,6 +133,7 @@ public class BubbleGun : MonoBehaviour
         yield return new WaitForSeconds(reloadSpeed);
         currentMagLeft = magazineSize;
         isReloading = false;
+        bubbleContainer.SetAmount((float)currentMagLeft * magSize);
     }
 
     private IEnumerator ReFireTimer()
@@ -163,6 +168,7 @@ public class BubbleGun : MonoBehaviour
             {
                 case "MAGSIZE":
                     magazineSize += 5;
+                    magSize = 1 / magazineSize;
                     pickupType = "Bubble fluid capacity increased";
                     break;
                 case "FIRERATE":

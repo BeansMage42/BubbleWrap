@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tank
-  m_Shader: {fileID: -6465566751694194690, guid: bed271d3959ffd14197282980999bfd0,
+  m_Shader: {fileID: -6465566751694194690, guid: eeca4a4b72f36134899fb72d9de36bf3,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -98,7 +98,7 @@ Material:
     - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Amount: 0.4
+    - _Amount: -0.25
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -115,7 +115,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _MultiplyStrength: 1
+    - _MultiplyStrength: 100
     - _NoiseSpeed: 0
     - _NoiseStrength: 0
     - _OcclusionStrength: 1
