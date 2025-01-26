@@ -45,6 +45,7 @@ public class BubbleGun : MonoBehaviour
     [SerializeField] AudioClip squirt;
 
     Animator anims;
+    bool outOfAmmo;
     private void Awake()
     {
         anims = GetComponentInChildren<Animator>();
@@ -94,7 +95,7 @@ public class BubbleGun : MonoBehaviour
      private bool CanAttack()
     {
         
-        return !isOnCoolDown && !isReloading;
+        return !isOnCoolDown && !isReloading && !outOfAmmo;
     }
 
     public void Attack()
@@ -117,6 +118,11 @@ public class BubbleGun : MonoBehaviour
         {
             StartCoroutine(Reload());
         }
+        else if (currentMagLeft <= 0 && numberOfMagazines == 0)
+        {
+            outOfAmmo = true;
+        }
+        
 
 
     }
@@ -148,6 +154,7 @@ public class BubbleGun : MonoBehaviour
         GameManager.instance.AdjustMagazines(numberOfMagazines);
         currentMagLeft = magazineSize;
         isReloading = false;
+        outOfAmmo = false;
         bubbleContainer.SetAmount((float)currentMagLeft * magSize);
     }
 
@@ -187,11 +194,11 @@ public class BubbleGun : MonoBehaviour
                     pickupType = "Bubble fluid capacity increased";
                     break;
                 case "FIRERATE":
-                    timeBetweenAttacks /= 1.2f;
+                    timeBetweenAttacks /= 1.4f;
                     pickupType = "Fire rate increased";
                     break;
                 case"BULLETSPREAD":
-                    bulletSpreadVariance *= 0.80f;
+                    bulletSpreadVariance *= 0.70f;
                     pickupType = "Accuracy increased";
                     break;
                 case "HEALTHBONUS":
@@ -199,12 +206,16 @@ public class BubbleGun : MonoBehaviour
                     pickupType = "Healed";
                     break;
                 case "PROJECTILESPEED":
-                    projectileSpeed *= 1.2f;
+                    projectileSpeed *= 1.4f;
                     pickupType = "Bubble speed increased";
                     break;
                 case "MOREAMMO":
                     numberOfMagazines+=1;
                     GameManager.instance.AdjustMagazines(numberOfMagazines);
+                    if (outOfAmmo)
+                    {
+                        StartCoroutine(Reload());
+                    }
                     pickupType = "Bubble fluid found";
                     break;
         
