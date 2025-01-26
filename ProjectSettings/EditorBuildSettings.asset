@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: d2aeb9985bf3af04fa56f7205c36307c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/jonahScene.unity
     guid: e4e6a76c540bba64d8f6f5a139b17b46
+  - enabled: 1
+    path: Assets/Scenes/PG_SampleScene.unity
+    guid: 07d6b96c4a42b9c4690c3e51977373b3
   m_configObjects: {}
