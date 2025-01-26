@@ -11680,6 +11680,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBody
       objectReference: {fileID: 0}
+    - target: {fileID: 4061810113835895244, guid: b81ab397837b5a2428fd69d6df6b9d82,
+        type: 3}
+      propertyPath: isFullyAuto
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061810113835895244, guid: b81ab397837b5a2428fd69d6df6b9d82,
+        type: 3}
+      propertyPath: numberOfMagazines
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5714076939685051954, guid: b81ab397837b5a2428fd69d6df6b9d82,
         type: 3}
       propertyPath: globalVolume
