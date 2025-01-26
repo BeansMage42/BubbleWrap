@@ -16,7 +16,8 @@ public class PickUp : MonoBehaviour
         FIRERATE,
         BULLETSPREAD,
         BULLETCOUNT,
-        PROJECTILESPEED
+        PROJECTILESPEED,
+        HEALTHBONUS
     }
 
     [SerializeField] private PickUpType type;
@@ -38,7 +39,7 @@ public class PickUp : MonoBehaviour
             case 3:
                 type = PickUpType.PROJECTILESPEED; break;
             case 4: 
-                type = PickUpType.BULLETCOUNT; break;
+                type = PickUpType.HEALTHBONUS; break;
         }
     }
     

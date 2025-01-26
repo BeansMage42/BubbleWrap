@@ -37,8 +37,11 @@ public class BubbleGun : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer shart;
     [SerializeField] private VolumeAdjuster bubbleContainer;
     
+     private PlayerController playerController;
+
     private void Awake()
     {
+        playerController = GetComponent<PlayerController>();
         magSize = 1f / magazineSize;
         print(magSize);
         myWaitFunc = new WaitUntil(() => !isOnCoolDown);
@@ -179,9 +182,8 @@ public class BubbleGun : MonoBehaviour
                     bulletSpreadVariance *= 0.80f;
                     pickupType = "Accuracy increased";
                     break;
-                case "BULLETCOUNT":
-                    numProjectile++;
-                    pickupType = "Bubbles per shot increased";
+                case "HEALTHBONUS":
+                    playerController.TakeDamage(-20);
                     break;
                 case "PROJECTILESPEED":
                     projectileSpeed *= 1.2f;

@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI killCountText;
     [SerializeField] TextMeshProUGUI timeSurvived;
     bool gameActive = true;
+
+    bool trackSwitched;
     private void Awake()
     {
         if (instance != null)
@@ -111,6 +113,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnCreature()
     {
+        
         print("spawn");
         Vector3 spawnpoint = UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
         spawnpoint.y = 1;
@@ -139,6 +142,11 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateSleeperAgent()
     {
+        if (!trackSwitched)
+        {
+            trackSwitched = true;
+            FindAnyObjectByType<MusicPlayer>().SwapTracks();
+        }
         print("sleepers activated");
         if (cuteCreatures.Count > 0)
         {
