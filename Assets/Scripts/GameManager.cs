@@ -14,8 +14,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float timerAmount;
+    private float timerAmount = 0;
     private float maxTime;
+    private bool timerOn;
 
     [SerializeField] private HeavyMetalStarts moodSetter;
 
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Healthbar")]
     [SerializeField] Image healthFill;
+
+    [SerializeField] private GameObject healthBar;
 
     [Header("GameRules")] [SerializeField] private Transform spawnPos;
     [SerializeField] int maxCuteCreatures;
@@ -74,16 +77,19 @@ public class GameManager : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         endScreen.SetActive(false);
         maxTime = timerAmount;
+        healthFill.gameObject.SetActive(false);
+        healthBar.gameObject.SetActive(false);
+        timerText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!gameActive) return;
-        if (timerAmount > 0)
+        if (timerAmount > -1 && timerOn)
         {
             // Subtract elapsed time every frame
-            timerAmount -= Time.deltaTime;
+            timerAmount += Time.deltaTime;
 
             // Divide the time by 60
             float minutes = Mathf.FloorToInt(timerAmount / 60);
@@ -94,7 +100,7 @@ public class GameManager : MonoBehaviour
             // Set the text string
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
-        else
+        else if (timerOn)
         {
             timerText.text = "Time's up";
             timerAmount = 0;
@@ -145,6 +151,10 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateSleeperAgent()
     {
+        healthFill.gameObject.SetActive(true);
+        healthBar.gameObject.SetActive(true);
+        timerText.gameObject.SetActive(true);
+        timerOn = true;
         moodSetter.ChangeMood();
         if (!trackSwitched)
         {

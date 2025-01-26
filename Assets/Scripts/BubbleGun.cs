@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Animations;
+using Random = UnityEngine.Random;
 
 public class BubbleGun : MonoBehaviour
 {
@@ -56,6 +58,12 @@ public class BubbleGun : MonoBehaviour
         myWaitFunc = new WaitUntil(() => !isOnCoolDown);
         currentMagLeft = magazineSize;
     }
+
+    private void Start()
+    {
+        bubbleContainer.SetAmount((float)currentMagLeft * magSize);
+    }
+
     public void Shoot(InputAction.CallbackContext context)
     {
         if (context.started)StartFiring();

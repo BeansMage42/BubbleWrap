@@ -45,7 +45,7 @@ public class CuteCreature : MonoBehaviour
         playerController = GameManager.instance.playerController;
         GameManager.instance.addCreature(this);
         gore = GetComponent<TempGore>();
-        attackTimer = attackDelay;
+        attackTimer = attackDelay / 2f;
         if (!isKing && !isBubbled && !aggressive)
         {
             gameObject.SetActive(false);

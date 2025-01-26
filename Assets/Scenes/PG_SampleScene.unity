@@ -4080,11 +4080,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 612529230}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 469acee7f9d3eae4aafccf919c4431e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  happy: {fileID: 2100000, guid: 473ef6b45d75fb44786dd0f55fdcd46b, type: 2}
   fencePrefab: {fileID: 4750047298247481916, guid: 44ce35e847a6e7e408b4c8551e18c204,
     type: 3}
 --- !u!4 &612529232
@@ -12123,6 +12124,7 @@ MonoBehaviour:
   upgradeTextFloatSpeed: 0
   upgradeTextFadeSpeed: 0
   healthFill: {fileID: 0}
+  healthBar: {fileID: 0}
   spawnPos: {fileID: 0}
   maxCuteCreatures: 0
   maxSpawnDistanceFromCenter: 0
@@ -16828,6 +16830,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2302194077953657849, guid: 7cd92fa460f23c949aea615a04eb8e6f,
         type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 2104829683}
+    - target: {fileID: 2302194077953657849, guid: 7cd92fa460f23c949aea615a04eb8e6f,
+        type: 3}
       propertyPath: moodSetter
       value: 
       objectReference: {fileID: 705507997}
@@ -16846,6 +16853,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cd92fa460f23c949aea615a04eb8e6f, type: 3}
+--- !u!1 &2104829683 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8533103367387605910, guid: 7cd92fa460f23c949aea615a04eb8e6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2104829682}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2113244550
 PrefabInstance:
   m_ObjectHideFlags: 0
