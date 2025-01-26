@@ -7,7 +7,6 @@ using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager instance;
     public PlayerController playerController;
 
@@ -50,6 +49,9 @@ public class GameManager : MonoBehaviour
     bool gameActive = true;
 
     bool trackSwitched;
+
+    [SerializeField] TextMeshProUGUI goalText;
+    [SerializeField] TextMeshProUGUI magazinesCount;
     private void Awake()
     {
         if (instance != null)
@@ -114,9 +116,9 @@ public class GameManager : MonoBehaviour
 
     private void SpawnCreature()
     {
-        
         print("spawn");
         Vector3 spawnpoint = spawnPos.position + UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
+       // print("spawn");
         spawnpoint.y = 1;
         CuteCreature newCreature = Instantiate(bunnyPrefab, spawnpoint, Quaternion.identity).GetComponent<CuteCreature>();
         newCreature.aggressive = true;
@@ -129,7 +131,7 @@ public class GameManager : MonoBehaviour
     }
     public void RemoveCreature(CuteCreature creature) 
     {
-        if (cuteCreatures.Contains(creature)) { Debug.Log("contains"); }
+       // if (cuteCreatures.Contains(creature)) { Debug.Log("contains"); }
         cuteCreatures.Remove(creature);
         if (gameActive)
         {
@@ -149,7 +151,8 @@ public class GameManager : MonoBehaviour
             trackSwitched = true;
             FindAnyObjectByType<MusicPlayer>().SwapTracks();
         }
-        print("sleepers activated");
+        goalText.text = "Objective:\n-Survive";
+       // print("sleepers activated");
         if (cuteCreatures.Count > 0)
         {
             kingDead = true;
@@ -174,6 +177,11 @@ public class GameManager : MonoBehaviour
     public void AdjustHealth(float healthRatio)
     {
         if(gameActive) healthFill.fillAmount = healthRatio;
+    }
+
+    public void AdjustMagazines(float magazinesRatio)
+    {
+        if(gameActive) magazinesCount.text = "Bubble bottles left: " + magazinesRatio.ToString();
     }
 
     public void PlayerDied()

@@ -6,6 +6,7 @@ using TMPro;
 using System.Runtime.CompilerServices;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -37,7 +38,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
         maxH = 1 / maxHealth;
-        //jelly = globalVolume.GetComponent<Vignette>();
         globalVolume.profile.TryGet(out jelly);
     }
     
@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        jelly.intensity = new ClampedFloatParameter(currentHealth * maxH, 0, 0.7f);
+       // jelly.intensity = new ClampedFloatParameter(currentHealth * maxH, 0, 0.7f);
         currentHealth = Mathf.Clamp(currentHealth,0,maxHealth);
         GameManager.instance.AdjustHealth(currentHealth/maxHealth);
         if(currentHealth <= 0)
