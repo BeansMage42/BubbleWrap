@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Runtime.CompilerServices;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
-
     private Vector3 moveDir;
     private Vector2 look;
     private Rigidbody rb;
@@ -19,16 +20,21 @@ public class PlayerController : MonoBehaviour
     private float currentSprintMod = 1;
 
     [SerializeField] float maxHealth;
+    private float maxH;
     float currentHealth;
+
+    [SerializeField] private Volume globalVolume;
+    private Vignette jelly;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
+        maxH = 1 / maxHealth;
+        jelly = globalVolume.GetComponent<Vignette>();
     }
-
-   
+    
     void Update()
     {
        
@@ -36,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
       
-        rb.velocity = transform.rotation * moveDir * moveSpeed * currentSprintMod;
+        rb.velocity = transform.rotation * moveDir * (moveSpeed * currentSprintMod);
     }
 
     public void MoveDir(InputAction.CallbackContext context)
@@ -112,6 +118,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        jelly.intensity = new ClampedFloatParameter(currentHealth * maxH, 0, 0.7f);
         GameManager.instance.AdjustHealth(currentHealth/maxHealth);
         if(currentHealth <= 0)
         {
