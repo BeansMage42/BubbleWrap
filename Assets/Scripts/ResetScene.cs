@@ -7,6 +7,7 @@ public class ResetScene : MonoBehaviour
 {
     public void ResetGame()
     {
-        SceneManager.LoadScene(2);
+        print("Load");
+        SceneManager.LoadScene("PG_SampleScene");
     }
 }
