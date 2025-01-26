@@ -26,6 +26,8 @@ public class Bubble : MonoBehaviour
     float speedMod;
 
     int bubbleSizeIncreases;
+
+  
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,6 +46,7 @@ public class Bubble : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         timer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
         if (rb.velocity.magnitude > 0 && timer >= varianceDelay && !hasCaputeredEnemy && !hasBounced) 

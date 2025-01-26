@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.XR;
-
+using UnityEngine.Animations;
 
 public class CuteCreature : MonoBehaviour
 {
@@ -30,8 +30,11 @@ public class CuteCreature : MonoBehaviour
     [SerializeField] private float attackDelay;
     private float attackTimer;
     bool canAttack;
+
+    [SerializeField] Animator anims;
     void Start()
     {
+        anims = GetComponentInChildren<Animator>();
         ai = GetComponent<NavMeshAgent>();
         StartCoroutine(WanderToMotion());
         playerController = GameManager.instance.playerController;
@@ -47,6 +50,7 @@ public class CuteCreature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        anims.SetFloat("Speed", ai.velocity.magnitude);
         if (chasingPlayer && !isBubbled) 
         {
            // print("chasing behaviour");
@@ -145,13 +149,14 @@ public class CuteCreature : MonoBehaviour
             print("isKing");
             GameManager.instance.ActivateSleeperAgent();
         }
+        GameManager.instance.RemoveCreature(this);
         Die();
     }
 
     private void Die()
     {
         print("die");
-        GameManager.instance.RemoveCreature(this);
+       
         int chance = (int)Random.Range(0, 3);
         if (pickUpPrefab != null)
         {
