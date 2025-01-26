@@ -7556,6 +7556,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBody
       objectReference: {fileID: 0}
+    - target: {fileID: 5714076939685051954, guid: b81ab397837b5a2428fd69d6df6b9d82,
+        type: 3}
+      propertyPath: globalVolume
+      value: 
+      objectReference: {fileID: 1651538303}
     - target: {fileID: 7742221735477402439, guid: b81ab397837b5a2428fd69d6df6b9d82,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7845,6 +7850,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d463c3f22284a0944bf08af7e19a7cf7, type: 3}
+--- !u!114 &1651538303 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7985779481601058801, guid: 5a9e97dae637ee340846cc9d0c1f7921,
+    type: 3}
+  m_PrefabInstance: {fileID: 3191606328256708034}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1652179678
 GameObject:
   m_ObjectHideFlags: 0
