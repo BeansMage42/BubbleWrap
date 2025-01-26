@@ -50,7 +50,7 @@ public class BubblePop : MonoBehaviour
 
         if (ps.isStopped && play)
         {
-            Debug.Log("destroy");
+           // Debug.Log("destroy");
             Destroy(gameObject.transform.root.gameObject);
         }
     }

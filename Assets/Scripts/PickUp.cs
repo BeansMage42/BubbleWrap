@@ -17,7 +17,8 @@ public class PickUp : MonoBehaviour
         BULLETSPREAD,
         BULLETCOUNT,
         PROJECTILESPEED,
-        HEALTHBONUS
+        HEALTHBONUS,
+        MOREAMMO
     }
 
     [SerializeField] private PickUpType type;
@@ -26,7 +27,7 @@ public class PickUp : MonoBehaviour
     {
         popScript = GetComponentInChildren<BubblePop>();
 
-        int temp = (int)Random.Range(0f, 5f);
+        int temp = (int)Random.Range(0f, 7f);
 
         switch (temp)
         {
@@ -41,15 +42,24 @@ public class PickUp : MonoBehaviour
             case 4:
             case 5: 
                 type = PickUpType.HEALTHBONUS; break;
+            case 6:
+            case 7:
+                type = PickUpType.MOREAMMO; break;
         }
+        print("I exist!");
     }
     
     public PickUpType Collect()
     {
 
-        popScript.Pop();
-        print("collect");
+        
+        
         return type;
+    }
+    public void PopThisBubble()
+    {
+        print("pop the bubble");
+        popScript.Pop();
     }
 
     private void Update()

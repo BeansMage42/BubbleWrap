@@ -354,6 +354,7 @@ MonoBehaviour:
   numProjectile: 1
   magazineSize: 10
   reloadSpeed: 1
+  numberOfMagazines: 0
   isFullyAuto: 0
   bulletSpreadVariance: {x: 0.15, y: 0.15, z: 0.15}
   bulletPrefab: {fileID: 8880784694277989873, guid: 7f97636262e1aa44bb2c2358d1103aeb,
@@ -362,6 +363,7 @@ MonoBehaviour:
   shootPoint: {fileID: 8000584601941741862}
   shart: {fileID: 6626874359128797414}
   bubbleContainer: {fileID: 5268668544717721980}
+  squirt: {fileID: 8300000, guid: 9b293401b8c891541a5cc466c838e6b1, type: 3}
 --- !u!114 &5714076939685051954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +383,7 @@ MonoBehaviour:
   maxYAngle: 45
   maxSprintMod: 2
   maxHealth: 100
+  globalVolume: {fileID: 0}
   jumpForce: 10
 --- !u!82 &1507164479402097852
 AudioSource:
@@ -934,7 +937,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6116502043783028315}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b9b0188605d6cde40a6610bea3e2fc20,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1449694972147346591}
   m_SourcePrefab: {fileID: 100100000, guid: b9b0188605d6cde40a6610bea3e2fc20, type: 3}
 --- !u!4 &1616840266667380511 stripped
 Transform:
@@ -942,6 +949,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1295509310104447220}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2106553277065827749 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b9b0188605d6cde40a6610bea3e2fc20,
+    type: 3}
+  m_PrefabInstance: {fileID: 1295509310104447220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1449694972147346591
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106553277065827749}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9efa666dc641599409faa61dfa28c954, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!137 &6626874359128797414 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -3887185075125053422, guid: b9b0188605d6cde40a6610bea3e2fc20,

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Animations;
 
 public class BubbleGun : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class BubbleGun : MonoBehaviour
     [SerializeField] private float reloadSpeed;
     private int currentMagLeft;
     private float magSize;
-
+    [SerializeField] int numberOfMagazines;
     [SerializeField] private bool isFullyAuto;
     
 
@@ -42,12 +43,15 @@ public class BubbleGun : MonoBehaviour
     [Header("AUDIO")]
     AudioSource audioSource;
     [SerializeField] AudioClip squirt;
+
+    Animator anims;
     private void Awake()
     {
+        anims = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
         playerController = GetComponent<PlayerController>();
         magSize = 1f / magazineSize;
-        print(magSize);
+        //print(magSize);
         myWaitFunc = new WaitUntil(() => !isOnCoolDown);
         currentMagLeft = magazineSize;
     }
@@ -109,7 +113,7 @@ public class BubbleGun : MonoBehaviour
                 
             }
         }
-        if (currentMagLeft <= 0)
+        if (currentMagLeft <= 0 && numberOfMagazines > 0)
         {
             StartCoroutine(Reload());
         }
@@ -137,8 +141,11 @@ public class BubbleGun : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
+        anims.SetTrigger("Reload");
        // Debug.Log("start reloading");
         yield return new WaitForSeconds(reloadSpeed);
+        numberOfMagazines--;
+        GameManager.instance.AdjustMagazines(numberOfMagazines);
         currentMagLeft = magazineSize;
         isReloading = false;
         bubbleContainer.SetAmount((float)currentMagLeft * magSize);
@@ -195,9 +202,14 @@ public class BubbleGun : MonoBehaviour
                     projectileSpeed *= 1.2f;
                     pickupType = "Bubble speed increased";
                     break;
+                case "MOREAMMO":
+                    numberOfMagazines+=1;
+                    GameManager.instance.AdjustMagazines(numberOfMagazines);
+                    pickupType = "Bubble fluid found";
+                    break;
         
             }
-
+            other.GetComponent<PickUp>().PopThisBubble();
             GameManager.instance.UpgradeCollectedDisplay(pickupType);
 
         }

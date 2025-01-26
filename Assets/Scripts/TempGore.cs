@@ -51,12 +51,12 @@ public class TempGore : MonoBehaviour
                 }
             }
 
-            print("try");
+           // print("try");
             RaycastHit hit;
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
                     ground))
             {
-                print("Win");
+               // print("Win");
                 _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
             }
             

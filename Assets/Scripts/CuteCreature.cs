@@ -80,7 +80,7 @@ public class CuteCreature : MonoBehaviour
 
     private void Attack()
     {
-        print("attack");
+       // print("attack");
         if(!isBubbled)
         source.clip = stabSound;
         source.Play();
