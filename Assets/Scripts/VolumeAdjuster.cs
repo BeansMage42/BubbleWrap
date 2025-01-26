@@ -32,13 +32,15 @@ public class VolumeAdjuster : MonoBehaviour
         float adjustAmount = Vector3.Dot(localLid, Vector3.up) / volume;
         adjustAmount += amount;
         //liquidMat.SetFloat("_Amount", adjustAmount);
-        SetAmount(adjustAmount);
-    }
-    
-    public void SetAmount(float amount)
-    {
         objectRenderer.GetPropertyBlock(propBlock);
         propBlock.SetFloat("_Amount", amount); 
         objectRenderer.SetPropertyBlock(propBlock);
+    }
+    
+    public void SetAmount(float fluid)
+    { 
+        fluid *= 2;
+        fluid -= 1;
+        amount = fluid;
     }
 }
