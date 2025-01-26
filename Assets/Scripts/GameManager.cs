@@ -203,6 +203,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameActive)
         {
+            Cursor.lockState = CursorLockMode.Confined;
             gameActive = false;
             playerController.gameObject.GetComponent<PlayerInput>().actions.FindActionMap("GameMode").Disable();
             endScreen.SetActive(true);
