@@ -112,7 +112,7 @@ MonoBehaviour:
     type: 3}
   bloodSplash: {fileID: 1256460443914879490, guid: 67f893dfefe729a46ad63ea4e4e93e1e,
     type: 3}
-  spawnChance: 1
+  spawnChance: 0.8
   spawnForce: 5
   ground:
     serializedVersion: 2

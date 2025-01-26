@@ -13,7 +13,9 @@ public class Limb : MonoBehaviour
 
     private DecalProjector _decal;
     private Rigidbody rb;
-    
+
+    private float _poolsSpawned;
+    private bool spawned;
     private float _amountBled = 0.1f;
 
     private bool _shouldBleed = false;
@@ -27,8 +29,9 @@ public class Limb : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (!other.transform.CompareTag("Cute"))
+        if (!other.transform.CompareTag("Cute") && _poolsSpawned < 3)
         {
+            _poolsSpawned++;
             _shouldBleed = true;
             RaycastHit hit;
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
@@ -49,8 +52,9 @@ public class Limb : MonoBehaviour
     {
         _timeStayed += Time.deltaTime;
 
-        if (_timeStayed > 0.2f)
+        if (_timeStayed > 0.3f && !spawned)
         {
+            spawned = true;
             RaycastHit hit;
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
                     ground))
