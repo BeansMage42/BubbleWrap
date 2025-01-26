@@ -209,7 +209,7 @@ Rigidbody:
   m_GameObject: {fileID: 4038720357806462293}
   serializedVersion: 4
   m_Mass: 2
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -317,6 +317,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 550cb25b-66b5-4e58-94af-23c89582999e
     m_ActionName: GameMode/Sprint[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5714076939685051954}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9d2c05de-2328-443f-a7b4-d1eaa00ff95b
+    m_ActionName: GameMode/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: GameMode
@@ -344,7 +360,7 @@ MonoBehaviour:
     type: 3}
   projectileSpeed: 3
   shootPoint: {fileID: 8000584601941741862}
-  shart: {fileID: 0}
+  shart: {fileID: 6626874359128797414}
 --- !u!114 &5714076939685051954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,13 +373,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3a7b97b09971c489a59154cf421bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 0.2
   rotSpeed: 0.4
   camRotPoint: {fileID: 8284132789359688155}
   minYAngle: -45
   maxYAngle: 45
   maxSprintMod: 2
   maxHealth: 100
+  jumpForce: 10
 --- !u!82 &1507164479402097852
 AudioSource:
   m_ObjectHideFlags: 0
@@ -921,6 +938,12 @@ PrefabInstance:
 --- !u!4 &1616840266667380511 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
+    type: 3}
+  m_PrefabInstance: {fileID: 1295509310104447220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6626874359128797414 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3887185075125053422, guid: b9b0188605d6cde40a6610bea3e2fc20,
     type: 3}
   m_PrefabInstance: {fileID: 1295509310104447220}
   m_PrefabAsset: {fileID: 0}

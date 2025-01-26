@@ -62,6 +62,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d2c05de-2328-443f-a7b4-d1eaa00ff95b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a9eacd5-e8c9-4c5f-a737-4004b5435be4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_GameMode_Look = m_GameMode.FindAction("Look", throwIfNotFound: true);
         m_GameMode_Shoot = m_GameMode.FindAction("Shoot", throwIfNotFound: true);
         m_GameMode_Sprint = m_GameMode.FindAction("Sprint", throwIfNotFound: true);
+        m_GameMode_Jump = m_GameMode.FindAction("Jump", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -234,6 +255,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameMode_Look;
     private readonly InputAction m_GameMode_Shoot;
     private readonly InputAction m_GameMode_Sprint;
+    private readonly InputAction m_GameMode_Jump;
     public struct GameModeActions
     {
         private @Controls m_Wrapper;
@@ -242,6 +264,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_GameMode_Look;
         public InputAction @Shoot => m_Wrapper.m_GameMode_Shoot;
         public InputAction @Sprint => m_Wrapper.m_GameMode_Sprint;
+        public InputAction @Jump => m_Wrapper.m_GameMode_Jump;
         public InputActionMap Get() { return m_Wrapper.m_GameMode; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +286,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IGameModeActions instance)
@@ -279,6 +305,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IGameModeActions instance)
@@ -302,5 +331,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

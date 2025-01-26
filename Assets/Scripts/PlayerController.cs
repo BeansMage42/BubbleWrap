@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxHealth;
     float currentHealth;
 
+    bool isGrounded = true;
+    [SerializeField] float jumpForce;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
       
-        rb.velocity = transform.rotation * moveDir * moveSpeed * currentSprintMod;
+        rb.MovePosition( transform.position + (transform.rotation * moveDir * moveSpeed * currentSprintMod));
     }
 
     public void MoveDir(InputAction.CallbackContext context)
@@ -118,6 +120,21 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.PlayerDied();
         }
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if(context.performed && isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(transform.up*jumpForce, ForceMode.Impulse);
+        }
     }
 
 }
