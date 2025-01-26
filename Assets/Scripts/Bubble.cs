@@ -27,7 +27,7 @@ public class Bubble : MonoBehaviour
 
     int bubbleSizeIncreases;
 
-  
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();

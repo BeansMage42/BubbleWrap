@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
+using static Unity.VisualScripting.Member;
 using Random = UnityEngine.Random;
 
 public class TempGore : MonoBehaviour
@@ -22,6 +23,7 @@ public class TempGore : MonoBehaviour
     private bool hasCol;
 
     private DecalProjector _decal;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class TempGore : MonoBehaviour
 
     public void Pop()
     {
+        
         if (!hasCol)
         {
             hasCol = true;
@@ -58,7 +61,10 @@ public class TempGore : MonoBehaviour
             }
             
             Instantiate(bloodSplash, transform.position, Quaternion.identity);
+
             Destroy(gameObject);
         }
     }
+
+    
 }

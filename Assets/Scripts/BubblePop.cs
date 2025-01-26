@@ -11,11 +11,14 @@ public class BubblePop : MonoBehaviour
 
     private float popAmount;
     private bool pop;
+    [SerializeField] AudioClip popSound;
+    AudioSource source;
     // Start is called before the first frame update
     void Start()
     {
         mat = GetComponent<MeshRenderer>().material;
         ps = GetComponentInChildren<ParticleSystem>();
+        source = GetComponent<AudioSource>();
     }
 
     public void Pop()
@@ -23,6 +26,9 @@ public class BubblePop : MonoBehaviour
         pop = true;
         ps.Play();
         play = true;
+        source.clip = popSound;
+        source.Play();
+        
     }
     // Update is called once per frame
     void Update()
@@ -44,7 +50,8 @@ public class BubblePop : MonoBehaviour
 
         if (ps.isStopped && play)
         {
-            Destroy(gameObject);
+            Debug.Log("destroy");
+            Destroy(gameObject.transform.root.gameObject);
         }
     }
 }

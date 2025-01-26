@@ -361,6 +361,7 @@ MonoBehaviour:
   projectileSpeed: 3
   shootPoint: {fileID: 8000584601941741862}
   shart: {fileID: 6626874359128797414}
+  bubbleContainer: {fileID: 5268668544717721980}
 --- !u!114 &5714076939685051954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,7 +800,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9203079742103918352}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a98926c3b4ca5b54184c57574d010ef2, type: 3}
   m_Name: 
@@ -839,27 +840,27 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.027000308
+      value: 0.027000189
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0780001
+      value: -0.21680164
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.47000027
+      value: -0.4351077
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.65704644
+      value: 0.83911777
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.75385016
+      value: -0.54394984
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
@@ -874,7 +875,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -97.85
+      value: -65.906
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}

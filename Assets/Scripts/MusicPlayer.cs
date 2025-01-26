@@ -18,7 +18,10 @@ public class MusicPlayer : MonoBehaviour
     public void SwapTracks()
     {
         musicSource.clip = fightMusic;
+        musicSource.volume = 0.20f;
         musicSource.Play();
 
     }
+
+
 }

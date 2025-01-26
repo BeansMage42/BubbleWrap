@@ -39,8 +39,12 @@ public class BubbleGun : MonoBehaviour
     
      private PlayerController playerController;
 
+    [Header("AUDIO")]
+    AudioSource audioSource;
+    [SerializeField] AudioClip squirt;
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         playerController = GetComponent<PlayerController>();
         magSize = 1f / magazineSize;
         print(magSize);
@@ -91,8 +95,9 @@ public class BubbleGun : MonoBehaviour
 
     public void Attack()
     {
-        
+
         //Debug.Log("pew");
+        audioSource.PlayOneShot(squirt);
         for (int i = 0; i < numProjectile; i++)
         {
             currentMagLeft--;
@@ -165,13 +170,13 @@ public class BubbleGun : MonoBehaviour
         {
             string pickupType = "";   
             pickupType = other.GetComponent<PickUp>().Collect().ToString();
-            Destroy(other.gameObject.transform.parent.gameObject);
+            
 
             switch (pickupType)
             {
                 case "MAGSIZE":
                     magazineSize += 5;
-                    magSize = 1 / magazineSize;
+                    magSize = 1f / magazineSize;
                     pickupType = "Bubble fluid capacity increased";
                     break;
                 case "FIRERATE":
@@ -183,7 +188,8 @@ public class BubbleGun : MonoBehaviour
                     pickupType = "Accuracy increased";
                     break;
                 case "HEALTHBONUS":
-                    playerController.TakeDamage(-20);
+                    playerController.TakeDamage(-30);
+                    pickupType = "Healed";
                     break;
                 case "PROJECTILESPEED":
                     projectileSpeed *= 1.2f;

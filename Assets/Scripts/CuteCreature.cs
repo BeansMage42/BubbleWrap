@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Animations;
+using static Unity.VisualScripting.Member;
 
 public class CuteCreature : MonoBehaviour
 {
@@ -32,8 +33,12 @@ public class CuteCreature : MonoBehaviour
     bool canAttack;
 
     [SerializeField] Animator anims;
+    AudioSource source;
+    [SerializeField] AudioClip goreSound;
+    [SerializeField] AudioClip stabSound;
     void Start()
     {
+        source = GetComponent<AudioSource>();
         anims = GetComponentInChildren<Animator>();
         ai = GetComponent<NavMeshAgent>();
         StartCoroutine(WanderToMotion());
@@ -76,6 +81,9 @@ public class CuteCreature : MonoBehaviour
     private void Attack()
     {
         print("attack");
+        if(!isBubbled)
+        source.clip = stabSound;
+        source.Play();
         playerController.TakeDamage(damage);
 
     }
@@ -167,6 +175,7 @@ public class CuteCreature : MonoBehaviour
                 Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
             }
         }
+       
         gore.Pop();
     }
 
@@ -187,6 +196,8 @@ public class CuteCreature : MonoBehaviour
     {
         if(collision.collider.tag == "Ground" && isBubbled)
         {
+            source.clip = goreSound;
+            AudioSource.PlayClipAtPoint(goreSound, transform.position,30f);
             TakeDamage();
         }
     }
