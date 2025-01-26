@@ -23,9 +23,14 @@ public class PlayerController : MonoBehaviour
     private float maxH;
     float currentHealth;
 
+<<<<<<< HEAD
     [SerializeField] private Volume globalVolume;
     private Vignette jelly;
 
+=======
+    bool isGrounded = true;
+    [SerializeField] float jumpForce;
+>>>>>>> 61cd130edea899cfc5390f384d0a098b5a1c47a3
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -42,7 +47,11 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
       
+<<<<<<< HEAD
         rb.velocity = transform.rotation * moveDir * (moveSpeed * currentSprintMod);
+=======
+        rb.MovePosition( transform.position + (transform.rotation * moveDir * moveSpeed * currentSprintMod));
+>>>>>>> 61cd130edea899cfc5390f384d0a098b5a1c47a3
     }
 
     public void MoveDir(InputAction.CallbackContext context)
@@ -125,6 +134,21 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.PlayerDied();
         }
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if(context.performed && isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(transform.up*jumpForce, ForceMode.Impulse);
+        }
     }
 
 }
