@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
         maxH = 1 / maxHealth;
-      //  jelly = globalVolume.profile.GetComponent<Vignette>();
+        globalVolume.profile.TryGet(out jelly);
     }
     
     void Update()

@@ -44,7 +44,7 @@ public class BloodPool : MonoBehaviour
 
     IEnumerator KillAfterTime()
     {
-        yield return new WaitForSeconds(Random.Range(5, 10));
+        yield return new WaitForSeconds(Random.Range(10, 15));
         Destroy(gameObject);
     }
 }

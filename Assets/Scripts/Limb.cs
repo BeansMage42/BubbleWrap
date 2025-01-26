@@ -16,6 +16,7 @@ public class Limb : MonoBehaviour
 
     private float _poolsSpawned;
     private bool spawned;
+    private bool first;
     private float _amountBled = 0.1f;
 
     private bool _shouldBleed = false;
@@ -29,7 +30,7 @@ public class Limb : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (!other.transform.CompareTag("Cute") && _poolsSpawned < 3)
+        if (!other.transform.CompareTag("Cute") && _poolsSpawned < 3 && first)
         {
             _poolsSpawned++;
             _shouldBleed = true;
@@ -41,6 +42,8 @@ public class Limb : MonoBehaviour
                 _decal.GetComponent<BloodPool>().SetSize(rb.velocity.magnitude);
             }
         }
+
+        first = true;
     }
 
     private void OnCollisionExit(Collision other)
