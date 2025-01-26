@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer.Internal.Converters;
@@ -6,13 +7,19 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class FenceGenerator : MonoBehaviour
 {
+    [SerializeField] private Material happy;
     [SerializeField] GameObject fencePrefab;
     private List<Transform> _posts;
 
     private List<GameObject> _g;
     // Start is called before the first frame update
-    
+
     [ContextMenu("Add Posts")]
+    private void Start()
+    {
+        happy.SetFloat("_Blend", 0);
+    }
+
     public void AddPosts()
     {
         _posts = new List<Transform>();

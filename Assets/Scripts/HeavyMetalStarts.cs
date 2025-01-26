@@ -8,26 +8,31 @@ using RenderSettings = UnityEngine.RenderSettings;
 public class HeavyMetalStarts : MonoBehaviour
 {
     [SerializeField] private Material happy;
-    [SerializeField] private Material sad;
 
     [SerializeField] private Light light;
     [SerializeField] private Color color;
 
     [SerializeField] private bool update;
+    private float blendAmount = 0;
 
     private void Update()
     {
-        if (update)
+        if (update && blendAmount < 1)
         {
-            update = true;
-            ChangeMood();
+            blendAmount += Time.deltaTime;
+            happy.SetFloat("_Blend", blendAmount);
+            print("hjihih");
+            RenderSettings.skybox = happy;
+            DynamicGI.UpdateEnvironment();
         }
+        
     }
 
     public void ChangeMood()
     {
+        update = true;
         light.color = color;
-        RenderSettings.skybox = sad;
+        RenderSettings.skybox = happy;
         DynamicGI.UpdateEnvironment();
     }
 }
