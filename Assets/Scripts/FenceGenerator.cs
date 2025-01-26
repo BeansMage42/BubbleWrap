@@ -15,7 +15,6 @@ public class FenceGenerator : MonoBehaviour
     [ContextMenu("Add Posts")]
     public void AddPosts()
     {
-        ClearPosts();
         _posts = new List<Transform>();
         _g = new List<GameObject>();
         foreach (var p in GetComponentsInChildren<Transform>())
@@ -41,14 +40,13 @@ public class FenceGenerator : MonoBehaviour
 
     public void ClearPosts()
     {
-        print(_g.Count);
         while (_g.Count > 0)
         {
             print(_g[0].name);
             DestroyImmediate(_g[0].gameObject);
             _g.RemoveAt(0);
         }
-        //_g.Clear();
+        _g.Clear();
     }
     void MoveBoard(int index)
     {

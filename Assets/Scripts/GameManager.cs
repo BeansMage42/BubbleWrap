@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timerAmount;
     private float maxTime;
-    
+
+    [SerializeField] private HeavyMetalStarts moodSetter;
 
     private PlayerController PlayerController;
     [Header("Upgradetext")]
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     [Header("Healthbar")]
     [SerializeField] Image healthFill;
 
-    [Header("GameRules")]
+    [Header("GameRules")] [SerializeField] private Transform spawnPos;
     [SerializeField] int maxCuteCreatures;
     [SerializeField] float maxSpawnDistanceFromCenter;
     [SerializeField] float timeBetweenSpawns;
@@ -115,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         
         print("spawn");
-        Vector3 spawnpoint = UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
+        Vector3 spawnpoint = spawnPos.position + UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
         spawnpoint.y = 1;
         CuteCreature newCreature = Instantiate(bunnyPrefab, spawnpoint, Quaternion.identity).GetComponent<CuteCreature>();
         newCreature.aggressive = true;
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateSleeperAgent()
     {
+        moodSetter.ChangeMood();
         if (!trackSwitched)
         {
             trackSwitched = true;

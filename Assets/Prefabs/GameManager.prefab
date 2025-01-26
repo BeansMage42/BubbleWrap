@@ -421,6 +421,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &5512896463990247962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3504178098742545362}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3504178098742545362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512896463990247962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4, y: 0, z: 11.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 234339524848036351}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5937240755856389801
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +483,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3366784010377846357}
+  - {fileID: 3504178098742545362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2302194077953657849
@@ -475,8 +507,9 @@ MonoBehaviour:
   upgradeTextFloatSpeed: 0.5
   upgradeTextFadeSpeed: 1
   healthFill: {fileID: 5794529723840063098}
+  spawnPos: {fileID: 3504178098742545362}
   maxCuteCreatures: 15
-  maxSpawnDistanceFromCenter: 40
+  maxSpawnDistanceFromCenter: 10
   timeBetweenSpawns: 2
   bunnyPrefab: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
     type: 3}
