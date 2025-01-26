@@ -1328,6 +1328,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 344645595987958521, guid: 7cd92fa460f23c949aea615a04eb8e6f,
+        type: 3}
+      propertyPath: m_text
+      value: 'Bubble bottles left: 8'
+      objectReference: {fileID: 0}
     - target: {fileID: 2302194077953657849, guid: 7cd92fa460f23c949aea615a04eb8e6f,
         type: 3}
       propertyPath: playerController
