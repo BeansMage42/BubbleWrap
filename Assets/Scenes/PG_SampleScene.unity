@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: efd1c33efd2d58340b88804268e6833f, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 20d4f77b9022eab48b4d94599ed4bf82, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -3696,6 +3696,7 @@ GameObject:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
   - component: {fileID: 705507996}
+  - component: {fileID: 705507997}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3803,6 +3804,23 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &705507997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80033bed4eb9f0242baf7a667d591275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  happy: {fileID: 2100000, guid: efd1c33efd2d58340b88804268e6833f, type: 2}
+  sad: {fileID: 2100000, guid: 5d133deeaa66ed445853e946ff25e073, type: 2}
+  light: {fileID: 705507994}
+  color: {r: 0.47058824, g: 0.19607843, b: 0.19607843, a: 1}
+  update: 0
 --- !u!1001 &716305518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6715,6 +6733,10 @@ MonoBehaviour:
   maxSpawnDistanceFromCenter: 0
   timeBetweenSpawns: 0
   bunnyPrefab: {fileID: 0}
+  endScreen: {fileID: 0}
+  winloseText: {fileID: 0}
+  killCountText: {fileID: 0}
+  timeSurvived: {fileID: 0}
 --- !u!4 &1491918333
 Transform:
   m_ObjectHideFlags: 0
