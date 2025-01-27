@@ -167,11 +167,11 @@ public class CuteCreature : MonoBehaviour
     {
         print("die");
        
-        int chance = (int)Random.Range(0, 3);
+        //int chance = (int)Random.Range(0, 3);
         if (pickUpPrefab != null)
         {
             print("has prize");
-            if (chance > 1)
+            if (true)//(chance > 1)
             {
                 print("spawn prize");
                 Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);

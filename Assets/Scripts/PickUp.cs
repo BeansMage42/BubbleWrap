@@ -59,6 +59,7 @@ public class PickUp : MonoBehaviour
                 break;
             case 6:
             case 7:
+            case 8:
                 type = PickUpType.MOREAMMO;
                 containedObject = Instantiate(pickups[5], containedObject.position, containedObject.rotation).transform;
                 break;

@@ -112,7 +112,9 @@ public class GameManager : MonoBehaviour
         if(cuteCreatures.Count < maxCuteCreatures && kingDead)
         {
             respawnTimer += Time.deltaTime;
-            if (respawnTimer >= timeBetweenSpawns)
+            if (timeBetweenSpawns > 1)
+                timeBetweenSpawns -= Time.deltaTime * 0.01f;
+            if (respawnTimer >= (timeBetweenSpawns))
             {
                 respawnTimer = 0;
                 SpawnCreature();
