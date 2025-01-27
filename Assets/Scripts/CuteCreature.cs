@@ -147,6 +147,7 @@ public class CuteCreature : MonoBehaviour
             ai.isStopped = false ;
             StopAllCoroutines();
             chasingPlayer = true;
+            ai.speed = 7;
            // print("chasing player");
         }
     }

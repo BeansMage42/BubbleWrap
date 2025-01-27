@@ -8,6 +8,7 @@ public class ResetScene : MonoBehaviour
     public void ResetGame()
     {
         print("Load");
+        FindObjectOfType<MusicPlayer>().SwapBack();
         SceneManager.LoadScene("PG_SampleScene");
     }
 }

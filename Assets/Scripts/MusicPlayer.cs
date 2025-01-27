@@ -22,6 +22,12 @@ public class MusicPlayer : MonoBehaviour
         musicSource.Play();
 
     }
+    public void SwapBack()
+    {
+        musicSource.clip = calmMusic;
+        musicSource.volume = 0.5f;
+        musicSource.Play();
+    }
 
 
 }
