@@ -10,4 +10,8 @@ public class CommandInvoker : MonoBehaviour
         Debug.Log("recieved command");
         command.Execute();
     }
+    public void ReverseCommand(BaseCommand command) 
+    { 
+        command.Undo();
+    }
 }

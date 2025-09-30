@@ -43,6 +43,10 @@ public class UIManager : MonoBehaviour
     [Header("Gun UI")]
     [SerializeField] TextMeshProUGUI magazinesCount;
 
+    [Header("Keybinding UI")]
+    [SerializeField] GameObject bindingObject;
+    [SerializeField] Transform bindingParent;
+
     private void Awake()
     {
         if (instance != null)
@@ -62,6 +66,7 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
+
         endScreen.SetActive(false);
         maxTime = timerAmount;
         healthFill.gameObject.SetActive(false);
@@ -69,6 +74,20 @@ public class UIManager : MonoBehaviour
         timerText.gameObject.SetActive(false);
     }
 
+    public TextMeshProUGUI PopulateBinding(string bindingName, string key, InputHandler inputHandler)
+    {
+        GameObject text = Instantiate(bindingObject, bindingParent);
+        text.GetComponent<PlayerInputButton>().inputHandler = inputHandler;
+        text.GetComponent<PlayerInputButton>().inputName = bindingName;
+        text.GetComponent<TextMeshProUGUI>().text = bindingName;
+        TextMeshProUGUI keytext = text.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        keytext.text = key;
+        return keytext;
+    }
+    public void UpdateKeyText(TextMeshProUGUI textToUpdate, string newBinding)
+    {
+        textToUpdate.text = newBinding;
+    }
     public void ActivateUI()
     {
         healthFill.gameObject.SetActive(true);

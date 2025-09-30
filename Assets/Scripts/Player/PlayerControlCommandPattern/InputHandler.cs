@@ -2,22 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using TMPro;
 
 public class InputHandler : MonoBehaviour
 {
 
     private Dictionary <KeyCode, string> boundKeys = new Dictionary <KeyCode,string> ();
+    private Dictionary<string, TextMeshProUGUI > bindingDisplay = new Dictionary <string, TextMeshProUGUI> ();
     [SerializeField] CommandInvoker commandInvoker;
     private bool isRebinding = false;
     private KeyCode rebindingKey;
-   // [SerializeField]  PlayerController playerController;
+    [SerializeField] PlayerController playerController;
 
     private void Start()
     {
-        boundKeys.Add(KeyCode.W, "FWD");
-        boundKeys.Add(KeyCode.S, "BCK");
-        boundKeys.Add(KeyCode.A, "LFT");
-        boundKeys.Add(KeyCode.D, "RGT");
+        boundKeys.Add(KeyCode.W, "Forward");
+        boundKeys.Add(KeyCode.S, "Back");
+        boundKeys.Add(KeyCode.A, "Left");
+        boundKeys.Add(KeyCode.D, "Right");
+       // boundKeys.Add(KeyCode.R, "Reload");
+        boundKeys.Add(KeyCode.Space, "Jump");
+        foreach (KeyCode key in boundKeys.Keys) 
+        {
+            bindingDisplay.Add(boundKeys[key], UIManager.instance.PopulateBinding(boundKeys[key], key.ToString(), this));
+        }
 
     }
 
@@ -46,29 +55,45 @@ public class InputHandler : MonoBehaviour
                 if (Input.GetKeyDown(key))
                 {
                     Debug.Log("found key");
-                    BaseCommand newCommand = new FWDCommand();
-                    switch (boundKeys[key])
-                    {
-                        case "FWD":
-                            newCommand = new FWDCommand();
-                            break;
-                        case "BCK":
-                            newCommand = new BCKCommand();
-                            break;
-                        case "LFT":
-                            newCommand = new LFTCommand();
-                            break;
-                        case "RGT":
-                            newCommand = new RGTCommand();
-                            break;
 
-                    }
-                    commandInvoker.ExecuteCommand(newCommand);
+                    commandInvoker.ExecuteCommand(CreateCommand(key));
+                    
+                    
+                }else if (Input.GetKeyUp(key))
+                {
+                    commandInvoker.ReverseCommand(CreateCommand(key));
                 }
-
             }
         }
     
+    }
+
+    private BaseCommand CreateCommand (KeyCode commandKey)
+    {
+        BaseCommand newCommand = new FWDCommand(playerController);
+        switch (boundKeys[commandKey])
+        {
+            case "Forward":
+                newCommand = new FWDCommand(playerController);
+                break;
+            case "Back":
+                newCommand = new BCKCommand(playerController);
+                break;
+            case "Left":
+                newCommand = new LFTCommand(playerController);
+                break;
+            case "Right":
+                newCommand = new RGTCommand(playerController);
+                break;
+            case "Reload":
+                newCommand = new ReloadCommand(playerController);
+                break;
+            case "Jump":
+                newCommand = new JumpCommand(playerController);
+                break;
+
+        }
+        return newCommand;
     }
 
     public void StartRebinding(string keyToRebind)
@@ -95,6 +120,7 @@ public class InputHandler : MonoBehaviour
             boundKeys.Add(newKeycode, boundKeys[oldKeycode]);
             boundKeys.Remove(oldKeycode);
             isRebinding = false;
+            UIManager.instance.UpdateKeyText(bindingDisplay[boundKeys[newKeycode]], newKeycode.ToString());
         }
         else
         {

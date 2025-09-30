@@ -57,6 +57,11 @@ public class PlayerController : MonoBehaviour
         
         moveDir = context.ReadValue<Vector3>().normalized;
     }
+    public void MoveDir(Vector3 addDir)
+    {
+
+        moveDir += addDir;
+    }
     /*
      * The look function takes the players mouse delta and translates it to camera rotation
      * 
@@ -147,6 +152,14 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
             rb.AddForce(transform.up*jumpForce, ForceMode.Impulse);
+        }
+    }
+    public void Jump()
+    {
+        if ( isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
     }
 

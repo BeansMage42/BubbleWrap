@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class FWDCommand :BaseCommand
 {
+    PlayerController playerController;
+    
+    public FWDCommand(PlayerController player)
+    {
+        playerController = player;
+    }
     public override void Execute()
     {
         Debug.Log("forward command");
-
-        //throw new System.NotImplementedException();
+        playerController.MoveDir(Vector3.forward);
     }   
 
     public override void Undo()
     {
-        throw new System.NotImplementedException();
+
+        Debug.Log("forward released");
+        playerController.MoveDir(-Vector3.forward);
     }
 }

@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : BaseCommand
+public class ReloadCommand : BaseCommand
 {
+
     PlayerController playerController;
-    public JumpCommand(PlayerController player)
+    public ReloadCommand(PlayerController player)
     {
         playerController = player;
     }
     public override void Execute()
     {
-        playerController.Jump();
-       // throw new System.NotImplementedException();
+
+        //Debug.Log("reload command");
+        //throw new System.NotImplementedException();
     }
 
     public override void Undo()
     {
-        //throw new System.NotImplementedException();
+        throw new System.NotImplementedException();
     }
 }
