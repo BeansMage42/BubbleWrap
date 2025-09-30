@@ -159,7 +159,7 @@ public class BubbleGun : MonoBehaviour
        // Debug.Log("start reloading");
         yield return new WaitForSeconds(reloadSpeed);
         numberOfMagazines--;
-        GameManager.instance.AdjustMagazines(numberOfMagazines);
+        UIManager.instance.AdjustMagazines(numberOfMagazines);
         currentMagLeft = magazineSize;
         isReloading = false;
         outOfAmmo = false;
@@ -219,7 +219,7 @@ public class BubbleGun : MonoBehaviour
                     break;
                 case "MOREAMMO":
                     numberOfMagazines+=1;
-                    GameManager.instance.AdjustMagazines(numberOfMagazines);
+                    UIManager.instance.AdjustMagazines(numberOfMagazines);
                     if (outOfAmmo)
                     {
                         StartCoroutine(Reload());
@@ -229,7 +229,7 @@ public class BubbleGun : MonoBehaviour
         
             }
             other.GetComponent<PickUp>().PopThisBubble();
-            GameManager.instance.UpgradeCollectedDisplay(pickupType);
+            UIManager.instance.UpgradeCollectedDisplay(pickupType);
 
         }
     }

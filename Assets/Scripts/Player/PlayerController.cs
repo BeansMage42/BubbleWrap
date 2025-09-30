@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damage;
        // jelly.intensity = new ClampedFloatParameter(currentHealth * maxH, 0, 0.7f);
         currentHealth = Mathf.Clamp(currentHealth,0,maxHealth);
-        GameManager.instance.AdjustHealth(currentHealth/maxHealth);
+        UIManager.instance.AdjustHealth(currentHealth/maxHealth);
         if(currentHealth <= 0)
         {
             GameManager.instance.PlayerDied();
