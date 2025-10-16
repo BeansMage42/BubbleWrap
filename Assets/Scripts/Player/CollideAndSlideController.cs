@@ -23,15 +23,13 @@ public class CollideAndSlideController : MonoBehaviour
     private float currentSprintMod = 1;
     [SerializeField] float jumpForce;
     bool isGrounded = true;
-   
+    private Vector2 look;
 
     //COMPONENTS
    
     
     [Header("Components")]
-    [SerializeField] private Volume globalVolume;
     [SerializeField] private GameObject camRotPoint;
-    private Vignette jelly;
     private CapsuleCollider col;
     private Rigidbody rb;
 
@@ -42,10 +40,7 @@ public class CollideAndSlideController : MonoBehaviour
     private Vector3 gravityVelocity;
     private Vector3 p1, p2;
 
-    [Header("Game mechanics")]
-    [SerializeField] float maxHealth;
-    private float maxH;
-    float currentHealth;
+  
 
     void Start()
     {
@@ -53,38 +48,31 @@ public class CollideAndSlideController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
         rb.isKinematic = true;
-        currentHealth = maxHealth;
-        maxH = 1 / maxHealth;
-        globalVolume.profile.TryGet(out jelly);
     }
     
     void Update()
     {
-       
+        SetLookRotations(look);
     }
     private void FixedUpdate()
     {
 
         // rb.MovePosition( transform.position + (transform.rotation * moveDir * moveSpeed * currentSprintMod));
+       
+        Move(moveDir.normalized);
 
-        Move(moveDir);
-
-    }
-    public void MoveVec(InputAction.CallbackContext context)
-    {
-        Vector2 input = context.ReadValue<Vector2>().normalized;
-        moveDir = new Vector3(input.x, 0, input.y);
     }
     public void MoveDir(Vector3 addDir)
     {
-        Debug.Log("check 1 2");
+      //  Debug.Log("check 1 2");
         moveDir += addDir;
     }
 
     private void Move(Vector3 dir)
     {
         // Horizontal movement
-        moveAmount = dir * speed * currentSprintMod;
+        //multiply by rotation to ensure it is based on forward of the player
+        moveAmount = transform.rotation * dir * speed * currentSprintMod;
         moveAmount = CollideAndSlide(moveAmount, transform.position, 0, false, moveAmount);
 
         // Gravity
@@ -100,6 +88,7 @@ public class CollideAndSlideController : MonoBehaviour
         }
 
         // Apply movement
+       // Debug.Log(moveAmount);
         rb.MovePosition(transform.position + moveAmount);
     }
 
@@ -113,6 +102,7 @@ public class CollideAndSlideController : MonoBehaviour
 
     private Vector3 CollideAndSlide(Vector3 vel, Vector3 startPos, int depth, bool gravityPass, Vector3 velInit)
     {
+       // Debug.Log("collide and slide");
         Vector3 center = startPos;
         float height = Mathf.Max(col.height, col.radius * 2);
         float halfHeight = (height / 2f) - col.radius;
@@ -184,11 +174,15 @@ public class CollideAndSlideController : MonoBehaviour
     public void Look(InputAction.CallbackContext context)
     {
         
-        Vector2 mouseDir = context.ReadValue<Vector2>() * rotSpeed;
-        
+         look = context.ReadValue<Vector2>() * rotSpeed;
+    }
+
+
+    private void SetLookRotations(Vector2 mouseDir)
+    {
         Quaternion yMove = Quaternion.Euler(-mouseDir.y, 0, 0);// the y has to be inverted because up is actually negative on the x axis, which is the axis of rotation but mouse delta treats up as positive and down as negative as it is tracking position on the cartesean plane
         Quaternion zMove = Quaternion.Euler(0, mouseDir.x, 0);
-        
+
         camRotPoint.transform.rotation = camRotPoint.transform.rotation * yMove;
 
 
@@ -198,9 +192,8 @@ public class CollideAndSlideController : MonoBehaviour
         //factors in parents rotation to convert the rotation from local to global space to prevent errors
         camRotPoint.transform.rotation = transform.rotation * Quaternion.Euler(Angle, 0, 0);
 
-        transform.rotation = transform.rotation * zMove;//rotates the full body
+        rb.rotation = rb.rotation * zMove;//rotates the full body
     }
-
     /*
      * Angles are weird and cant be clamped using the usual methods
      * 
@@ -237,18 +230,7 @@ public class CollideAndSlideController : MonoBehaviour
 
     }
    
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-       // jelly.intensity = new ClampedFloatParameter(currentHealth * maxH, 0, 0.7f);
-        currentHealth = Mathf.Clamp(currentHealth,0,maxHealth);
-        UIManager.instance.AdjustHealth(currentHealth/maxHealth);
-        if(currentHealth <= 0)
-        {
-            GameManager.instance.PlayerDied();
-        }
-
-    }
+   
     public void Jump(InputAction.CallbackContext context)
     {
         if(context.performed && isGrounded)
@@ -261,7 +243,7 @@ public class CollideAndSlideController : MonoBehaviour
     {
         if ( IsGrounded())
         {
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            moveDir = Vector3.zero;
         }
     }
 

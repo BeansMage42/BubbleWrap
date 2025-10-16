@@ -19,7 +19,7 @@ public class CuteCreature : MonoBehaviour
 
     [SerializeField] bool isBubbled;
 
-    private PlayerController playerController;
+    private PlayerHealth playerController;
 
     [SerializeField] GameObject pickUpPrefab;
     [SerializeField] bool isKing;
@@ -42,7 +42,7 @@ public class CuteCreature : MonoBehaviour
         anims = GetComponentInChildren<Animator>();
         ai = GetComponent<NavMeshAgent>();
         StartCoroutine(WanderToMotion());
-        playerController = GameManager.instance.playerController;
+        playerController = FindAnyObjectByType<PlayerHealth>();
         GameManager.instance.addCreature(this);
         gore = GetComponent<TempGore>();
         attackTimer = attackDelay / 2f;
