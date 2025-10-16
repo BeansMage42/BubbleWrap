@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class LFTCommand : BaseCommand
 {
-    PlayerController playerController;
-    public LFTCommand(PlayerController player)
+    CollideAndSlideController CollideAndSlideController;
+    public LFTCommand(CollideAndSlideController player)
     {
-        playerController = player;
+        CollideAndSlideController = player;
     }
     public override void Execute()
     {
         Debug.Log("left command");
-        playerController.MoveDir(Vector3.left);
+        CollideAndSlideController.MoveDir(Vector3.left);
         //throw new System.NotImplementedException();
     }
 
     public override void Undo()
     {
-        playerController.MoveDir(Vector3.right);
+        CollideAndSlideController.MoveDir(Vector3.right);
     }
 }

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class FWDCommand :BaseCommand
 {
-    PlayerController playerController;
+    CollideAndSlideController CollideAndSlideController;
     
-    public FWDCommand(PlayerController player)
+    public FWDCommand(CollideAndSlideController player)
     {
-        playerController = player;
+        CollideAndSlideController = player;
     }
     public override void Execute()
     {
         Debug.Log("forward command");
-        playerController.MoveDir(Vector3.forward);
+        CollideAndSlideController.MoveDir(Vector3.forward);
     }   
 
     public override void Undo()
     {
 
         Debug.Log("forward released");
-        playerController.MoveDir(-Vector3.forward);
+        CollideAndSlideController.MoveDir(-Vector3.forward);
     }
 }

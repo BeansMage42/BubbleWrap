@@ -13,7 +13,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] CommandInvoker commandInvoker;
     private bool isRebinding = false;
     private KeyCode rebindingKey;
-    [SerializeField] PlayerController playerController;
+   // [SerializeField] PlayerController playerController;
+    [SerializeField] CollideAndSlideController playerController;
 
     private void Start()
     {
@@ -61,6 +62,7 @@ public class InputHandler : MonoBehaviour
                     
                 }else if (Input.GetKeyUp(key))
                 {
+                    Debug.Log("release key");
                     commandInvoker.ReverseCommand(CreateCommand(key));
                 }
             }

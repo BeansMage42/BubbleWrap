@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class JumpCommand : BaseCommand
 {
-    PlayerController playerController;
-    public JumpCommand(PlayerController player)
+    CollideAndSlideController CollideAndSlideController;
+    public JumpCommand(CollideAndSlideController player)
     {
-        playerController = player;
+        CollideAndSlideController = player;
     }
     public override void Execute()
     {
-        playerController.Jump();
+        CollideAndSlideController.Jump();
        // throw new System.NotImplementedException();
     }
 

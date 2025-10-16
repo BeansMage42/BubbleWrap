@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class BCKCommand : BaseCommand
 {
-    PlayerController playerController;
-    public BCKCommand(PlayerController player) 
+    CollideAndSlideController CollideAndSlideController;
+    public BCKCommand(CollideAndSlideController player) 
     {
-        playerController = player;
+        CollideAndSlideController = player;
     }
     public override void Execute()
     {
         Debug.Log("backCommand");
-        playerController.MoveDir(-Vector3.forward);
+        CollideAndSlideController.MoveDir(-Vector3.forward);
         //throw new System.NotImplementedException();
     }
 
     public override void Undo()
     {
-        playerController.MoveDir(Vector3.forward);
+        CollideAndSlideController.MoveDir(Vector3.forward);
     }
 }

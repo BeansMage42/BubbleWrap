@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class RGTCommand : BaseCommand
 {
-    PlayerController playerController;
-    public RGTCommand(PlayerController player)
+    CollideAndSlideController CollideAndSlideController;
+    public RGTCommand(CollideAndSlideController player)
     {
-        playerController = player;
+        CollideAndSlideController = player;
     }
     public override void Execute()
     {
         Debug.Log("right command");
-        playerController.MoveDir(Vector3.right);
+        CollideAndSlideController.MoveDir(Vector3.right);
         //throw new System.NotImplementedException();
     }
 
     public override void Undo()
     {
-        playerController.MoveDir(-Vector3.right);
+        CollideAndSlideController.MoveDir(-Vector3.right);
     }
 }
 
