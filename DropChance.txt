@@ -7,6 +7,6 @@ Bullet Spread
 Projectile Speed
 10
 Health Bonus
-10000
+10
 More Ammo
 10
