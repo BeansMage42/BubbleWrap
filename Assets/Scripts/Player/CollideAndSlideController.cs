@@ -231,14 +231,14 @@ public class CollideAndSlideController : MonoBehaviour
     }
    
    
-    public void Jump(InputAction.CallbackContext context)
+    /*public void Jump(InputAction.CallbackContext context)
     {
         if(context.performed && isGrounded)
         {
             isGrounded = false;
             rb.AddForce(transform.up*jumpForce, ForceMode.Impulse);
         }
-    }
+    }*/
     public void Jump()
     {
         if ( IsGrounded())

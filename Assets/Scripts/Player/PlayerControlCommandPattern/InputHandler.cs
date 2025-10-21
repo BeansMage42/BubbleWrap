@@ -13,10 +13,11 @@ public class InputHandler : MonoBehaviour
     [SerializeField] CommandInvoker commandInvoker;
     private bool isRebinding = false;
     private KeyCode rebindingKey;
+    public bool paused = false;
    // [SerializeField] PlayerController playerController;
     [SerializeField] CollideAndSlideController playerController;
 
-    private void Start()
+    private void Awake()
     {
         boundKeys.Add(KeyCode.W, "Forward");
         boundKeys.Add(KeyCode.S, "Back");
@@ -48,7 +49,7 @@ public class InputHandler : MonoBehaviour
                 }
             }
         }
-        else
+        else if(!paused)
         {
             foreach (var key in boundKeys.Keys)
             {
@@ -66,7 +67,8 @@ public class InputHandler : MonoBehaviour
                     commandInvoker.ReverseCommand(CreateCommand(key));
                 }
             }
-        }
+        } 
+
     
     }
 
@@ -128,5 +130,10 @@ public class InputHandler : MonoBehaviour
         {
             Debug.Log("choose new key");
         }
+    }
+
+    public void TogglePause()
+    {
+        paused = !paused;
     }
 }
