@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LFTCommand : BaseCommand
+[CreateAssetMenu(fileName = "Left Command", menuName = "Commands/Movement commands/left", order = 4)]
+public class LFTCommand : MovementCommand
 {
-    CollideAndSlideController CollideAndSlideController;
-    public LFTCommand(CollideAndSlideController player)
-    {
-        CollideAndSlideController = player;
-    }
     public override void Execute()
     {
-      //  Debug.Log("left command");
+        //  Debug.Log("left command");
+        base.Execute();
         CollideAndSlideController.MoveDir(Vector3.left);
         //throw new System.NotImplementedException();
     }

@@ -171,5 +171,15 @@ public class GameManager : MonoBehaviour
             UIManager.instance.ConfigureDeathScreen(winlose, numCuteKilled);
         }
     }
+
+    public void KillAllCreatures()
+    {
+        int i = cuteCreatures.Count;
+
+        for(int x = 0; x < i -1; x++)
+        {
+            cuteCreatures[0].TakeDamage();
+        }
+    }
     
 }

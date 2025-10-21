@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class TextCommandHandler : MonoBehaviour
@@ -9,6 +10,8 @@ public class TextCommandHandler : MonoBehaviour
     [SerializeField] string prefix;
     [SerializeField] CommandInvoker commandInvoker;
     [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] TextCommand[] commands;
+    [SerializeField] private TextMeshProUGUI  commandInputField;
     
     public void ProcessCommand(string inputValue)
     {
@@ -20,33 +23,20 @@ public class TextCommandHandler : MonoBehaviour
 
         string commandInput = inputSplit[0];
         string[] args = inputSplit.Skip(1).ToArray();
+        commandInputField.text = string.Empty;
         ProcessCommand(commandInput, args);
     }
 
     public void ProcessCommand(string command, string[] args)
     {
-        switch (command) 
+        foreach (var com in commands) 
         {
-            case "GameEnd":
-                if (args[0].Equals("true", StringComparison.OrdinalIgnoreCase))
-                {
-                    commandInvoker.ExecuteCommand(new GameEndCommand());
-                }
-                else if (args[0].Equals("false", StringComparison.OrdinalIgnoreCase)) 
-                { 
-                    commandInvoker.ReverseCommand(new GameEndCommand());
-                }
-                    break;
-            case "ChangeHealth":
-                commandInvoker.ExecuteCommand(new ChangeHealthCommand(playerHealth, int.Parse(args[0])));
+            if (com.CommandWord.Equals(command, StringComparison.OrdinalIgnoreCase))
+            { 
+                com.SetVar(args);
+                commandInvoker.ExecuteCommand(com);
                 break;
-            case "StartCombat":
-                commandInvoker.ExecuteCommand(new StartCombatCommand());
-                break;
-            case "Reset":
-                commandInvoker.ExecuteCommand(new ResetSceneCommand());
-                break;
-        
+            }
         }
 
     }

@@ -160,6 +160,7 @@ public class CuteCreature : MonoBehaviour
             GameManager.instance.ActivateSleeperAgent();
         }
         GameManager.instance.RemoveCreature(this);
+        StopAllCoroutines();
         Die();
     }
 
