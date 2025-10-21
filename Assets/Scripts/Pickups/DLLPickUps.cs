@@ -27,12 +27,12 @@ public class DLLPickUps : MonoBehaviour
                 }
             }
 
-            sum = 1 / sum;
-            print(sum + "d");
+            PickUp.sum = sum;
+            print(sum + "sum of values");
             float pre = 0;
             for (int i = 0; i < numbers.Length; i++)
             {
-                pre += numbers[i] * sum;
+                pre += numbers[i];
                 PickUp.dropChance[i] = pre;
                 
                 print(PickUp.dropChance[i]);

@@ -16,6 +16,7 @@ public class PickUp : MonoBehaviour, IPickUp
     //[SerializeField] private 
 
     public static float[] dropChance = new float[6];
+    public static float sum;
 
     public enum PickUpType
     {
@@ -48,30 +49,30 @@ public class PickUp : MonoBehaviour, IPickUp
         transform.LookAt(GameManager.instance.GetPlayer().transform.position);
         transform.localRotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, transform.rotation.w);
     }
-
-
+    
     public void Initialize()
     {
         popScript = GetComponentInChildren<BubblePop>();
         containedObject.gameObject.SetActive(false);
 
-        float temp = Random.Range(0f, 1f);
-        print(temp + " temp values");
-        int pickUpNum = 0;
-        
-        float closest = dropChance[0];
-        float smallestDiff = Math.Abs(temp - closest);
+        float temp = Random.Range(0f, sum);
 
-        for (int i = 0; i < dropChance.Length; i++)
+        int pickUpNum = 0;
+        if (temp < dropChance[0]) pickUpNum = 0;
+
+        for (int i = 0; i < 5; i++)
         {
-            float diff = Math.Abs(temp - dropChance[i]);
-            if (diff < smallestDiff)
+            print(dropChance[i]);
+            print(temp + " temp values");
+            print(dropChance[i + 1]);
+            if (dropChance[i] <= temp && dropChance[i + 1] > temp)
             {
-                smallestDiff = diff;
-                pickUpNum = i;
+                pickUpNum = i + 1;
+                print("hit");
             }
         }
-        print(pickUpNum);
+     
+        print(pickUpNum + " pick up num");
         //read all lines add 
         switch (pickUpNum)
         {
