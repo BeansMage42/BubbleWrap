@@ -11,7 +11,7 @@ public class BCKCommand : BaseCommand
     }
     public override void Execute()
     {
-        Debug.Log("backCommand");
+        //Debug.Log("backCommand");
         CollideAndSlideController.MoveDir(-Vector3.forward);
         //throw new System.NotImplementedException();
     }

@@ -11,7 +11,7 @@ public class JumpCommand : BaseCommand
     }
     public override void Execute()
     {
-      //  CollideAndSlideController.Jump();
+        CollideAndSlideController.Jump();
        // throw new System.NotImplementedException();
     }
 

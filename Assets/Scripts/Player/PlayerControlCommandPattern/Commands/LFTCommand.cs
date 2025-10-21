@@ -11,7 +11,7 @@ public class LFTCommand : BaseCommand
     }
     public override void Execute()
     {
-        Debug.Log("left command");
+      //  Debug.Log("left command");
         CollideAndSlideController.MoveDir(Vector3.left);
         //throw new System.NotImplementedException();
     }

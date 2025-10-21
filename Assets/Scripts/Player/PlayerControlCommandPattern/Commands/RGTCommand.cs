@@ -11,7 +11,7 @@ public class RGTCommand : BaseCommand
     }
     public override void Execute()
     {
-        Debug.Log("right command");
+        //Debug.Log("right command");
         CollideAndSlideController.MoveDir(Vector3.right);
         //throw new System.NotImplementedException();
     }

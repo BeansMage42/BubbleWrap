@@ -12,14 +12,14 @@ public class FWDCommand :BaseCommand
     }
     public override void Execute()
     {
-        Debug.Log("forward command");
+      //  Debug.Log("forward command");
         CollideAndSlideController.MoveDir(Vector3.forward);
     }   
 
     public override void Undo()
     {
 
-        Debug.Log("forward released");
+       // Debug.Log("forward released");
         CollideAndSlideController.MoveDir(-Vector3.forward);
     }
 }
