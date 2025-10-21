@@ -1,0 +1,12 @@
+Mag Size
+10
+Fire Rate
+10
+Bullet Spread
+10
+Projectile Speed
+10
+Health Bonus
+10
+More Ammo
+10

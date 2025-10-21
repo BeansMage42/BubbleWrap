@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -13,6 +14,8 @@ public class PickUp : MonoBehaviour, IPickUp
 
     [SerializeField] private GameObject[] pickups;
     //[SerializeField] private 
+
+    public static float[] dropChance = new float[6];
 
     public enum PickUpType
     {
@@ -40,7 +43,6 @@ public class PickUp : MonoBehaviour, IPickUp
         print("pop the bubble");
         popScript.Pop();
     }
-
     private void Update()
     {
         transform.LookAt(GameManager.instance.GetPlayer().transform.position);
@@ -53,9 +55,25 @@ public class PickUp : MonoBehaviour, IPickUp
         popScript = GetComponentInChildren<BubblePop>();
         containedObject.gameObject.SetActive(false);
 
-        int temp = (int)Random.Range(0f, 7f);
+        float temp = Random.Range(0f, 1f);
+        print(temp + " temp values");
+        int pickUpNum = 0;
+        
+        float closest = dropChance[0];
+        float smallestDiff = Math.Abs(temp - closest);
 
-        switch (temp)
+        for (int i = 0; i < dropChance.Length; i++)
+        {
+            float diff = Math.Abs(temp - dropChance[i]);
+            if (diff < smallestDiff)
+            {
+                smallestDiff = diff;
+                pickUpNum = i;
+            }
+        }
+        print(pickUpNum);
+        //read all lines add 
+        switch (pickUpNum)
         {
             case 0:
                 type = PickUpType.MAGSIZE;
@@ -73,14 +91,11 @@ public class PickUp : MonoBehaviour, IPickUp
                 type = PickUpType.PROJECTILESPEED;
                 containedObject = Instantiate(pickups[3], containedObject.position, containedObject.rotation).transform;
                 break;
-            case 4:
-            case 5: 
+            case 4: 
                 type = PickUpType.HEALTHBONUS;
                 containedObject = Instantiate(pickups[4], containedObject.position, containedObject.rotation).transform;
                 break;
-            case 6:
-            case 7:
-            case 8:
+            case 5:
                 type = PickUpType.MOREAMMO;
                 containedObject = Instantiate(pickups[5], containedObject.position, containedObject.rotation).transform;
                 break;
