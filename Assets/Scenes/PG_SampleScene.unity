@@ -6848,13 +6848,18 @@ PrefabInstance:
       objectReference: {fileID: 1651538303}
     - target: {fileID: 5725144569661644882, guid: b81ab397837b5a2428fd69d6df6b9d82,
         type: 3}
+      propertyPath: maxSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725144569661644882, guid: b81ab397837b5a2428fd69d6df6b9d82,
+        type: 3}
       propertyPath: gravityScale
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5725144569661644882, guid: b81ab397837b5a2428fd69d6df6b9d82,
         type: 3}
       propertyPath: jumpVelocity
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5725144569661644882, guid: b81ab397837b5a2428fd69d6df6b9d82,
         type: 3}
