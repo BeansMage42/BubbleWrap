@@ -49,12 +49,13 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
+        PlayerController.OnPlayerDeath += PlayerDied;
     }
 
     // Update is called once per frame

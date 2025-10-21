@@ -3591,6 +3591,8 @@ MonoBehaviour:
   timeSurvived: {fileID: 2104829687}
   goalText: {fileID: 2104829686}
   magazinesCount: {fileID: 2104829685}
+  bindingObject: {fileID: 0}
+  bindingParent: {fileID: 0}
 --- !u!1 &495577855
 GameObject:
   m_ObjectHideFlags: 0
@@ -17561,7 +17563,7 @@ PrefabInstance:
     - target: {fileID: 4096872097497286383, guid: 7cd92fa460f23c949aea615a04eb8e6f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 59.3
+      value: 59.30005
       objectReference: {fileID: 0}
     - target: {fileID: 5182288171256375835, guid: 7cd92fa460f23c949aea615a04eb8e6f,
         type: 3}

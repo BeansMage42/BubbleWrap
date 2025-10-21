@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PickUp : MonoBehaviour
+public class PickUp : MonoBehaviour, IPickUp
 {
     // Start is called before the first frame update
 
@@ -26,8 +26,29 @@ public class PickUp : MonoBehaviour
     }
 
     [SerializeField] private PickUpType type;
+    
+    public PickUpType Collect()
+    {
 
-    private void Awake()
+        
+        
+        return type;
+    }
+    public void PopThisBubble()
+    {
+        Destroy(containedObject.gameObject);
+        print("pop the bubble");
+        popScript.Pop();
+    }
+
+    private void Update()
+    {
+        transform.LookAt(GameManager.instance.GetPlayer().transform.position);
+        transform.localRotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+    }
+
+
+    public void Initialize()
     {
         popScript = GetComponentInChildren<BubblePop>();
         containedObject.gameObject.SetActive(false);
@@ -66,27 +87,4 @@ public class PickUp : MonoBehaviour
         }
         print("I exist!");
     }
-    
-    public PickUpType Collect()
-    {
-
-        
-        
-        return type;
-    }
-    public void PopThisBubble()
-    {
-        Destroy(containedObject.gameObject);
-        print("pop the bubble");
-        popScript.Pop();
-    }
-
-    private void Update()
-    {
-        transform.LookAt(GameManager.instance.GetPlayer().transform.position);
-        transform.localRotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-    }
-
-
-
 }

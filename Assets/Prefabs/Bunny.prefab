@@ -87,6 +87,8 @@ MonoBehaviour:
   isBubbled: 0
   pickUpPrefab: {fileID: 2755876304470078912, guid: 259dca6e4d792e44088c2ba354ffc450,
     type: 3}
+  pickUpFactory: {fileID: 206196566480647461, guid: e090bee98ecee4c499ff9130275fd8b2,
+    type: 3}
   isKing: 0
   damage: 15
   attackDelay: 0.5

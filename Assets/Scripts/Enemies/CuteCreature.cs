@@ -22,6 +22,7 @@ public class CuteCreature : MonoBehaviour
     private PlayerController playerController;
 
     [SerializeField] GameObject pickUpPrefab;
+    [SerializeField] PickUpFactory pickUpFactory;
     [SerializeField] bool isKing;
 
     private Coroutine waitRoutine;
@@ -36,6 +37,8 @@ public class CuteCreature : MonoBehaviour
     AudioSource source;
     [SerializeField] AudioClip goreSound;
     [SerializeField] AudioClip stabSound;
+
+    public bool explode;
     void Start()
     {
         source = GetComponent<AudioSource>();
@@ -75,6 +78,12 @@ public class CuteCreature : MonoBehaviour
             {
                 ai.isStopped = false;
             }
+        }
+
+        if (explode == true)
+        {
+            TakeDamage();
+            explode = false;
         }
     }
 
@@ -174,7 +183,8 @@ public class CuteCreature : MonoBehaviour
             if (true)//(chance > 1)
             {
                 print("spawn prize");
-                Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
+                pickUpFactory.SpawnIPickUp(transform.position);
+                //Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
             }
         }
        
