@@ -8,9 +8,6 @@ public abstract class MovementCommand : BaseCommand
     protected CollideAndSlideController CollideAndSlideController;
     public override void Execute()
     {
-        if(CollideAndSlideController == null)
-        {
-           CollideAndSlideController = FindObjectOfType<CollideAndSlideController>();
-        }
+        CollideAndSlideController = GameManager.instance.GetPlayer();
     }
 }

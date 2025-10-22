@@ -13,7 +13,7 @@ public class TextCommandHandler : MonoBehaviour
     [SerializeField] TextCommand[] commands;
     [SerializeField] private TextMeshProUGUI  commandInputField;
     
-    public void ProcessCommand(string inputValue)
+    public void ProcessText(string inputValue)
     {
         if (!inputValue.StartsWith(prefix)) return;
 
@@ -24,10 +24,10 @@ public class TextCommandHandler : MonoBehaviour
         string commandInput = inputSplit[0];
         string[] args = inputSplit.Skip(1).ToArray();
         commandInputField.text = string.Empty;
-        ProcessCommand(commandInput, args);
+        ProcessText(commandInput, args);
     }
 
-    public void ProcessCommand(string command, string[] args)
+    public void ProcessText(string command, string[] args)
     {
         foreach (var com in commands) 
         {
