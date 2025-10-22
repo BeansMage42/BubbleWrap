@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI PopulateBinding(string bindingName, string key, InputHandler inputHandler)
     {
-        GameObject text = Instantiate(bindingObject, bindingParent);
+        GameObject text = Instantiate(bindingObject, bindingParent.GetChild(0));
         text.GetComponent<PlayerInputButton>().inputHandler = inputHandler;
         text.GetComponent<PlayerInputButton>().inputName = bindingName;
         text.GetComponent<TextMeshProUGUI>().text = bindingName;

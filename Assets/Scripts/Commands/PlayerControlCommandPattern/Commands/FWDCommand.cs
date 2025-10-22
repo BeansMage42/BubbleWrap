@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FWDCommand :BaseCommand
+[CreateAssetMenu(fileName = "Forward Command", menuName = "Commands/Movement commands/forward", order = 2)]
+public class FWDCommand : MovementCommand
 {
-    CollideAndSlideController CollideAndSlideController;
-    
-    public FWDCommand(CollideAndSlideController player)
-    {
-        CollideAndSlideController = player;
-    }
     public override void Execute()
     {
-      //  Debug.Log("forward command");
+        //  Debug.Log("forward command");
+        base.Execute();
         CollideAndSlideController.MoveDir(Vector3.forward);
     }   
 

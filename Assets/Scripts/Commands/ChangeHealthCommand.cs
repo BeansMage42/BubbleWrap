@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeHealthCommand : BaseCommand
+[CreateAssetMenu(fileName = "Change Health", menuName = "Commands/Text Commands/Change Health", order = 3)]
+public class ChangeHealthCommand : TextCommand
 {
     private PlayerHealth health;
     private int healthChange;
-    public ChangeHealthCommand(PlayerHealth healthControl, int changeAmount)
+    public override void SetVar(string[] args)
     {
-        health = healthControl;
-        healthChange = changeAmount;
+        if(health == null) health = FindObjectOfType<PlayerHealth>();
+        healthChange = int.Parse(args[0]);
     }
     public override void Execute()
     {

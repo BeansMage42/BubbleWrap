@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RGTCommand : BaseCommand
+[CreateAssetMenu(fileName = "right Command", menuName = "Commands/Movement commands/right", order = 3)]
+public class RGTCommand : MovementCommand
 {
-    CollideAndSlideController CollideAndSlideController;
-    public RGTCommand(CollideAndSlideController player)
-    {
-        CollideAndSlideController = player;
-    }
     public override void Execute()
     {
+        base.Execute();
         //Debug.Log("right command");
         CollideAndSlideController.MoveDir(Vector3.right);
         //throw new System.NotImplementedException();

@@ -8,27 +8,30 @@ using TMPro;
 public class InputHandler : MonoBehaviour
 {
 
-    private Dictionary <KeyCode, string> boundKeys = new Dictionary <KeyCode,string> ();
-    private Dictionary<string, TextMeshProUGUI > bindingDisplay = new Dictionary <string, TextMeshProUGUI> ();
+    private Dictionary<KeyCode, MovementCommand> boundKeys = new Dictionary<KeyCode, MovementCommand>();
+    private Dictionary<string, TextMeshProUGUI> bindingDisplay = new Dictionary<string, TextMeshProUGUI>();
+
     [SerializeField] CommandInvoker commandInvoker;
     private bool isRebinding = false;
     private KeyCode rebindingKey;
     public bool paused = false;
+    [SerializeField] private MovementCommand[] commandList;
    // [SerializeField] PlayerController playerController;
     [SerializeField] CollideAndSlideController playerController;
 
     private void Awake()
     {
-        boundKeys.Add(KeyCode.W, "Forward");
-        boundKeys.Add(KeyCode.S, "Back");
-        boundKeys.Add(KeyCode.A, "Left");
-        boundKeys.Add(KeyCode.D, "Right");
-       // boundKeys.Add(KeyCode.R, "Reload");
-        boundKeys.Add(KeyCode.Space, "Jump");
-        foreach (KeyCode key in boundKeys.Keys) 
+        
+        foreach (MovementCommand command in commandList) 
+        {
+            boundKeys.Add(command.boundKey,command);
+            bindingDisplay.Add(command.CommandWord, UIManager.instance.PopulateBinding(command.CommandWord,command.boundKey.ToString(), this));
+        }
+
+       /* foreach (KeyCode key in boundKeys.Keys) 
         {
             bindingDisplay.Add(boundKeys[key], UIManager.instance.PopulateBinding(boundKeys[key], key.ToString(), this));
-        }
+        }*/
 
     }
 
@@ -58,54 +61,25 @@ public class InputHandler : MonoBehaviour
                 {
                     Debug.Log("found key");
 
-                    commandInvoker.ExecuteCommand(CreateCommand(key));
+                    commandInvoker.ExecuteCommand(/*CreateCommand(key)*/ boundKeys[key]);
                     
                     
                 }else if (Input.GetKeyUp(key))
                 {
                     Debug.Log("release key");
-                    commandInvoker.ReverseCommand(CreateCommand(key));
+                    commandInvoker.ReverseCommand(/*CreateCommand(key)*/ boundKeys[key]);
                 }
             }
         } 
 
     
     }
-
-    private BaseCommand CreateCommand (KeyCode commandKey)
-    {
-        BaseCommand newCommand = new FWDCommand(playerController);
-        switch (boundKeys[commandKey])
-        {
-            case "Forward":
-                newCommand = new FWDCommand(playerController);
-                break;
-            case "Back":
-                newCommand = new BCKCommand(playerController);
-                break;
-            case "Left":
-                newCommand = new LFTCommand(playerController);
-                break;
-            case "Right":
-                newCommand = new RGTCommand(playerController);
-                break;
-            case "Reload":
-                newCommand = new ReloadCommand(playerController);
-                break;
-            case "Jump":
-                newCommand = new JumpCommand(playerController);
-                break;
-
-        }
-        return newCommand;
-    }
-
     public void StartRebinding(string keyToRebind)
     {
         Debug.Log("start rebinding");
         foreach (var key in boundKeys.Keys) 
         {
-            if (boundKeys[key] == keyToRebind)
+            if (boundKeys[key].CommandWord == keyToRebind)
             {
                 rebindingKey = key;
                 break;
@@ -124,7 +98,7 @@ public class InputHandler : MonoBehaviour
             boundKeys.Add(newKeycode, boundKeys[oldKeycode]);
             boundKeys.Remove(oldKeycode);
             isRebinding = false;
-            UIManager.instance.UpdateKeyText(bindingDisplay[boundKeys[newKeycode]], newKeycode.ToString());
+            UIManager.instance.UpdateKeyText(bindingDisplay[boundKeys[newKeycode].CommandWord], newKeycode.ToString());
         }
         else
         {

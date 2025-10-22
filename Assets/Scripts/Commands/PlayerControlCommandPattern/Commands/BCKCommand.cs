@@ -1,17 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class BCKCommand : BaseCommand
+[CreateAssetMenu(fileName = "Back Command", menuName = "Commands/Movement commands/back", order = 1)]
+public class BCKCommand : MovementCommand
 {
-    CollideAndSlideController CollideAndSlideController;
-    public BCKCommand(CollideAndSlideController player) 
-    {
-        CollideAndSlideController = player;
-    }
     public override void Execute()
     {
         //Debug.Log("backCommand");
+        base.Execute();
         CollideAndSlideController.MoveDir(-Vector3.forward);
         //throw new System.NotImplementedException();
     }
