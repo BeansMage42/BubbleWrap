@@ -4,6 +4,8 @@ Zachary O'Brien 100909491
 proof of progression and Gantt chart in Gantt.Gantt
 this file can be read at https://www.onlinegantt.com/#/gantt or as an alternative there is a image in the google doc
 
+video:https://drive.google.com/file/d/107VFRAHbSe8uG9Qwk37cU0ynMAhWDKnP/view?usp=sharing
+
 
 Team formation
 
