@@ -13,6 +13,12 @@ public class DLLPickUps : MonoBehaviour
         {
             string path = "Assets/Resources/DropChance.txt";
             
+            
+            if (File.Exists(path))
+            {
+                print(File.ReadAllText(path));
+                print("Jonah  Gibson");
+            }
             StreamReader sr = new StreamReader(path);
             float[] numbers = new float[6];
             float sum = 0;
