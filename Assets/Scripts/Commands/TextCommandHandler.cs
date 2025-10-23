@@ -12,7 +12,13 @@ public class TextCommandHandler : MonoBehaviour
     [SerializeField] PlayerHealth playerHealth;
     [SerializeField] TextCommand[] commands;
     [SerializeField] private TextMeshProUGUI  commandInputField;
-    
+
+
+    private void Start()
+    {
+        commandInvoker = FindObjectOfType<CommandInvoker>();
+        playerHealth = FindObjectOfType<PlayerHealth>();
+    }
     public void ProcessText(string inputValue)
     {
         if (!inputValue.StartsWith(prefix)) return;

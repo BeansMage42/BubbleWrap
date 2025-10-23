@@ -17,9 +17,6 @@ public class UIManager : MonoBehaviour
     private float maxTime;
     private bool timerOn;
 
-    [SerializeField] private HeavyMetalStarts moodSetter;
-
-    private PlayerController PlayerController;
     [Header("Upgradetext")]
     [SerializeField] private GameObject upgradeText;
     Vector3 upgradeTextStartPos;
@@ -54,7 +51,7 @@ public class UIManager : MonoBehaviour
             if (instance != this)
             {
 
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
         else
@@ -73,6 +70,7 @@ public class UIManager : MonoBehaviour
         healthBar.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
         bindingParent.gameObject.SetActive(false);
+        
     }
 
     public TextMeshProUGUI PopulateBinding(string bindingName, string key, InputHandler inputHandler)

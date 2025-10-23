@@ -9,7 +9,7 @@ public class HeavyMetalStarts : MonoBehaviour
 {
     [SerializeField] private Material happy;
 
-    [SerializeField] private Light light;
+    [SerializeField] private Light directionLight;
     [SerializeField] private Color color;
 
     [SerializeField] private bool update;
@@ -26,12 +26,17 @@ public class HeavyMetalStarts : MonoBehaviour
         }
         
     }
-
+    private void Start()
+    {
+        directionLight = FindObjectOfType<Light>();
+    }
     public void ChangeMood()
     {
         update = true;
-        light.color = color;
-        RenderSettings.skybox = happy;
+        if(directionLight != null)
+        directionLight.color = color;
+        else FindObjectOfType<Light>().color = color;
+            RenderSettings.skybox = happy;
         DynamicGI.UpdateEnvironment();
     }
 }

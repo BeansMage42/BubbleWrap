@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         //playerController = FindObjectOfType<PlayerController>();
     }
@@ -59,7 +58,14 @@ public class GameManager : MonoBehaviour
     {
         PlayerController.OnPlayerDeath += PlayerDied;
         playerController = FindObjectOfType<CollideAndSlideController>();
-
+        moodSetter = FindObjectOfType<HeavyMetalStarts>();
+        trackSwitched = false;
+        isPlayerDead = false;
+        timerAmount = 0;
+        timerOn = false;
+        kingDead = false;
+        gameActive = true;
+        respawnTimer = 0;
     }
 
     // Update is called once per frame
@@ -135,6 +141,10 @@ public class GameManager : MonoBehaviour
 
     public CollideAndSlideController GetPlayer()
     {
+        if(playerController == null)
+        {
+            playerController = FindObjectOfType<CollideAndSlideController>();
+        }
         return playerController;
     }
     public void ActivateSleeperAgent()
@@ -154,6 +164,7 @@ public class GameManager : MonoBehaviour
             kingDead = true;
             foreach (var creature in cuteCreatures)
             {
+                if(creature == null) continue;
                 creature.gameObject.SetActive(true);
                 creature.aggressive = true;
             }
