@@ -1,3 +1,6 @@
+Jonah Gibson 100910759
+Zachary O'Brien 100909491
+
 Team formation
 
 Our team was formed because I (Jonah) was the only member of my GDW group in the class and I didn’t want to start a new project. Zach and I have worked together in the past on multiple projects and have found we work well together, and being roommates would make coordination much easier. At first we discussed whether we would make tools for one of our GDW games or if we were going to work on something original. Ultimately we realized that we had a finished, albeit very rough, game made for a game jam last year and decided we would work on updating it using the tools learned in class.
