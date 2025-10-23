@@ -21,7 +21,6 @@ public class HeavyMetalStarts : MonoBehaviour
         {
             blendAmount += Time.deltaTime;
             happy.SetFloat("_Blend", blendAmount);
-            print("hjihih");
             RenderSettings.skybox = happy;
             DynamicGI.UpdateEnvironment();
         }

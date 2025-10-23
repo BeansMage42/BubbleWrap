@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.Animations;
 using static Unity.VisualScripting.Member;
 
-public class CuteCreature : MonoBehaviour
+public class CuteCreature : MonoBehaviour, ICreature
 {
     // Start is called before the first frame update
 
@@ -214,4 +214,8 @@ public class CuteCreature : MonoBehaviour
         }
     }
 
+    public void Initialize()
+    {
+        
+    }
 }

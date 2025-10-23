@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] GameObject bunnyPrefab;
+    [SerializeField] CreatureFactory creatureFactory;
 
     private int numCuteKilled;
 
@@ -104,8 +105,14 @@ public class GameManager : MonoBehaviour
         Vector3 spawnpoint = spawnPos.position + UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
        // print("spawn");
         spawnpoint.y = 1;
-        CuteCreature newCreature = Instantiate(bunnyPrefab, spawnpoint, Quaternion.identity).GetComponent<CuteCreature>();
-        newCreature.aggressive = true;
+        GameObject newCreature = creatureFactory.SpawnICreature(spawnpoint);
+        newCreature.SetActive(true);
+        CuteCreature cuteCreature;
+        if (TryGetComponent<CuteCreature>(out cuteCreature))
+        {
+            cuteCreature.aggressive = true;
+        }
+        
         
         
     }
