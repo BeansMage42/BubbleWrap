@@ -72,11 +72,12 @@ public class UIManager : MonoBehaviour
         healthFill.gameObject.SetActive(false);
         healthBar.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
+        bindingParent.gameObject.SetActive(false);
     }
 
     public TextMeshProUGUI PopulateBinding(string bindingName, string key, InputHandler inputHandler)
     {
-        GameObject text = Instantiate(bindingObject, bindingParent);
+        GameObject text = Instantiate(bindingObject, bindingParent.GetChild(0));
         text.GetComponent<PlayerInputButton>().inputHandler = inputHandler;
         text.GetComponent<PlayerInputButton>().inputName = bindingName;
         text.GetComponent<TextMeshProUGUI>().text = bindingName;
@@ -124,9 +125,25 @@ public class UIManager : MonoBehaviour
             endScreen.SetActive(true);
 
             winloseText.text = winlose;
-
+            bindingParent.gameObject.SetActive(false);
             killCountText.text = "Bunnies slaughtered: " + numCuteKilled;
             timeSurvived.text = "Time survived: " + (maxTime - timerAmount) + "s";
         
+    }
+
+    public void ToggleBindingMenu(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            bindingParent.gameObject.SetActive(!bindingParent.gameObject.activeSelf);
+            if (bindingParent.gameObject.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
     }
 }

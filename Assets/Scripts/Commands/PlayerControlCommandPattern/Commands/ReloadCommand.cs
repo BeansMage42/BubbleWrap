@@ -5,10 +5,10 @@ using UnityEngine;
 public class ReloadCommand : BaseCommand
 {
 
-    PlayerController playerController;
-    public ReloadCommand(PlayerController player)
+    CollideAndSlideController CollideAndSlideController;
+    public ReloadCommand(CollideAndSlideController player)
     {
-        playerController = player;
+        CollideAndSlideController = player;
     }
     public override void Execute()
     {

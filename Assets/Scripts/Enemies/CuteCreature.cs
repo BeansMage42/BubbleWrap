@@ -19,7 +19,7 @@ public class CuteCreature : MonoBehaviour, ICreature
 
     [SerializeField] bool isBubbled;
 
-    private PlayerController playerController;
+    private PlayerHealth playerController;
 
     [SerializeField] GameObject pickUpPrefab;
     [SerializeField] PickUpFactory pickUpFactory;
@@ -45,7 +45,7 @@ public class CuteCreature : MonoBehaviour, ICreature
         anims = GetComponentInChildren<Animator>();
         ai = GetComponent<NavMeshAgent>();
         StartCoroutine(WanderToMotion());
-        playerController = GameManager.instance.playerController;
+        playerController = FindAnyObjectByType<PlayerHealth>();
         GameManager.instance.addCreature(this);
         gore = GetComponent<TempGore>();
         attackTimer = attackDelay / 2f;
@@ -169,6 +169,7 @@ public class CuteCreature : MonoBehaviour, ICreature
             GameManager.instance.ActivateSleeperAgent();
         }
         GameManager.instance.RemoveCreature(this);
+        StopAllCoroutines();
         Die();
     }
 

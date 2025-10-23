@@ -8,7 +8,8 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public PlayerController playerController;
+    //public PlayerController playerController;
+    public CollideAndSlideController playerController;
 
     private List<CuteCreature> cuteCreatures = new List<CuteCreature>();
 
@@ -50,13 +51,15 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        playerController = FindObjectOfType<PlayerController>();
+        //playerController = FindObjectOfType<PlayerController>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerController.OnPlayerDeath += PlayerDied;
+        playerController = FindObjectOfType<CollideAndSlideController>();
+
     }
 
     // Update is called once per frame
@@ -130,7 +133,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public PlayerController GetPlayer()
+    public CollideAndSlideController GetPlayer()
     {
         return playerController;
     }
@@ -176,6 +179,16 @@ public class GameManager : MonoBehaviour
             gameActive = false;
             playerController.gameObject.GetComponent<PlayerInput>().actions.FindActionMap("GameMode").Disable();
             UIManager.instance.ConfigureDeathScreen(winlose, numCuteKilled);
+        }
+    }
+
+    public void KillAllCreatures()
+    {
+        int i = cuteCreatures.Count;
+
+        for(int x = 0; x < i -1; x++)
+        {
+            cuteCreatures[0].TakeDamage();
         }
     }
     

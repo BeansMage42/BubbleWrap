@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : BaseCommand
+[CreateAssetMenu(fileName = "Jump Command", menuName = "Commands/Movement commands/jump", order = 5)]
+public class JumpCommand : MovementCommand
 {
-    PlayerController playerController;
-    public JumpCommand(PlayerController player)
-    {
-        playerController = player;
-    }
     public override void Execute()
     {
-        playerController.Jump();
+        base.Execute();
+        CollideAndSlideController.Jump();
        // throw new System.NotImplementedException();
     }
 

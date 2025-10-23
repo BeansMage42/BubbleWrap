@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     }
     public void MoveDir(Vector3 addDir)
     {
-
+        
         moveDir += addDir;
     }
     /*

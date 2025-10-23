@@ -151,8 +151,10 @@ GameObject:
   - component: {fileID: 8036465444530213857}
   - component: {fileID: 4061810113835895244}
   - component: {fileID: 5714076939685051954}
+  - component: {fileID: 5725144569661644882}
   - component: {fileID: 1507164479402097852}
   - component: {fileID: 2033225720535477336}
+  - component: {fileID: 1728257393498197539}
   m_Layer: 0
   m_Name: PlayerBody
   m_TagString: Player
@@ -254,25 +256,13 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5714076939685051954}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveDir
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 1b5e07bd-a320-4b7e-9784-a78c6b00b200
     m_ActionName: GameMode/Move[/Keyboard/a,/Keyboard/d,/Keyboard/w,/Keyboard/s]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5714076939685051954}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 5725144569661644882}
+        m_TargetAssemblyTypeName: CollideAndSlideController, Assembly-CSharp
         m_MethodName: Look
         m_Mode: 0
         m_Arguments:
@@ -302,35 +292,11 @@ MonoBehaviour:
     m_ActionId: e2d83222-a832-4303-9b84-b218a6bbc170
     m_ActionName: GameMode/Interact[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5714076939685051954}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: SprintToggle
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 550cb25b-66b5-4e58-94af-23c89582999e
     m_ActionName: GameMode/Sprint[/Keyboard/shift]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5714076939685051954}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: Jump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 9d2c05de-2328-443f-a7b4-d1eaa00ff95b
     m_ActionName: GameMode/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
@@ -354,8 +320,8 @@ MonoBehaviour:
   numProjectile: 1
   magazineSize: 10
   reloadSpeed: 1
-  numberOfMagazines: 0
-  isFullyAuto: 0
+  numberOfMagazines: 8
+  isFullyAuto: 1
   bulletSpreadVariance: {x: 0.15, y: 0.15, z: 0.15}
   bulletPrefab: {fileID: 8880784694277989873, guid: 7f97636262e1aa44bb2c2358d1103aeb,
     type: 3}
@@ -371,7 +337,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4038720357806462293}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed3a7b97b09971c489a59154cf421bb6, type: 3}
   m_Name: 
@@ -385,6 +351,31 @@ MonoBehaviour:
   maxHealth: 100
   globalVolume: {fileID: 0}
   jumpForce: 10
+--- !u!114 &5725144569661644882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4038720357806462293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25247e23e05a77459e924c523da0f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  maxSlopeAngle: 55
+  maxBounces: 5
+  skinWidth: 0.015
+  rotSpeed: 0.4
+  minYAngle: -45
+  maxYAngle: 45
+  maxSprintMod: 2
+  jumpForce: 10
+  camRotPoint: {fileID: 8284132789359688155}
+  collideLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!82 &1507164479402097852
 AudioSource:
   m_ObjectHideFlags: 0
@@ -500,6 +491,19 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1728257393498197539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4038720357806462293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f349330a64d0b694fabebdde8442531f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &4464301457895889996
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,32 +857,32 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.4351077
+      value: -0.52
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.83911777
+      value: 0.7133117
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.54394984
+      value: -0.700847
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -65.906
+      value: -88.99
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
@@ -925,6 +929,11 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.034359988
       objectReference: {fileID: 0}
+    - target: {fileID: -3887185075125053422, guid: b9b0188605d6cde40a6610bea3e2fc20,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be4d86544314c394e99b5c30fad84c8e, type: 2}
     - target: {fileID: 919132149155446097, guid: b9b0188605d6cde40a6610bea3e2fc20,
         type: 3}
       propertyPath: m_Name
