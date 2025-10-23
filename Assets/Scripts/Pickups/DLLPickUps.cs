@@ -11,7 +11,8 @@ public class DLLPickUps : MonoBehaviour
         String line;
         try
         {
-            string path = Path.Combine(Application.streamingAssetsPath, "DropChance.txt");
+            string path = "Assets/Resources/DropChance.txt";
+            
             StreamReader sr = new StreamReader(path);
             float[] numbers = new float[6];
             float sum = 0;
