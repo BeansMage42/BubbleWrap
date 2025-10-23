@@ -22,17 +22,22 @@ public class InputHandler : MonoBehaviour
     private void Awake()
     {
         
-        foreach (MovementCommand command in commandList) 
-        {
-            boundKeys.Add(command.boundKey,command);
-            bindingDisplay.Add(command.CommandWord, UIManager.instance.PopulateBinding(command.CommandWord,command.boundKey.ToString(), this));
-        }
-
+       
        /* foreach (KeyCode key in boundKeys.Keys) 
         {
             bindingDisplay.Add(boundKeys[key], UIManager.instance.PopulateBinding(boundKeys[key], key.ToString(), this));
         }*/
 
+    }
+    private void Start()
+    {
+        foreach (MovementCommand command in commandList)
+        {
+            boundKeys.Add(command.boundKey, command);
+            bindingDisplay.Add(command.CommandWord, UIManager.instance.PopulateBinding(command.CommandWord, command.boundKey.ToString(), this));
+        }
+        playerController = GameManager.instance.GetPlayer();
+        paused = false;
     }
 
     void Update()

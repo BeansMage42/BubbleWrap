@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PickUp : MonoBehaviour
+public class PickUp : MonoBehaviour, IPickUp
 {
     // Start is called before the first frame update
 
@@ -13,6 +14,9 @@ public class PickUp : MonoBehaviour
 
     [SerializeField] private GameObject[] pickups;
     //[SerializeField] private 
+
+    public static float[] dropChance = new float[6];
+    public static float sum;
 
     public enum PickUpType
     {
@@ -26,15 +30,51 @@ public class PickUp : MonoBehaviour
     }
 
     [SerializeField] private PickUpType type;
+    
+    public PickUpType Collect()
+    {
 
-    private void Awake()
+        
+        
+        return type;
+    }
+    public void PopThisBubble()
+    {
+        Destroy(containedObject.gameObject);
+        print("pop the bubble");
+        popScript.Pop();
+    }
+    private void Update()
+    {
+        transform.LookAt(GameManager.instance.GetPlayer().transform.position);
+        transform.localRotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+    }
+    
+    public void Initialize()
     {
         popScript = GetComponentInChildren<BubblePop>();
         containedObject.gameObject.SetActive(false);
 
-        int temp = (int)Random.Range(0f, 7f);
+        float temp = Random.Range(0f, sum);
 
-        switch (temp)
+        int pickUpNum = 0;
+        if (temp < dropChance[0]) pickUpNum = 0;
+
+        for (int i = 0; i < 5; i++)
+        {
+            print(dropChance[i]);
+            print(temp + " temp values");
+            print(dropChance[i + 1]);
+            if (dropChance[i] <= temp && dropChance[i + 1] > temp)
+            {
+                pickUpNum = i + 1;
+                print("hit");
+            }
+        }
+     
+        print(pickUpNum + " pick up num");
+        //read all lines add 
+        switch (pickUpNum)
         {
             case 0:
                 type = PickUpType.MAGSIZE;
@@ -52,41 +92,15 @@ public class PickUp : MonoBehaviour
                 type = PickUpType.PROJECTILESPEED;
                 containedObject = Instantiate(pickups[3], containedObject.position, containedObject.rotation).transform;
                 break;
-            case 4:
-            case 5: 
+            case 4: 
                 type = PickUpType.HEALTHBONUS;
                 containedObject = Instantiate(pickups[4], containedObject.position, containedObject.rotation).transform;
                 break;
-            case 6:
-            case 7:
-            case 8:
+            case 5:
                 type = PickUpType.MOREAMMO;
                 containedObject = Instantiate(pickups[5], containedObject.position, containedObject.rotation).transform;
                 break;
         }
         print("I exist!");
     }
-    
-    public PickUpType Collect()
-    {
-
-        
-        
-        return type;
-    }
-    public void PopThisBubble()
-    {
-        Destroy(containedObject.gameObject);
-        print("pop the bubble");
-        popScript.Pop();
-    }
-
-    private void Update()
-    {
-        transform.LookAt(GameManager.instance.GetPlayer().transform.position);
-        transform.localRotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-    }
-
-
-
 }

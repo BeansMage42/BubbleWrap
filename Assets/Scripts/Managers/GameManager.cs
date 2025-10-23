@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] GameObject bunnyPrefab;
+    [SerializeField] CreatureFactory creatureFactory;
 
     private int numCuteKilled;
 
@@ -48,14 +49,23 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
+        //playerController = FindObjectOfType<PlayerController>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        PlayerController.OnPlayerDeath += PlayerDied;
         playerController = FindObjectOfType<CollideAndSlideController>();
+        moodSetter = FindObjectOfType<HeavyMetalStarts>();
+        trackSwitched = false;
+        isPlayerDead = false;
+        timerAmount = 0;
+        timerOn = false;
+        kingDead = false;
+        gameActive = true;
+        respawnTimer = 0;
     }
 
     // Update is called once per frame
@@ -104,8 +114,14 @@ public class GameManager : MonoBehaviour
         Vector3 spawnpoint = spawnPos.position + UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
        // print("spawn");
         spawnpoint.y = 1;
-        CuteCreature newCreature = Instantiate(bunnyPrefab, spawnpoint, Quaternion.identity).GetComponent<CuteCreature>();
-        newCreature.aggressive = true;
+        GameObject newCreature = creatureFactory.SpawnICreature(spawnpoint);
+        newCreature.SetActive(true);
+        CuteCreature cuteCreature;
+        if (TryGetComponent<CuteCreature>(out cuteCreature))
+        {
+            cuteCreature.aggressive = true;
+        }
+        
         
         
     }
@@ -125,6 +141,10 @@ public class GameManager : MonoBehaviour
 
     public CollideAndSlideController GetPlayer()
     {
+        if(playerController == null)
+        {
+            playerController = FindObjectOfType<CollideAndSlideController>();
+        }
         return playerController;
     }
     public void ActivateSleeperAgent()
@@ -144,6 +164,7 @@ public class GameManager : MonoBehaviour
             kingDead = true;
             foreach (var creature in cuteCreatures)
             {
+                if(creature == null) continue;
                 creature.gameObject.SetActive(true);
                 creature.aggressive = true;
             }

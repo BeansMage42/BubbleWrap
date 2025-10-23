@@ -633,27 +633,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  mainCanvas: {fileID: 3944324167306147693}
-  timerText: {fileID: 8320281209604072267}
-  timerAmount: 180
   moodSetter: {fileID: 0}
-  upgradeText: {fileID: 2612355428093875231, guid: bd9d455d14ccb314b8f7a5c68078b78f,
-    type: 3}
-  upgradeTextFloatSpeed: 0.5
-  upgradeTextFadeSpeed: 1
-  healthFill: {fileID: 5794529723840063098}
   spawnPos: {fileID: 3504178098742545362}
   maxCuteCreatures: 15
   maxSpawnDistanceFromCenter: 10
   timeBetweenSpawns: 2
   bunnyPrefab: {fileID: 8116394864753642159, guid: 0ecc7182490212944bd984d9f7752f7a,
     type: 3}
-  endScreen: {fileID: 4041686104677179115}
-  winloseText: {fileID: 1632907262923531049}
-  killCountText: {fileID: 6517900335146306802}
-  timeSurvived: {fileID: 2894872601863977373}
-  goalText: {fileID: 5182288171256375835}
-  magazinesCount: {fileID: 344645595987958521}
+  creatureFactory: {fileID: 7685395719680940560, guid: 52101d7a4d567344db7b96de5c66aa72,
+    type: 3}
+  isPlayerDead: 0
 --- !u!1 &6631129309783907677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,15 +1346,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6252479457040127993}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5794529723840063098 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 481615664614748547, guid: c4643100573094044b60120e138236e4,
-    type: 3}
-  m_PrefabInstance: {fileID: 6252479457040127993}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -141,11 +141,14 @@ MonoBehaviour:
   isBubbled: 0
   pickUpPrefab: {fileID: 2755876304470078912, guid: 259dca6e4d792e44088c2ba354ffc450,
     type: 3}
+  pickUpFactory: {fileID: 206196566480647461, guid: e090bee98ecee4c499ff9130275fd8b2,
+    type: 3}
   isKing: 1
   damage: 15
   attackDelay: 0.5
   anims: {fileID: 940537511440987870}
   goreSound: {fileID: 8300000, guid: 366429f65e376dc42b7d7f42a6c48306, type: 3}
+  stabSound: {fileID: 0}
 --- !u!114 &1128903758521683801
 MonoBehaviour:
   m_ObjectHideFlags: 0

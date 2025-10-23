@@ -82,10 +82,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 10
-  aggressive: 0
-  chasingPlayer: 0
+  aggressive: 1
+  chasingPlayer: 1
   isBubbled: 0
   pickUpPrefab: {fileID: 2755876304470078912, guid: 259dca6e4d792e44088c2ba354ffc450,
+    type: 3}
+  pickUpFactory: {fileID: 206196566480647461, guid: e090bee98ecee4c499ff9130275fd8b2,
     type: 3}
   isKing: 0
   damage: 15
@@ -93,6 +95,7 @@ MonoBehaviour:
   anims: {fileID: 7907307171868706180}
   goreSound: {fileID: 8300000, guid: 366429f65e376dc42b7d7f42a6c48306, type: 3}
   stabSound: {fileID: 8300000, guid: ae7b5bc0671a69f4699181ae443267be, type: 3}
+  explode: 0
 --- !u!114 &6500078561227661544
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.Animations;
 using static Unity.VisualScripting.Member;
 
-public class CuteCreature : MonoBehaviour
+public class CuteCreature : MonoBehaviour, ICreature
 {
     // Start is called before the first frame update
 
@@ -22,6 +22,7 @@ public class CuteCreature : MonoBehaviour
     private PlayerHealth playerController;
 
     [SerializeField] GameObject pickUpPrefab;
+    [SerializeField] PickUpFactory pickUpFactory;
     [SerializeField] bool isKing;
 
     private Coroutine waitRoutine;
@@ -36,6 +37,8 @@ public class CuteCreature : MonoBehaviour
     AudioSource source;
     [SerializeField] AudioClip goreSound;
     [SerializeField] AudioClip stabSound;
+
+    public bool explode;
     void Start()
     {
         source = GetComponent<AudioSource>();
@@ -76,12 +79,18 @@ public class CuteCreature : MonoBehaviour
                 ai.isStopped = false;
             }
         }
+
+        if (explode == true)
+        {
+            TakeDamage();
+            explode = false;
+        }
     }
 
     private void Attack()
     {
        // print("attack");
-       if (!isBubbled && !GameManager.instance.isPlayerDead)
+       if (!isBubbled && !GameManager.instance.isPlayerDead && Vector3.Distance(playerController.gameObject.transform.position,gameObject.transform.position)<= ai.stoppingDistance + 2)
        {
            source.clip = stabSound;
            source.Play();
@@ -175,7 +184,8 @@ public class CuteCreature : MonoBehaviour
             if (true)//(chance > 1)
             {
                 print("spawn prize");
-                Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
+                pickUpFactory.SpawnIPickUp(transform.position);
+                //Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
             }
         }
        
@@ -205,4 +215,8 @@ public class CuteCreature : MonoBehaviour
         }
     }
 
+    public void Initialize()
+    {
+        
+    }
 }

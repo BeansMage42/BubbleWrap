@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     bool isGrounded = true;
     [SerializeField] float jumpForce;
+    
+    public static event Action OnPlayerDeath; 
 
     void Start()
     {
@@ -135,13 +138,14 @@ public class PlayerController : MonoBehaviour
         UIManager.instance.AdjustHealth(currentHealth/maxHealth);
         if(currentHealth <= 0)
         {
-            GameManager.instance.PlayerDied();
+            OnPlayerDeath?.Invoke();
+            //GameManager.instance.PlayerDied();
         }
 
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
