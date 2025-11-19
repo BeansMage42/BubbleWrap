@@ -48,6 +48,8 @@ public class BubbleGun : MonoBehaviour
 
     Animator anims;
     bool outOfAmmo;
+
+    GameObjectPool bubblePool;
     private void Awake()
     {
         anims = GetComponentInChildren<Animator>();
@@ -57,6 +59,7 @@ public class BubbleGun : MonoBehaviour
         //print(magSize);
         myWaitFunc = new WaitUntil(() => !isOnCoolDown);
         currentMagLeft = magazineSize;
+        bubblePool = new GameObjectPool(bulletPrefab, 10);
     }
 
     private void Start()
@@ -115,7 +118,14 @@ public class BubbleGun : MonoBehaviour
         {
             currentMagLeft--;
             bubbleContainer.SetAmount((float)currentMagLeft * magSize);
-            Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity).GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(),projectileSpeed);
+            // Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity).GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(),projectileSpeed);
+            GameObject bubble = bubblePool.GetPoolObject();
+            bubble.transform.position = shootPoint.position;
+            bubble.gameObject.SetActive(true);
+            bubble.GetComponent<Bubble>().pool = bubblePool;
+            
+            bubble.GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(), projectileSpeed);
+
             if (currentMagLeft <= 0)
             {
                 break;

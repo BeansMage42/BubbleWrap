@@ -22,12 +22,6 @@ public class InputHandler : MonoBehaviour
     private void Awake()
     {
         
-       
-       /* foreach (KeyCode key in boundKeys.Keys) 
-        {
-            bindingDisplay.Add(boundKeys[key], UIManager.instance.PopulateBinding(boundKeys[key], key.ToString(), this));
-        }*/
-
     }
     private void Start()
     {
@@ -64,14 +58,14 @@ public class InputHandler : MonoBehaviour
                 // Debug.Log(boundKeys[key]);
                 if (Input.GetKeyDown(key))
                 {
-                    Debug.Log("found key");
+                   // Debug.Log("found key");
 
                     commandInvoker.ExecuteCommand(/*CreateCommand(key)*/ boundKeys[key]);
                     
                     
                 }else if (Input.GetKeyUp(key))
                 {
-                    Debug.Log("release key");
+                   // Debug.Log("release key");
                     commandInvoker.ReverseCommand(/*CreateCommand(key)*/ boundKeys[key]);
                 }
             }
@@ -81,7 +75,7 @@ public class InputHandler : MonoBehaviour
     }
     public void StartRebinding(string keyToRebind)
     {
-        Debug.Log("start rebinding");
+      //  Debug.Log("start rebinding");
         foreach (var key in boundKeys.Keys) 
         {
             if (boundKeys[key].CommandWord == keyToRebind)
@@ -99,7 +93,7 @@ public class InputHandler : MonoBehaviour
     {
         if (!boundKeys.ContainsKey(newKeycode))
         {
-            Debug.Log("Rebound " + boundKeys[oldKeycode] + " from " + (int)oldKeycode + " to " + (int)newKeycode);
+          //  Debug.Log("Rebound " + boundKeys[oldKeycode] + " from " + (int)oldKeycode + " to " + (int)newKeycode);
             boundKeys.Add(newKeycode, boundKeys[oldKeycode]);
             boundKeys.Remove(oldKeycode);
             isRebinding = false;

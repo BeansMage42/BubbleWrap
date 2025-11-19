@@ -30,12 +30,13 @@ public class PickUp : MonoBehaviour, IPickUp
     }
 
     [SerializeField] private PickUpType type;
-    
+    private void Awake()
+    {
+       
+    }
+
     public PickUpType Collect()
     {
-
-        
-        
         return type;
     }
     public void PopThisBubble()
@@ -53,6 +54,7 @@ public class PickUp : MonoBehaviour, IPickUp
     public void Initialize()
     {
         popScript = GetComponentInChildren<BubblePop>();
+        popScript.popped = () => Destroy(gameObject);
         containedObject.gameObject.SetActive(false);
 
         float temp = Random.Range(0f, sum);

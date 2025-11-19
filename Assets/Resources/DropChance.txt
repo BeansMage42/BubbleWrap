@@ -9,4 +9,4 @@ Projectile Speed
 Health Bonus
 10
 More Ammo
-10
+20

@@ -90,7 +90,7 @@ public class CuteCreature : MonoBehaviour, ICreature
     private void Attack()
     {
        // print("attack");
-       if (!isBubbled && !GameManager.instance.isPlayerDead && Vector3.Distance(playerController.gameObject.transform.position,gameObject.transform.position)<= ai.stoppingDistance + 2)
+       if (!isBubbled && GameManager.instance.currentState == GameState.GameSwitch && Vector3.Distance(playerController.gameObject.transform.position,gameObject.transform.position)<= ai.stoppingDistance + 2)
        {
            source.clip = stabSound;
            source.Play();
@@ -168,7 +168,7 @@ public class CuteCreature : MonoBehaviour, ICreature
             print("isKing");
             GameManager.instance.ActivateSleeperAgent();
         }
-        GameManager.instance.RemoveCreature(this);
+        
         StopAllCoroutines();
         Die();
     }
@@ -190,6 +190,11 @@ public class CuteCreature : MonoBehaviour, ICreature
         }
        
         gore.Pop();
+        ai.enabled = true;
+        isBubbled = false;
+        GetComponent<Rigidbody>().isKinematic = false;
+        if(isKing)Destroy(gameObject);
+        if(!isKing)GameManager.instance.RemoveCreature(this);
     }
 
     public void Bubble()

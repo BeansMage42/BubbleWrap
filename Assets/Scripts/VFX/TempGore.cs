@@ -62,7 +62,7 @@ public class TempGore : MonoBehaviour
             
             Instantiate(bloodSplash, transform.position, Quaternion.identity);
 
-            Destroy(gameObject);
+           // Destroy(gameObject);
         }
     }
 

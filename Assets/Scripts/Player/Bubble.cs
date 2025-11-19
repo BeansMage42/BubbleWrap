@@ -14,6 +14,7 @@ public class Bubble : MonoBehaviour
 
     [SerializeField]float spawnDelayBeforeDestroyable;
     [SerializeField] float lifeTime;
+    private float life;
     float spawnTimer;
 
     [SerializeField] float minScale, maxScale;
@@ -22,31 +23,40 @@ public class Bubble : MonoBehaviour
     bool hasBounced;
     private CuteCreature capturedCreature;
 
-    private BubblePop bubblePop;
+    public BubblePop bubblePop;
     float speedMod;
 
     int bubbleSizeIncreases;
 
-   
+    bool isActive = false;
+    public GameObjectPool pool;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         bubblePop = GetComponent<BubblePop>();
-        transform.localScale *= Random.Range(minScale, maxScale);
-        lifeTime *= Random.Range(minScale, maxScale);
-        speedMod = Random.Range(minScale, maxScale)/2;
-        //transform.forward = rb.velocity.normalized;
     }
-    // Start is called before the first frame update
-    void Start()
+    private void Activate()
     {
-        
-    }
+       
+        transform.localScale = new Vector3 (1.5f, 1.5f,1.5f) * Random.Range(minScale, maxScale);
+        life = lifeTime * Random.Range(minScale, maxScale);
+        spawnTimer = 0;
+        timer = 0;
+        speedMod = Random.Range(minScale, maxScale) / 2;
+        isActive = true;
+        hasCaputeredEnemy = false;
+        hasBounced = false;
+        capturedCreature = null;
 
+    }
+    private void OnEnable()
+    {
+        Activate();
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isActive) return;
         timer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
         if (rb.velocity.magnitude > 0 && timer >= varianceDelay && !hasCaputeredEnemy && !hasBounced) 
@@ -55,17 +65,19 @@ public class Bubble : MonoBehaviour
             timer = 0;
 
         }
-        if(spawnTimer >= lifeTime && !hasCaputeredEnemy)
+        if(spawnTimer >= life && !hasCaputeredEnemy)
         {
-           // print("destroy because life time");
+            print("destroy because life time");
             bubblePop.Pop();
-            Destroy(this);
+            life = lifeTime;
+            pool.ReturnToPool(gameObject);
         }
 
     }
 
     public void SetMotion(Vector3 dir, float startSpeed)
     {
+        //Activate();
         targetDir = dir;
         rb.velocity = dir * startSpeed;
     }
@@ -92,9 +104,9 @@ public class Bubble : MonoBehaviour
         if(spawnTimer >= spawnDelayBeforeDestroyable && hasCaputeredEnemy) return; 
         if(col.transform.localScale.magnitude > transform.localScale.magnitude)
         {
-          //  print("destroy because smaller");
+            print("destroy because smaller");
             bubblePop.Pop();
-            Destroy(this);
+            pool.ReturnToPool(gameObject);
         }
         else if(bubbleSizeIncreases < 2)
         {
@@ -106,7 +118,7 @@ public class Bubble : MonoBehaviour
 
     private void CaptureEnemy(CuteCreature cute)
     {
-       // Debug.Log("bubble");
+        Debug.Log("bubble");
         if (capturedCreature != null) return;
         capturedCreature = cute;
         capturedCreature.Bubble();
@@ -125,10 +137,10 @@ public class Bubble : MonoBehaviour
         {
             capturedCreature.transform.parent = null;
             capturedCreature.GetComponent<Rigidbody>().isKinematic = false;
-           // print("destroy because pop timer");
+            print("destroy because pop timer");
         }
         bubblePop.Pop();
-        Destroy(this);
+        pool.ReturnToPool(gameObject);
     }
 
     
