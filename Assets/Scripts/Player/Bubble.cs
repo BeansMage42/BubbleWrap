@@ -30,10 +30,12 @@ public class Bubble : MonoBehaviour
 
     bool isActive = false;
     public GameObjectPool pool;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         bubblePop = GetComponent<BubblePop>();
+        bubblePop.popped += () => pool.ReturnToPool(gameObject);
     }
     private void Activate()
     {
@@ -68,13 +70,13 @@ public class Bubble : MonoBehaviour
         if(spawnTimer >= life && !hasCaputeredEnemy)
         {
             print("destroy because life time");
+            isActive = false;
             bubblePop.Pop();
             life = lifeTime;
-            pool.ReturnToPool(gameObject);
+            
         }
 
     }
-
     public void SetMotion(Vector3 dir, float startSpeed)
     {
         //Activate();
@@ -140,7 +142,7 @@ public class Bubble : MonoBehaviour
             print("destroy because pop timer");
         }
         bubblePop.Pop();
-        pool.ReturnToPool(gameObject);
+        
     }
 
     

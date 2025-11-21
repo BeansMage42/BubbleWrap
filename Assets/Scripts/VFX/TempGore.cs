@@ -23,17 +23,11 @@ public class TempGore : MonoBehaviour
     private bool hasCol;
 
     private DecalProjector _decal;
-   
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    private void OnEnable()
     {
-        
+        hasCol = false;
     }
 
     public void Pop()

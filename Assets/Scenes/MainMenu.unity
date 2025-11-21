@@ -7560,6 +7560,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3703552697684539291, guid: 70979d2540d44474e84ff9e4db7e4ee9,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3703552697684539291, guid: 70979d2540d44474e84ff9e4db7e4ee9,
+        type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4513530022489664348, guid: 70979d2540d44474e84ff9e4db7e4ee9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
