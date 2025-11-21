@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     // private List<CuteCreature> cuteCreatures = new List<CuteCreature>();
     private GameObjectPool bunnyPool;
+    public GameObjectPool gorePool;
+    [SerializeField] private GameObject bloodPuddle;
 
     private float timerAmount = 0;
 
@@ -72,7 +74,8 @@ public class GameManager : MonoBehaviour
         timerAmount = 0;
         respawnTimer = 0;
         activeCreatures = 10;
-        bunnyPool = new GameObjectPool(bunnyPrefab, 0);
+        bunnyPool = new GameObjectPool(bunnyPrefab, maxCuteCreatures);
+        gorePool = new GameObjectPool(bloodPuddle, 20);
     }
 
     // Update is called once per frame

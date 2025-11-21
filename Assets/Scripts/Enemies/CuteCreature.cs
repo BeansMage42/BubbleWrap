@@ -58,10 +58,12 @@ public class CuteCreature : MonoBehaviour, ICreature
     // Update is called once per frame
     void Update()
     {
+        if (isBubbled) return;
         anims.SetFloat("Speed", ai.velocity.magnitude);
-        if (chasingPlayer && !isBubbled) 
+        if (chasingPlayer) 
         {
-           // print("chasing behaviour");
+            
+            // print("chasing behaviour");
             ai.SetDestination(playerController.transform.position);
 
             if (ai.remainingDistance <= (ai.stoppingDistance+2))
@@ -151,7 +153,8 @@ public class CuteCreature : MonoBehaviour, ICreature
 
     private void OnTriggerEnter(Collider other)
     {
-        if (aggressive && other.tag == "Player" && !isBubbled) 
+        if (isBubbled) return;
+        if (aggressive && other.CompareTag("Player")) 
         {
             ai.isStopped = false ;
             StopAllCoroutines();
@@ -165,7 +168,6 @@ public class CuteCreature : MonoBehaviour, ICreature
     {
         if (isKing)
         {
-            print("isKing");
             GameManager.instance.ActivateSleeperAgent();
         }
         
@@ -175,18 +177,14 @@ public class CuteCreature : MonoBehaviour, ICreature
 
     private void Die()
     {
-        print("die");
+       // print("die");
        
         //int chance = (int)Random.Range(0, 3);
         if (pickUpPrefab != null)
         {
-            print("has prize");
-            if (true)//(chance > 1)
-            {
-                print("spawn prize");
+          
                 pickUpFactory.SpawnIPickUp(transform.position);
-                //Instantiate(pickUpPrefab, transform.position + Vector3.up, Quaternion.identity);
-            }
+               
         }
        
         gore.Pop();
@@ -201,6 +199,7 @@ public class CuteCreature : MonoBehaviour, ICreature
     {
         
         GetComponent<Rigidbody>().isKinematic = true;
+        anims.SetFloat("Speed", 0);
         StopAllCoroutines();
         ai.enabled = false;
         isBubbled = true;
@@ -212,7 +211,8 @@ public class CuteCreature : MonoBehaviour, ICreature
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.tag == "Ground" && isBubbled)
+        if (!isBubbled) return;
+        if(collision.collider.CompareTag("Ground") )
         {
             source.clip = goreSound;
             AudioSource.PlayClipAtPoint(goreSound, transform.position,30f);

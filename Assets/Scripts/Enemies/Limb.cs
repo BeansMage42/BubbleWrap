@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class Limb : MonoBehaviour
 {
-    [SerializeField] private GameObject bloodPool;
+   // [SerializeField] private GameObject bloodPool;
     [SerializeField] private float bleedSpeed;
     [SerializeField] private LayerMask ground;
 
@@ -38,7 +38,8 @@ public class Limb : MonoBehaviour
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
                     ground))
             {
-                _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
+                 SpawnDecalProjector(hit.point);
+                /*_decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();*/
                 _decal.GetComponent<BloodPool>().SetSize(rb.velocity.magnitude);
             }
         }
@@ -51,6 +52,14 @@ public class Limb : MonoBehaviour
         _timeStayed = 0;
     }
 
+    private void SpawnDecalProjector(Vector3 location)
+    {
+        _decal = GameManager.instance.gorePool.GetPoolObject().GetComponent<DecalProjector>();
+        Transform decalTransform = _decal.transform;
+        decalTransform.position = location + new Vector3(0, 0.8f, 0);
+        decalTransform.rotation = Quaternion.Euler(90, 0, 0);
+        _decal.gameObject.SetActive(true);
+    }
     private void OnCollisionStay(Collision other)
     {
         _timeStayed += Time.deltaTime;
@@ -62,7 +71,8 @@ public class Limb : MonoBehaviour
             if (Physics.Raycast(transform.position + new Vector3(0, 1f, 0), new Vector3(0, -1f, 0), out hit, 5,
                     ground))
             {
-                _decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();
+                /*_decal = Instantiate(bloodPool, hit.point + new Vector3(0, 0.8f, 0), Quaternion.Euler(90, 0, 0)).GetComponent<DecalProjector>();*/
+                SpawnDecalProjector(hit.point);
                 _decal.GetComponent<BloodPool>().SetSize(rb.velocity.magnitude);
             }
         }

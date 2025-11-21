@@ -13,10 +13,17 @@ public class BloodPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _decal = GetComponent<DecalProjector>();
-        StartCoroutine(KillAfterTime()); 
+        
+        
     }
-
+    private void OnEnable()
+    {
+        _amountBled = 0.5f;
+        maxSize = 0;
+       if(_decal == null) _decal = GetComponent<DecalProjector>();
+        _decal.size = new Vector3(_amountBled * 2, _amountBled * 2, 1f);
+        StartCoroutine(KillAfterTime());
+    }
     public void SetSize(float size)
     {
         if (size > 1)
@@ -45,6 +52,6 @@ public class BloodPool : MonoBehaviour
     IEnumerator KillAfterTime()
     {
         yield return new WaitForSeconds(Random.Range(10, 15));
-        Destroy(gameObject);
+        GameManager.instance.gorePool.ReturnToPool(gameObject);
     }
 }

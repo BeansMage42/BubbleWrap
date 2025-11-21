@@ -33,15 +33,15 @@ public class GameObjectPool
         if(pool.Count == 0)
         {
             foundObject = GameObject.Instantiate(objectToPool);
-            Debug.Log("spawn new");
+            //Debug.Log("spawn new");
         }
         else
         {
             foundObject = pool[0];
             pool.Remove(foundObject);
-            Debug.Log("found in pool " + pool.Count);
+            //Debug.Log("found in pool " + pool.Count);
         }
-        Debug.Log("retrieved from pool");
+       // Debug.Log("retrieved from pool");
         return foundObject;
     }
 

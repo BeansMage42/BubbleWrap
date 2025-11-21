@@ -69,7 +69,7 @@ public class Bubble : MonoBehaviour
         }
         if(spawnTimer >= life)
         {
-            print("destroy because life time");
+           // print("destroy because life time");
             isActive = false;
             bubblePop.Pop();
             life = lifeTime;
@@ -106,7 +106,7 @@ public class Bubble : MonoBehaviour
         if(spawnTimer >= spawnDelayBeforeDestroyable && hasCaputeredEnemy) return; 
         if(col.transform.localScale.magnitude > transform.localScale.magnitude)
         {
-            print("destroy because smaller");
+           // print("destroy because smaller");
             bubblePop.Pop();
             pool.ReturnToPool(gameObject);
         }
@@ -120,7 +120,7 @@ public class Bubble : MonoBehaviour
 
     private void CaptureEnemy(CuteCreature cute)
     {
-        Debug.Log("bubble");
+       // Debug.Log("bubble");
         if (capturedCreature != null) return;
         isActive = false;
         capturedCreature = cute;
@@ -140,7 +140,7 @@ public class Bubble : MonoBehaviour
         {
             capturedCreature.transform.parent = null;
             capturedCreature.GetComponent<Rigidbody>().isKinematic = false;
-            print("destroy because pop timer");
+           // print("destroy because pop timer");
         }
         bubblePop.Pop();
         
@@ -150,7 +150,7 @@ public class Bubble : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.name);
+       // print(other.gameObject.name);
 
         if (!hasCaputeredEnemy)
         {

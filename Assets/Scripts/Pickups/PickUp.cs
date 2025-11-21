@@ -10,9 +10,9 @@ public class PickUp : MonoBehaviour, IPickUp
     // Start is called before the first frame update
 
     BubblePop popScript;
-    [SerializeField] private Transform containedObject;
 
     [SerializeField] private GameObject[] pickups;
+    private Transform lookAtTarget;
     //[SerializeField] private 
 
     public static float[] dropChance = new float[6];
@@ -41,21 +41,23 @@ public class PickUp : MonoBehaviour, IPickUp
     }
     public void PopThisBubble()
     {
-        Destroy(containedObject.gameObject);
         print("pop the bubble");
         popScript.Pop();
     }
     private void Update()
     {
-        transform.LookAt(GameManager.instance.GetPlayer().transform.position);
+        if(lookAtTarget == null)return;
+        transform.LookAt(lookAtTarget);
         transform.localRotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, transform.rotation.w);
     }
     
     public void Initialize()
     {
+        foreach(GameObject item in pickups) item.SetActive(false);
+        if (lookAtTarget == null) lookAtTarget = GameManager.instance.GetPlayer().transform;
         popScript = GetComponentInChildren<BubblePop>();
         popScript.popped = () => Destroy(gameObject);
-        containedObject.gameObject.SetActive(false);
+
 
         float temp = Random.Range(0f, sum);
 
@@ -64,45 +66,38 @@ public class PickUp : MonoBehaviour, IPickUp
 
         for (int i = 0; i < 5; i++)
         {
-            print(dropChance[i]);
-            print(temp + " temp values");
-            print(dropChance[i + 1]);
+            
             if (dropChance[i] <= temp && dropChance[i + 1] > temp)
             {
                 pickUpNum = i + 1;
-                print("hit");
+                //print("hit");
             }
         }
      
-        print(pickUpNum + " pick up num");
         //read all lines add 
         switch (pickUpNum)
         {
             case 0:
                 type = PickUpType.MAGSIZE;
-                containedObject = Instantiate(pickups[0], containedObject.position, containedObject.rotation).transform;
+                
                 break;
             case 1:
                 type = PickUpType.FIRERATE; 
-                containedObject = Instantiate(pickups[1], containedObject.position, containedObject.rotation).transform;
                 break;
             case 2:
                 type = PickUpType.BULLETSPREAD;
-                containedObject = Instantiate(pickups[2], containedObject.position, Quaternion.identity).transform;
                 break;
             case 3:
                 type = PickUpType.PROJECTILESPEED;
-                containedObject = Instantiate(pickups[3], containedObject.position, containedObject.rotation).transform;
                 break;
             case 4: 
                 type = PickUpType.HEALTHBONUS;
-                containedObject = Instantiate(pickups[4], containedObject.position, containedObject.rotation).transform;
                 break;
             case 5:
                 type = PickUpType.MOREAMMO;
-                containedObject = Instantiate(pickups[5], containedObject.position, containedObject.rotation).transform;
                 break;
         }
-        print("I exist!");
+        pickups[pickUpNum].SetActive(true);
+     //   print("I exist!");
     }
 }
