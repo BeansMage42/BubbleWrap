@@ -61,13 +61,13 @@ public class Bubble : MonoBehaviour
         if (!isActive) return;
         timer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
-        if (rb.velocity.magnitude > 0 && timer >= varianceDelay && !hasCaputeredEnemy && !hasBounced) 
+        if (rb.velocity.magnitude > 0 && timer >= varianceDelay && !hasBounced) 
         {
             rb.velocity = (targetDir + AddNoiseOnAngle(minNoise, maxNoise)).normalized * rb.velocity.magnitude;
             timer = 0;
 
         }
-        if(spawnTimer >= life && !hasCaputeredEnemy)
+        if(spawnTimer >= life)
         {
             print("destroy because life time");
             isActive = false;
@@ -122,6 +122,7 @@ public class Bubble : MonoBehaviour
     {
         Debug.Log("bubble");
         if (capturedCreature != null) return;
+        isActive = false;
         capturedCreature = cute;
         capturedCreature.Bubble();
         
