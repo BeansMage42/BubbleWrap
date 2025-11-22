@@ -124,20 +124,6 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "4ef3044c0c3c42e6a4ec76af70817e8c"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "2daf73de41d24f6c86e8580e5065e6af"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
                     "m_Id": "4f3e273414744bf8a72e5647c0c0e0c6"
                 },
                 "m_SlotId": 0
@@ -195,6 +181,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "29028b390f0f4e52b2d095422a6f5a2a"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "8582300aee3443ccbd28e0d98d5daecf"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "4ef3044c0c3c42e6a4ec76af70817e8c"
                 },
                 "m_SlotId": 0
             }
@@ -1113,7 +1113,7 @@
     "m_ShaderOutputName": "B",
     "m_StageCapability": 3,
     "m_Value": {
-        "e00": 0.5,
+        "e00": 0.05000000074505806,
         "e01": 2.0,
         "e02": 2.0,
         "e03": 2.0,
@@ -1178,9 +1178,9 @@
         "m_Position": {
             "serializedVersion": "2",
             "x": -416.6666564941406,
-            "y": 511.9999694824219,
+            "y": 589.3333129882813,
             "width": 209.33331298828126,
-            "height": 304.0000305175781
+            "height": 303.99993896484377
         }
     },
     "m_Slots": [
@@ -1244,9 +1244,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -154.0,
-            "y": 664.0,
-            "width": 209.33334350585938,
+            "x": -14.666675567626954,
+            "y": 767.333251953125,
+            "width": 209.33326721191407,
             "height": 304.0
         }
     },
