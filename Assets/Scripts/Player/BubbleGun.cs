@@ -40,7 +40,7 @@ public class BubbleGun : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer shart;
     [SerializeField] private VolumeAdjuster bubbleContainer;
     
-     private PlayerController playerController;
+     private PlayerHealth playerHealth;
 
     [Header("AUDIO")]
     AudioSource audioSource;
@@ -48,15 +48,18 @@ public class BubbleGun : MonoBehaviour
 
     Animator anims;
     bool outOfAmmo;
+
+    GameObjectPool bubblePool;
     private void Awake()
     {
         anims = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
-        playerController = GetComponent<PlayerController>();
+        playerHealth = GetComponent<PlayerHealth>();
         magSize = 1f / magazineSize;
         //print(magSize);
         myWaitFunc = new WaitUntil(() => !isOnCoolDown);
         currentMagLeft = magazineSize;
+        bubblePool = new GameObjectPool(bulletPrefab, 10);
     }
 
     private void Start()
@@ -91,7 +94,7 @@ public class BubbleGun : MonoBehaviour
 
     private void TryAttack()
     {
-        Debug.Log(CanAttack());
+        //Debug.Log(CanAttack());
         if (!CanAttack()) return;
         Attack();
         StartCoroutine(CoolDown());
@@ -115,7 +118,14 @@ public class BubbleGun : MonoBehaviour
         {
             currentMagLeft--;
             bubbleContainer.SetAmount((float)currentMagLeft * magSize);
-            Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity).GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(),projectileSpeed);
+            // Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity).GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(),projectileSpeed);
+            GameObject bubble = bubblePool.GetPoolObject();
+            bubble.transform.position = shootPoint.position;
+            bubble.gameObject.SetActive(true);
+            bubble.GetComponent<Bubble>().pool = bubblePool;
+            
+            bubble.GetComponent<Bubble>().SetMotion(shootPoint.forward + GetDirection(), projectileSpeed);
+
             if (currentMagLeft <= 0)
             {
                 break;
@@ -187,7 +197,7 @@ public class BubbleGun : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("gunTrigger");
+        //print("gunTrigger");
         if (other.tag == "Pickup")
         {
             string pickupType = "";   
@@ -210,7 +220,7 @@ public class BubbleGun : MonoBehaviour
                     pickupType = "Accuracy increased";
                     break;
                 case "HEALTHBONUS":
-                    playerController.TakeDamage(-30);
+                    playerHealth.TakeDamage(-30);
                     pickupType = "Healed";
                     break;
                 case "PROJECTILESPEED":

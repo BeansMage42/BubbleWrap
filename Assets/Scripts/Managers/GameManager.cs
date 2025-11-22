@@ -11,19 +11,21 @@ public class GameManager : MonoBehaviour
     //public PlayerController playerController;
     public CollideAndSlideController playerController;
 
-    private List<CuteCreature> cuteCreatures = new List<CuteCreature>();
+    // private List<CuteCreature> cuteCreatures = new List<CuteCreature>();
+    private GameObjectPool bunnyPool;
+    public GameObjectPool gorePool;
+    [SerializeField] private GameObject bloodPuddle;
 
     private float timerAmount = 0;
-    private bool timerOn;
 
     [SerializeField] private HeavyMetalStarts moodSetter;
 
     [Header("GameRules")] [SerializeField] private Transform spawnPos;
     [SerializeField] int maxCuteCreatures;
+    private int activeCreatures;
     [SerializeField] float maxSpawnDistanceFromCenter;
     [SerializeField] float timeBetweenSpawns;
      float respawnTimer;
-    bool kingDead;
 
 
     [SerializeField] GameObject bunnyPrefab;
@@ -31,11 +33,15 @@ public class GameManager : MonoBehaviour
 
     private int numCuteKilled;
 
+    /*bool kingDead;
     bool gameActive = true;
-
     bool trackSwitched;
+    private bool timerOn;
+    public bool isPlayerDead;*/
 
-    public bool isPlayerDead;
+
+
+    public GameState currentState;
     private void Awake()
     {
         if (instance != null)
@@ -59,20 +65,24 @@ public class GameManager : MonoBehaviour
         PlayerController.OnPlayerDeath += PlayerDied;
         playerController = FindObjectOfType<CollideAndSlideController>();
         moodSetter = FindObjectOfType<HeavyMetalStarts>();
-        trackSwitched = false;
+        /*trackSwitched = false;
         isPlayerDead = false;
-        timerAmount = 0;
-        timerOn = false;
         kingDead = false;
-        gameActive = true;
+        timerOn = false;
+        gameActive = true;*/
+        currentState = GameState.GameStart;
+        timerAmount = 0;
         respawnTimer = 0;
+        activeCreatures = 10;
+        bunnyPool = new GameObjectPool(bunnyPrefab, maxCuteCreatures);
+        gorePool = new GameObjectPool(bloodPuddle, 20);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameActive) return;
-        if (timerAmount > -1 && timerOn)
+        if (currentState != GameState.GameSwitch) return;
+        if (timerAmount > -1 )
         {
             // Subtract elapsed time every frame
             timerAmount += Time.deltaTime;
@@ -86,14 +96,8 @@ public class GameManager : MonoBehaviour
             // Set the text string
            UIManager.instance.UpdateTimer(string.Format("{0:00}:{1:00}", minutes, seconds));
         }
-        else if (timerOn)
-        {
-            UIManager.instance.UpdateTimer( "Time's up");
-            timerAmount = 0;
-            EndGame("You Survived!");
-        }
         
-        if(cuteCreatures.Count < maxCuteCreatures && kingDead)
+        if(activeCreatures < maxCuteCreatures)
         {
             respawnTimer += Time.deltaTime;
             if (timeBetweenSpawns > 1)
@@ -101,6 +105,7 @@ public class GameManager : MonoBehaviour
             if (respawnTimer >= (timeBetweenSpawns))
             {
                 respawnTimer = 0;
+               
                 SpawnCreature();
             }
         }
@@ -110,30 +115,38 @@ public class GameManager : MonoBehaviour
 
     private void SpawnCreature()
     {
+        activeCreatures++;
         print("spawn");
         Vector3 spawnpoint = spawnPos.position + UnityEngine.Random.insideUnitSphere * Random.Range(1,maxSpawnDistanceFromCenter);
        // print("spawn");
         spawnpoint.y = 1;
-        GameObject newCreature = creatureFactory.SpawnICreature(spawnpoint);
-        newCreature.SetActive(true);
+        GameObject newCreature = null;
+        if (bunnyPool.pool.Count > 0)
+        {
+            newCreature = bunnyPool.GetPoolObject();
+            newCreature.transform.position = spawnpoint;
+            newCreature.SetActive(true);
+        }
+        else
+        {
+          newCreature =  creatureFactory.SpawnICreature(spawnpoint);
+          newCreature.SetActive(true);
+        }
         CuteCreature cuteCreature;
         if (TryGetComponent<CuteCreature>(out cuteCreature))
         {
             cuteCreature.aggressive = true;
         }
-        
-        
-        
     }
     public void addCreature(CuteCreature creature)
     {
-        cuteCreatures.Add(creature);
+        
     }
     public void RemoveCreature(CuteCreature creature) 
     {
-       // if (cuteCreatures.Contains(creature)) { Debug.Log("contains"); }
-        cuteCreatures.Remove(creature);
-        if (gameActive)
+       bunnyPool.ReturnToPool(creature.gameObject);
+        activeCreatures--;
+        if (currentState == GameState.GameSwitch)
         {
             numCuteKilled++;
         }
@@ -149,26 +162,20 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateSleeperAgent()
     {
+        if(currentState != GameState.GameStart) return;
+        currentState = GameState.GameSwitch;
         UIManager.instance.ActivateUI();
-        timerOn = true;
+        //timerOn = true;
         moodSetter.ChangeMood();
-        if (!trackSwitched)
-        {
-            trackSwitched = true;
             FindAnyObjectByType<MusicPlayer>().SwapTracks();
-        }
-       
-       // print("sleepers activated");
-        if (cuteCreatures.Count > 0)
-        {
-            kingDead = true;
-            foreach (var creature in cuteCreatures)
+        
+            foreach (var creature in bunnyPool.pool)
             {
                 if(creature == null) continue;
-                creature.gameObject.SetActive(true);
-                creature.aggressive = true;
+                creature.SetActive(true);
+                creature.GetComponent<CuteCreature>().aggressive = true;
             }
-        }
+        
 
     }
 
@@ -178,16 +185,17 @@ public class GameManager : MonoBehaviour
     }
     public void PlayerDied()
     {
-        isPlayerDead = true;
+        //isPlayerDead = true;
         EndGame("You Died!");
     }
 
     private void EndGame(string winlose)
     {
-        if (gameActive)
+        if (currentState == GameState.GameSwitch)
         {
+            currentState = GameState.GameEnd;
             Cursor.lockState = CursorLockMode.None;
-            gameActive = false;
+            //gameActive = false;
             playerController.gameObject.GetComponent<PlayerInput>().actions.FindActionMap("GameMode").Disable();
             UIManager.instance.ConfigureDeathScreen(winlose, numCuteKilled);
         }
@@ -195,12 +203,21 @@ public class GameManager : MonoBehaviour
 
     public void KillAllCreatures()
     {
-        int i = cuteCreatures.Count;
+        int i = bunnyPool.pool.Count;
 
         for(int x = 0; x < i -1; x++)
         {
-            cuteCreatures[0].TakeDamage();
+            bunnyPool.pool[i].GetComponent<CuteCreature>().TakeDamage();
         }
     }
     
+}
+
+public enum GameState
+{
+    MainMenu,
+    GameStart,
+    GameSwitch,
+    GameEnd
+
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,9 @@ public class BubblePop : MonoBehaviour
     private bool pop;
     [SerializeField] AudioClip popSound;
     AudioSource source;
+    public Action popped;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mat = GetComponent<MeshRenderer>().material;
         ps = GetComponentInChildren<ParticleSystem>();
@@ -30,6 +32,14 @@ public class BubblePop : MonoBehaviour
         source.Play();
         
     }
+
+    private void OnEnable()
+    {
+        pop = false;
+        popAmount = 0;
+        mat.SetFloat("_DissolveAmount", popAmount);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,16 +52,13 @@ public class BubblePop : MonoBehaviour
             }
             else
             {
-                Destroy(GetComponent<MeshRenderer>());
-                Destroy(GetComponent<SphereCollider>());
+               // Destroy(GetComponent<MeshRenderer>());
+               // Destroy(GetComponent<SphereCollider>());
                 pop = false;
+                popAmount = 0;
+                mat.SetFloat("_DissolveAmount",popAmount);
+                popped?.Invoke();
             }
-        }
-
-        if (ps.isStopped && play)
-        {
-           // Debug.Log("destroy");
-            Destroy(gameObject.transform.root.gameObject);
         }
     }
 }
