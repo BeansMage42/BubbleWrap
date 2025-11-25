@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         respawnTimer = 0;
         activeCreatures = 10;
         bunnyPool = new GameObjectPool(bunnyPrefab, maxCuteCreatures);
-        gorePool = new GameObjectPool(bloodPuddle, 20);
+        gorePool = new GameObjectPool(bloodPuddle, 100);
     }
 
     // Update is called once per frame
