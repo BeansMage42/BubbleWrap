@@ -6,29 +6,23 @@ using UnityEngine;
 
 public class DLLPickUps : MonoBehaviour
 {
+    public TextAsset asset;
     void Start()
     {
-        String line;
         try
         {
-            string path = "Assets/Resources/DropChance.txt";
-            
-            
-            if (File.Exists(path))
-            {
-                print(File.ReadAllText(path));
-                print("Jonah  Gibson");
-            }
-            StreamReader sr = new StreamReader(path);
+            TextAsset textFile = Resources.Load<TextAsset>("DropChance");
+            string[] lines = textFile.text.Split('\n');
+
             float[] numbers = new float[6];
             float sum = 0;
 
             for (int i = 0; i < 12; i++)
             {
-                line = sr.ReadLine();
+                
                 if (i % 2 != 0)
                 {
-                    float n = float.Parse(line);
+                    float n = float.Parse(lines[i]);
                     numbers[(int)(i* 0.5f)] = n;
                     sum += n;
                     print(n);
@@ -48,7 +42,7 @@ public class DLLPickUps : MonoBehaviour
             
             //line = sr.ReadLine();
             
-            sr.Close();
+           // sr.Close();
         }
         catch(Exception e)
         {
