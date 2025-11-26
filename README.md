@@ -223,5 +223,144 @@ refer to screenshot 2
 
 I used a dll to create a weighted sheet where you can set the drop chances for the pickups. The previous way we handled the these values was through manually setting values in the script. This required recompiling and this new implementation solves that. This also allows us to save multiple weighted chart so we can quickly swap between them for testing. 
 
+FINAL SUBMISSION
+
+Object Pooling
+
+Pseudocode
+
+Public GameObjectPool{
+List<object> inactivePool;
+Object object to pool;
+
+constructor(object to pool, int num to initialize with){
+Object to pool = object to pool
+for(num to initialize with){
+Instantiate the object to pool and add to inactivepool, set the object to inactive
+}
+
+Public object Retrievefrompool(){
+If pool is empty instantiate a new object and return it
+Else return the first object in the pool and remove it from the pool
+}
+
+Public returntopool(object)
+{
+Adds the object back to the inactive pool
+}
+
+}
+
+}
+
+Gamemanager{
+GameObjectPool bunnyPool = new Gameobjectpool(enemy prefab, 10)
+
+SpawnEnemy()
+{
+Enemy = bunnyPool.retrieveFromPool()
+Set the position of the found enemy and activate it
+}
+
+
+}
+
+Enemy{
+Die(){
+Return this to the gameManager bunnyPool and deactivate it
+}
+}
+
+The generic object pooling script contains a list of gameObjects and a reference to an object prefab that it will be pooling. When an instance of the class is created, its constructor is passed both the prefab and how many it will start with in the pool. This pool was implemented in multiple systems, the key few are enemy spawning, the bubble shooter and gore creation. These systems were chosen because they each create multiple instances of identical prefabs that are subsequently destroyed. Rather than destroy and remake prefabs over and over, pooling them simply deactivates and reactivates the objects, changing parameters as this happens, allowing them to be reused. Reusing gameobjects significantly reduces garbage, improving performance during garbage collection. The pool was not made a mono behaviour allowing it to be reusable to pool all game object types and be fully controlled and instantiated by the scripts that would manage the pools themselves. 
+
+Dirty flag:
+
+Bubble{
+Bool isActive;
+update(){
+If active
+Increase life timer
+Move bubble forward
+if(timer >= lifetime){
+Pop bubble
+Active = false;
+}
+
+}
+}
+
+When any script retrieves a bubble from the bubble pool, set pop to false
+
+The IsActive boolean is used as a dirty flag in the Bubble script, preventing several functions from running within the update loop when the bubble is no longer active. As long as the flag is true, the lifetime timer counts up, the motion is calculated and it checks if it has reached its lifespan. The flag is set to false when the lifetime runs out or the bubble begins to pop. This significantly reduces unnecessary calculations and prevents triggers from activating multiple times such as the pop trigger when the timer runs out.
+
+State Pattern:
+
+Enum gamestate{
+Menu
+Gamestarted
+Gameswitch
+gameend
+}
+
+Gamemanger{
+Gamestate currentstate;
+
+sceneswitch(){
+Set gamestate to game started
+}
+
+Activatecombatmode(){
+If the state isnt gamestarted, return
+Else set the state to switch and switch the music, scenery, and enemies to hostile
+}
+
+update(){
+If the state is gameswitch, start the enemy spawning timer and checks
+}
+
+Playerdies(){
+If the state isnt gameend, set state to game end and start UI populating
+}
+
+}
+
+Enemy{
+Attack(){
+If the game managers state is gameswitch they deal damage to the player
+}
+}
+
+State pattern is primarily used in the game manager to check what state of gameplay the player has engaged to prevent checks from being triggered twice or from being triggered at the wrong time. Further, it prevents superfluous calculations from being done when the state doesnt require them, such as the timers. The game can be easily divided into two major states, before the theme swap and after the theme swap (before and after king bunny is killed), with a menu state and game over state to further prevent checks. Implementing the pattern in this way removed the need for a significant number of booleans which increased code readability and useability.
+
+
+Improvements:
+
+We found that there were not many substantial improvements that could be made to our implementations from the progress demo, therefore we elected to make other scene and code improvements.
+pickups
+Before
+<img width="317" height="397" alt="Screenshot 2025-11-26 162443" src="https://github.com/user-attachments/assets/2fd6f07b-c2a9-47e1-9c01-13b83fe766e4" />
+After:
+<img width="839" height="470" alt="Screenshot 2025-11-26 162540" src="https://github.com/user-attachments/assets/3aaf6e4f-a339-463c-8073-bc95cc61fe1f" />
+
+Instead of instantiating the appropriate icon for each pickup when it is spawned in, it now has all the icons already on the prefab but they are not enabled until it is spawned. This reduces unneeded instantiations and makes the code cleaner. 
+
+audio loading
+before
+<img width="841" height="442" alt="Screenshot 2025-11-26 162939" src="https://github.com/user-attachments/assets/c8fe3c68-66ba-4056-8904-db28f2520672" />
+<img width="288" height="215" alt="Screenshot 2025-11-26 163108" src="https://github.com/user-attachments/assets/0f462e88-cef1-4fea-b019-35e9807671c5" />
+after
+<img width="868" height="329" alt="Screenshot 2025-11-26 163625" src="https://github.com/user-attachments/assets/383b3132-8caf-4e9c-81a7-1c8192cf4aaa" />
+<img width="296" height="228" alt="Screenshot 2025-11-26 163715" src="https://github.com/user-attachments/assets/3d26e55b-08a8-4520-8a27-eabe6bcc0dea" />
+<img width="441" height="471" alt="Screenshot 2025-11-26 163739" src="https://github.com/user-attachments/assets/44289d17-0b1d-4226-b29e-a2ec69125510" />
+We set the music to load in background rather than when its first used which completely eliminated a lag spike when the music switched. It was difficult to get screenshots of the exact moment, but when the music tried to load originally it took up the main thread which would cause a noticeable freeze which looked really bad.
+
+Profiling:
+Pre bloodsplatter object pooling
+<img width="833" height="885" alt="Screenshot 2025-11-26 161659" src="https://github.com/user-attachments/assets/bdaeaadd-a030-4d61-a092-983b50c2ff8f" />
+post object pooling
+<img width="695" height="640" alt="Screenshot 2025-11-26 161326" src="https://github.com/user-attachments/assets/2b6427f3-1514-4b88-9636-a430073ed7c7" />
+You will see that after adding object pooling to the bloodsplatter, there are no longer massive spikes in the performance. This is due to the fact that it is no longer trying to instantiate and destroy objects, only changing their status, position and visibility.
+
+Our DLL does not increase performance, instead it makes modifications to the code easier. By creating a list of the possible spawns and their drop chances, you can edit that file rather than recompile the code every time you want to make a change. This significantly reduces the amount of time you are waiting for unity to compile the project. 
 
 
