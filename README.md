@@ -338,20 +338,25 @@ Improvements:
 We found that there were not many substantial improvements that could be made to our implementations from the progress demo, therefore we elected to make other scene and code improvements.
 pickups
 Before
+
 <img width="317" height="397" alt="Screenshot 2025-11-26 162443" src="https://github.com/user-attachments/assets/2fd6f07b-c2a9-47e1-9c01-13b83fe766e4" />
 After:
+
 <img width="839" height="470" alt="Screenshot 2025-11-26 162540" src="https://github.com/user-attachments/assets/3aaf6e4f-a339-463c-8073-bc95cc61fe1f" />
 
 Instead of instantiating the appropriate icon for each pickup when it is spawned in, it now has all the icons already on the prefab but they are not enabled until it is spawned. This reduces unneeded instantiations and makes the code cleaner. 
 
 audio loading
 before
+
 <img width="841" height="442" alt="Screenshot 2025-11-26 162939" src="https://github.com/user-attachments/assets/c8fe3c68-66ba-4056-8904-db28f2520672" />
 <img width="288" height="215" alt="Screenshot 2025-11-26 163108" src="https://github.com/user-attachments/assets/0f462e88-cef1-4fea-b019-35e9807671c5" />
 after
+
 <img width="868" height="329" alt="Screenshot 2025-11-26 163625" src="https://github.com/user-attachments/assets/383b3132-8caf-4e9c-81a7-1c8192cf4aaa" />
 <img width="296" height="228" alt="Screenshot 2025-11-26 163715" src="https://github.com/user-attachments/assets/3d26e55b-08a8-4520-8a27-eabe6bcc0dea" />
 <img width="441" height="471" alt="Screenshot 2025-11-26 163739" src="https://github.com/user-attachments/assets/44289d17-0b1d-4226-b29e-a2ec69125510" />
+
 We set the music to load in background rather than when its first used which completely eliminated a lag spike when the music switched. It was difficult to get screenshots of the exact moment, but when the music tried to load originally it took up the main thread which would cause a noticeable freeze which looked really bad.
 
 Profiling:
