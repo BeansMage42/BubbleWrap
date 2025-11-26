@@ -340,6 +340,7 @@ pickups
 Before
 
 <img width="317" height="397" alt="Screenshot 2025-11-26 162443" src="https://github.com/user-attachments/assets/2fd6f07b-c2a9-47e1-9c01-13b83fe766e4" />
+
 After:
 
 <img width="839" height="470" alt="Screenshot 2025-11-26 162540" src="https://github.com/user-attachments/assets/3aaf6e4f-a339-463c-8073-bc95cc61fe1f" />
@@ -351,6 +352,7 @@ before
 
 <img width="841" height="442" alt="Screenshot 2025-11-26 162939" src="https://github.com/user-attachments/assets/c8fe3c68-66ba-4056-8904-db28f2520672" />
 <img width="288" height="215" alt="Screenshot 2025-11-26 163108" src="https://github.com/user-attachments/assets/0f462e88-cef1-4fea-b019-35e9807671c5" />
+
 after
 
 <img width="868" height="329" alt="Screenshot 2025-11-26 163625" src="https://github.com/user-attachments/assets/383b3132-8caf-4e9c-81a7-1c8192cf4aaa" />
@@ -361,11 +363,17 @@ We set the music to load in background rather than when its first used which com
 
 Profiling:
 Pre bloodsplatter object pooling
+
 <img width="833" height="885" alt="Screenshot 2025-11-26 161659" src="https://github.com/user-attachments/assets/bdaeaadd-a030-4d61-a092-983b50c2ff8f" />
+
 post object pooling
+
 <img width="695" height="640" alt="Screenshot 2025-11-26 161326" src="https://github.com/user-attachments/assets/2b6427f3-1514-4b88-9636-a430073ed7c7" />
+
 You will see that after adding object pooling to the bloodsplatter, there are no longer massive spikes in the performance. This is due to the fact that it is no longer trying to instantiate and destroy objects, only changing their status, position and visibility.
 
 Our DLL does not increase performance, instead it makes modifications to the code easier. By creating a list of the possible spawns and their drop chances, you can edit that file rather than recompile the code every time you want to make a change. This significantly reduces the amount of time you are waiting for unity to compile the project. 
 
+We also set the environment meshes to static, split the canvases into a static and updating canvas to reduce draw calls and removed unneeded debug andprint statements from code. All of these improve performance in small ways by reducing draw calls and reducing garbage.
 
+Dynamic batching and GPU instancing were added to the rabbits and bubbles. They are simple meshes and shared between many many objects so we can reduce the load on the GPU by using these techniques. 
