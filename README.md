@@ -16,6 +16,9 @@ Factory pattern implementations
 Enemy spawning
 Pick up spawning
 DLL/file reading implementation
+Observer
+Dirty Flag
+
 Jonah:
 Singleton implementations
 Game manager
@@ -23,8 +26,10 @@ UI manager
 Command pattern implementation
 Rebindable inputs
 Text commands
+State machine
+Object pool
 
-Zack contributions: 50%
+Zach contributions: 50%
 Jonah contributions: 50%
 
 Project explanation
