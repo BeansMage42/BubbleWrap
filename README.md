@@ -5,7 +5,7 @@ proof of progression and Gantt chart in Gantt.Gantt
 this file can be read at https://www.onlinegantt.com/#/gantt or as an alternative there is a image in the google doc
 
 Progress demo video:https://drive.google.com/file/d/107VFRAHbSe8uG9Qwk37cU0ynMAhWDKnP/view?usp=sharing
-
+Final demo video: https://drive.google.com/file/d/1eXdg8l1DSNZ7S9xDPaRgIv9jdYG0K3HG/view?usp=sharing 
 
 Team formation
 
