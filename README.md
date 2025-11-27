@@ -212,6 +212,10 @@ Send the command to the command invoker
 }
 —--------------------------------------------------------------------------------------
 
+Observer stuff
+The observer design pattern is a super helpful pattern where an object often referred to as the subject, can send out notifications to subscribers to the event when something specific happens. Unity has a built in event system and even uses it for things like their collision system. This pattern can help reduce dependencies between scripts and make it easier to add or remove features later. We are using Observer for two specific events: the player's death and when combat starts. Both of these events trigger lots of effects and state changes, and by using observer, we can quickly add more effects by simply having them subscribing to their respective effects. It allows many things to be added without the code becoming overly messy or complicated. 
+
+
 Factory stuff
 Refer to screenshot 1
 
