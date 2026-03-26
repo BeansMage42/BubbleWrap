@@ -41,6 +41,7 @@ public class Agent : MonoBehaviour
         Vector3 lemming = Lemming() * lemmingWeight;
 
         Vector3 steering = separation + cohesion + alignment + lemming;
+        steering.y = 0;
 
         if (steering.sqrMagnitude > 0.0001f)
         {
