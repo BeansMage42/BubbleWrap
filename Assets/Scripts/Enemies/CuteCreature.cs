@@ -41,12 +41,14 @@ public class CuteCreature : MonoBehaviour, ICreature
     public bool explode;
     public bool Boid;
     [SerializeField] float waitTime;
+    Agent boid;
     void Start()
     {
         source = GetComponent<AudioSource>();
         anims = GetComponentInChildren<Animator>();
         ai = GetComponent<NavMeshAgent>();
-        if(!Boid)StartCoroutine(WanderToMotion());
+        if (!Boid) StartCoroutine(WanderToMotion());
+        else boid = GetComponent<Agent>();
         playerController = FindAnyObjectByType<PlayerHealth>();
         if(GameManager.instance != null)GameManager.instance.addCreature(this);
         gore = GetComponent<TempGore>();
@@ -198,7 +200,8 @@ public class CuteCreature : MonoBehaviour, ICreature
         }
        
         gore.Pop();
-        ai.enabled = true;
+        if(!Boid) ai.enabled = true;
+        else gameObject.SetActive(false);
         isBubbled = false;
         GetComponent<Rigidbody>().isKinematic = false;
         if(isKing)Destroy(gameObject);
@@ -211,7 +214,8 @@ public class CuteCreature : MonoBehaviour, ICreature
         GetComponent<Rigidbody>().isKinematic = true;
         anims.SetFloat("Speed", 0);
         StopAllCoroutines();
-        if(!Boid) ai.enabled = false;
+        if (!Boid) ai.enabled = false;
+        else boid.enabled = false;
         isBubbled = true;
 
     }

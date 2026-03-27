@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Group : MonoBehaviour
@@ -15,6 +16,10 @@ public class Group : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(leader == null)
+        {
+            leader = agents.First().transform;
+        }
         for (int i = 0; i < agents.Length; i++)
         {
             agents[i].SetLeader(leader);

@@ -25,6 +25,7 @@ public class Agent : MonoBehaviour
     {
         boidsLayerMask = LayerMask.GetMask("Boids");
         movDir = transform.forward;
+        
     }
 
     public void SetLeader(Transform leader)
