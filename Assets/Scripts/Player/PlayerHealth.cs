@@ -22,11 +22,11 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log(currentHealth.ToString());
         // jelly.intensity = new ClampedFloatParameter(currentHealth * maxH, 0, 0.7f);
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UIManager.instance.AdjustHealth(currentHealth / maxHealth);
+        if(UIManager.instance != null)UIManager.instance.AdjustHealth(currentHealth / maxHealth);
         bloodRed.weight =  1 - currentHealth/maxHealth;
         if (currentHealth <= 0)
         {
-            GameManager.instance.PlayerDied();
+            if(GameManager.instance != null)GameManager.instance.PlayerDied();
         }
 
     }

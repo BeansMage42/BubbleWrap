@@ -9,13 +9,13 @@ public class RGTCommand : MovementCommand
     {
         base.Execute();
         //Debug.Log("right command");
-        CollideAndSlideController.MoveDir(Vector3.right);
+       // CollideAndSlideController.MoveDir(Vector3.right);
         //throw new System.NotImplementedException();
     }
 
     public override void Undo()
     {
-        CollideAndSlideController.MoveDir(-Vector3.right);
+        //CollideAndSlideController.MoveDir(-Vector3.right);
     }
 }
 

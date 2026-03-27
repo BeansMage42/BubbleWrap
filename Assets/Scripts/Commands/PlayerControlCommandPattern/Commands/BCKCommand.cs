@@ -8,12 +8,12 @@ public class BCKCommand : MovementCommand
     {
         //Debug.Log("backCommand");
         base.Execute();
-        CollideAndSlideController.MoveDir(-Vector3.forward);
+       // CollideAndSlideController.MoveDir(-Vector3.forward);
         //throw new System.NotImplementedException();
     }
 
     public override void Undo()
     {
-        CollideAndSlideController.MoveDir(Vector3.forward);
+       // CollideAndSlideController.MoveDir(Vector3.forward);
     }
 }

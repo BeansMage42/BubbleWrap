@@ -9,13 +9,13 @@ public class FWDCommand : MovementCommand
     {
         //  Debug.Log("forward command");
         base.Execute();
-        CollideAndSlideController.MoveDir(Vector3.forward);
+      //  CollideAndSlideController.MoveDir(Vector3.forward);
     }   
 
     public override void Undo()
     {
 
        // Debug.Log("forward released");
-        CollideAndSlideController.MoveDir(-Vector3.forward);
+       // CollideAndSlideController.MoveDir(-Vector3.forward);
     }
 }

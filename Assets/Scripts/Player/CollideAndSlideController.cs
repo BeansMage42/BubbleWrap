@@ -74,12 +74,12 @@ public class CollideAndSlideController : MonoBehaviour
         if (IsGrounded() && verticalVel < 0) verticalVel = 0;
 
     }
-    public void MoveDir(Vector3 input)
+    public void MoveDir(InputAction.CallbackContext context)
     {
-
+        Vector3 input = context.ReadValue<Vector3>();
         if (inputDir.sqrMagnitude == 0) timeStamp = Time.time;
        
-        inputDir += input;
+        inputDir = input;
         if (inputDir.sqrMagnitude == 0) timeStamp = Time.time;
 
     }

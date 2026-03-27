@@ -9,12 +9,12 @@ public class LFTCommand : MovementCommand
     {
         //  Debug.Log("left command");
         base.Execute();
-        CollideAndSlideController.MoveDir(Vector3.left);
+       // CollideAndSlideController.MoveDir(Vector3.left);
         //throw new System.NotImplementedException();
     }
 
     public override void Undo()
     {
-        CollideAndSlideController.MoveDir(Vector3.right);
+        //CollideAndSlideController.MoveDir(Vector3.right);
     }
 }

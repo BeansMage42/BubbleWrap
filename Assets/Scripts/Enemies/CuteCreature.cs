@@ -39,14 +39,16 @@ public class CuteCreature : MonoBehaviour, ICreature
     [SerializeField] AudioClip stabSound;
 
     public bool explode;
+    public bool Boid;
+    [SerializeField] float waitTime;
     void Start()
     {
         source = GetComponent<AudioSource>();
         anims = GetComponentInChildren<Animator>();
         ai = GetComponent<NavMeshAgent>();
-        StartCoroutine(WanderToMotion());
+        if(!Boid)StartCoroutine(WanderToMotion());
         playerController = FindAnyObjectByType<PlayerHealth>();
-        GameManager.instance.addCreature(this);
+        if(GameManager.instance != null)GameManager.instance.addCreature(this);
         gore = GetComponent<TempGore>();
         attackTimer = attackDelay / 2f;
         if (!isKing && !isBubbled && !aggressive)
@@ -59,8 +61,12 @@ public class CuteCreature : MonoBehaviour, ICreature
     void Update()
     {
         if (isBubbled) return;
-        anims.SetFloat("Speed", ai.velocity.magnitude);
-        if (chasingPlayer) 
+       if(!Boid) anims.SetFloat("Speed", ai.velocity.magnitude);
+        else
+        {
+            anims.SetFloat("Speed", 1f);
+        }
+        if (chasingPlayer && !Boid) 
         {
             
             // print("chasing behaviour");
@@ -92,12 +98,16 @@ public class CuteCreature : MonoBehaviour, ICreature
     private void Attack()
     {
        // print("attack");
-       if (!isBubbled && GameManager.instance.currentState == GameState.GameSwitch && Vector3.Distance(playerController.gameObject.transform.position,gameObject.transform.position)<= ai.stoppingDistance + 2)
+       if (!isBubbled && !Boid && Vector3.Distance(playerController.gameObject.transform.position,gameObject.transform.position)<= ai.stoppingDistance + 2)
        {
            source.clip = stabSound;
            source.Play();
            playerController.TakeDamage(damage);
        }
+       else if(!isBubbled && Vector3.Distance(playerController.gameObject.transform.position,gameObject.transform.position) <= 1)
+        {
+
+        }
     }
     
 
@@ -140,7 +150,7 @@ public class CuteCreature : MonoBehaviour, ICreature
     {
         
        // print("waiting");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(waitTime);
        // print("wait finished");
         walkRoutine = StartCoroutine(WanderToMotion());
     }
@@ -153,7 +163,7 @@ public class CuteCreature : MonoBehaviour, ICreature
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isBubbled) return;
+        if (isBubbled || Boid) return;
         if (aggressive && other.CompareTag("Player")) 
         {
             ai.isStopped = false ;
@@ -192,7 +202,7 @@ public class CuteCreature : MonoBehaviour, ICreature
         isBubbled = false;
         GetComponent<Rigidbody>().isKinematic = false;
         if(isKing)Destroy(gameObject);
-        if(!isKing)GameManager.instance.RemoveCreature(this);
+        if(!isKing && GameManager.instance != null)GameManager.instance.RemoveCreature(this);
     }
 
     public void Bubble()
@@ -201,7 +211,7 @@ public class CuteCreature : MonoBehaviour, ICreature
         GetComponent<Rigidbody>().isKinematic = true;
         anims.SetFloat("Speed", 0);
         StopAllCoroutines();
-        ai.enabled = false;
+        if(!Boid) ai.enabled = false;
         isBubbled = true;
 
     }
