@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
+    public bool enabled = true;
     [SerializeField] private List<Transform> neighbours = new();
 
     [SerializeField] private float radius = 5f;
@@ -32,6 +33,7 @@ public class Agent : MonoBehaviour
     {
         this.leader = leader;
     }
+    
     public void CalculateMovement()
     {
         neighbours = GetNeighbours();

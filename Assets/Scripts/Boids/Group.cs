@@ -11,6 +11,11 @@ public class Group : MonoBehaviour
     void Start()
     {
         agents = GetComponentsInChildren<Agent>();
+        
+        for (int i = 0; i < agents.Length; i++)
+        {
+            agents[i].SetLeader(leader);
+        }
     }
 
     // Update is called once per frame
@@ -22,12 +27,13 @@ public class Group : MonoBehaviour
         }
         for (int i = 0; i < agents.Length; i++)
         {
-            agents[i].SetLeader(leader);
-            agents[i].CalculateMovement();
+            if (agents[i].enabled)
+                agents[i].CalculateMovement();
         }
         for (int i = 0; i < agents.Length; i++)
         {
-            agents[i].UpdateMovement();
+            if (agents[i].enabled)
+                agents[i].UpdateMovement();
         }
     }
 }
